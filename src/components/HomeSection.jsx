@@ -1,0 +1,203 @@
+import React, { useState } from 'react';
+
+export default function HomeSection() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const handleNextClick = () => {
+    if (isAnimating) return;
+    
+    setIsAnimating(true);
+    setIsOpen(true);
+    
+    // Reset animating state after animation completes
+    setTimeout(() => {
+      setIsAnimating(false);
+    }, 600); // Match the animation duration
+  };
+
+  const handleCloseClick = () => {
+    if (isAnimating) return;
+    
+    setIsAnimating(true);
+    setIsOpen(false);
+    
+    setTimeout(() => {
+      setIsAnimating(false);
+    }, 600);
+  };
+
+  return (
+    <main className="max-w-7xl mx-auto mt-10 px-8 relative text-center">
+      <h1 className="font-poppins font-bold text-[8vw] leading-[7vw] text-black m-0 ">
+        EXPLORE<br />
+        MY PORTFOLIO
+      </h1>
+      
+      <div className="relative">
+        <img
+          src="/images/profile.png"
+          alt="Young man smiling wearing white shirt"
+          className="mt-[-4vw] w-[26vw] myImage h-auto rounded-none inline-block"
+        />
+        
+        <button
+        aria-label="Next"
+        className="absolute top-1/2 left-[20.95vw] rotate-[20deg] transform -translate-y-[220%] w-[3vw] h-[3vw] border border-black rounded-full 
+                 bg-transparent text-black cursor-pointer flex items-center justify-center 
+                 transition-colors hover:bg-black hover:text-white"
+        onClick={handleNextClick}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[1.2vw]">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+      </div>
+      
+
+
+      <div className={`fixed inset-0 bg-black bg-opacity-30 z-40 transition-opacity duration-500 ease-in-out flex items-center justify-center
+                    ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        onClick={handleCloseClick}
+      >
+        {/* Prevent clicks inside the window from closing */}
+        <div 
+          className={`bg-white rounded-lg shadow-2xl overflow-hidden relative transition-all duration-500 ease-in-out
+                     ${isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}`}
+          style={{ width: '700px', maxWidth: '90vw', maxHeight: '80vh' }}
+          onClick={e => e.stopPropagation()}
+        >
+          {/* Window Header */}
+          <div className="bg-gray-100 px-4 py-2 border-b border-gray-200 flex items-center">
+            <div className="flex space-x-2">
+              <button 
+                className="w-3 h-3 rounded-full bg-red-500 hover:bg-red-600 transition-colors"
+                onClick={handleCloseClick}
+              ></button>
+              <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+              <div className="w-3 h-3 rounded-full bg-green-500"></div>
+            </div>
+            <div className="text-center flex-1 text-gray-600 text-sm font-medium">Vinay More - Resume</div>
+          </div>
+          
+          {/* Window Content */}
+          <div className="p-6 overflow-auto" style={{ maxHeight: 'calc(80vh - 40px)' }}>
+            <h2 className="text-2xl font-bold mb-6 text-gray-800">Professional Resume</h2>
+            
+            <div className="space-y-8">
+              {/* Personal Info */}
+              <div className="text-center mb-6">
+                <h3 className="text-xl font-bold text-gray-800">Vinay More</h3>
+                <p className="text-gray-600">Computer Engineering Student & Web Developer</p>
+                <div className="flex justify-center space-x-4 mt-2 text-sm text-gray-600">
+                  <span>Mumbai, Maharashtra, India</span>
+                  <span>•</span>
+                  <span>34 followers</span>
+                  <span>•</span>
+                  <span>31 connections</span>
+                </div>
+              </div>
+              
+              {/* Experience Section */}
+              <div>
+                <h3 className="text-lg font-bold border-b border-gray-300 pb-2 mb-4 text-left">Experience</h3>
+                
+                <div className="space-y-6">
+                  <div className="flex flex-col md:flex-row">
+                    <div className="md:w-1/3 font-medium text-left">
+                      <div className="text-gray-800">Red Box Agency</div>
+                      <div className="text-gray-600 text-sm">Internship · 1 yr 1 mo</div>
+                      <div className="text-gray-600 text-sm">Remote</div>
+                    </div>
+                    <div className="md:w-2/3 text-left">
+                      <ul className="list-disc ml-5 mt-2 text-gray-700">
+                        <li className="mb-4">
+                          <div className="font-medium text-gray-800">Website Development and Social media marketing</div>
+                          <div className="text-gray-600 text-sm">Jul 2024 - Present · 10 mos</div>
+                          <div className="text-gray-600 text-sm">Mumbai, Maharashtra, India</div>
+                        </li>
+                        <li className="mb-4">
+                          <div className="font-medium text-gray-800">Web Development & Social media marketing strategy Development</div>
+                          <div className="text-gray-600 text-sm">Jun 2024 - Jul 2024 · 2 mos</div>
+                          <div className="text-gray-600 text-sm">Mumbai, Maharashtra, India</div>
+                        </li>
+                        <li>
+                          <div className="font-medium text-gray-800">Website Development</div>
+                          <div className="text-gray-600 text-sm">Apr 2024 - Jun 2024 · 3 mos</div>
+                          <div className="text-gray-600 text-sm">Andheri Mumbai India</div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-col md:flex-row">
+                    <div className="md:w-1/3 font-medium text-left">
+                      <div className="text-gray-800">Student</div>
+                      <div className="text-gray-600 text-sm">Sep 2022 - Present · 2 yrs 8 mos</div>
+                    </div>
+                    <div className="md:w-2/3 text-left">
+                      <div className="font-medium text-gray-800">Vidyalankar Group of Educational Institutes</div>
+                      <div className="text-sm text-gray-700 mt-1">
+                        Mumbai, Maharashtra, India
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Education Section */}
+              <div>
+                <h3 className="text-lg font-bold border-b border-gray-300 pb-2 mb-4 text-left">Education</h3>
+                
+                <div className="space-y-6">
+                  <div className="flex flex-col md:flex-row">
+                    <div className="md:w-1/3 font-medium text-left">
+                      <div className="text-gray-800">Vidyalankar Group of Educational Institutes</div>
+                      <div className="text-gray-600 text-sm">Sep 2022 - Jun 2025</div>
+                    </div>
+                    <div className="md:w-2/3 text-left">
+                      <div className="font-medium text-gray-800">High School Diploma, Computer Engineering</div>
+                      <div className="text-sm text-gray-700 mt-1">
+                        Activities and societies: Coder
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-col md:flex-row">
+                    <div className="md:w-1/3 font-medium text-left">
+                      <div className="text-gray-800">Sadhana Education Society's Malti Jayant Dalal High School</div>
+                      <div className="text-gray-600 text-sm">Jun 2012 - Jun 2022</div>
+                    </div>
+                    <div className="md:w-2/3 text-left">
+                      <div className="font-medium text-gray-800">High School/Secondary Certificate Programs</div>
+                      <div className="text-sm text-gray-700 mt-1">
+                        Grade: 87.20%<br />
+                        Activities and societies: Cricket, Painting
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Skills Section - Added based on profile information */}
+              <div>
+                <h3 className="text-lg font-bold border-b border-gray-300 pb-2 mb-4 text-left">Skills</h3>
+                
+                <div className="flex flex-wrap gap-2">
+                  <span className="bg-gray-100 px-3 py-1 rounded-full text-sm text-gray-800">Website Development</span>
+                  <span className="bg-gray-100 px-3 py-1 rounded-full text-sm text-gray-800">Social Media Marketing</span>
+                  <span className="bg-gray-100 px-3 py-1 rounded-full text-sm text-gray-800">Web Development</span>
+                  <span className="bg-gray-100 px-3 py-1 rounded-full text-sm text-gray-800">Marketing Strategy</span>
+                  <span className="bg-gray-100 px-3 py-1 rounded-full text-sm text-gray-800">Computer Engineering</span>
+                  <span className="bg-gray-100 px-3 py-1 rounded-full text-sm text-gray-800">Coding</span>
+                  <span className="bg-gray-100 px-3 py-1 rounded-full text-sm text-gray-800">Cricket</span>
+                  <span className="bg-gray-100 px-3 py-1 rounded-full text-sm text-gray-800">Painting</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+}
