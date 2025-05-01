@@ -38,7 +38,7 @@ export default function HomeSection() {
         <img
           src="/images/profile.png"
           alt="Young man smiling wearing white shirt"
-          className="mt-4 sm:mt-[-4vw] w-48 sm:w-[26vw] myImage h-auto rounded-none inline-block"
+          className="mt-4 sm:mt-[-4vw] w-50 sm:w-[26vw] myImage h-auto rounded-none inline-block"
         />
         
         <button
@@ -80,7 +80,7 @@ export default function HomeSection() {
           
           {/* Window Content */}
           <div className="p-4 sm:p-6 overflow-auto" style={{ maxHeight: 'calc(90vh - 40px)' }}>
-            <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800">Professional Resume</h2>
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800"> Resume</h2>
             
             <div className="space-y-6 sm:space-y-8">
               {/* Personal Info */}

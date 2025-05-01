@@ -69,7 +69,7 @@ function Header() {
       </nav>
 
       {/* Mobile Navigation Menu */}
-      <div className={`fixed inset-0 bg-white z-10 flex flex-col justify-center items-center transition-opacity duration-300 md:hidden ${
+      <div className={`fixed inset-0 bg-white z-20 flex flex-col justify-center items-center transition-opacity duration-300 md:hidden ${
         mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
       }`}>
         <nav className="flex flex-col gap-4 items-center">

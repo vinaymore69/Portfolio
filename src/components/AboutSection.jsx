@@ -37,7 +37,7 @@ function HomeSection() {
           <img
             src="./images/aboutModel.png"
             alt="3D Character"
-            className="h-48 sm:h-64 md:h-96 object-contain"
+            className="h-50 sm:h-64 md:h-96 object-contain"
           />
         </div>
 

@@ -48,8 +48,8 @@ function Contact() {
         <img
           src="./images/contactModel.png"
           alt="3D cartoon scientist character with glasses, white lab coat, and purple tie"
-          className="w-48 sm:w-60 md:w-[37vw] mb-8 md:mb-0 object-contain"
-          style={{ maxHeight: '1000px' }}
+          className="w-100 sm:w-60 md:w-[37vw] mb-8 md:mb-0 object-contain"
+          style={{ maxHeight: '1800px' }}
         />
       </div>
   

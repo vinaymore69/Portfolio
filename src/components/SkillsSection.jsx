@@ -98,7 +98,7 @@ export default function Skills() {
         <img
           src="./images/skillsModel.png"
           alt="3D illustration of a person sitting on a blue beanbag chair looking at a phone"
-          className="w-48 sm:w-64 md:w-72 lg:w-[30vw] h-auto object-contain"
+          className="w-58 sm:w-64 md:w-72 lg:w-[30vw] h-auto object-contain"
         />
       </div>
     </section>

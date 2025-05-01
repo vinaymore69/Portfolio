@@ -91,7 +91,9 @@ export default function HomeSection() {
             <img
               src="./images/projectsModel.png"
               alt="Project Illustration"
-              className="w-32 md:w-[16vw] md:mt-[-4vw] h-auto object-cover rounded-lg"
+              lazyload="true"
+              loading="lazy"
+              className="w-42 md:w-[16vw] md:mt-[-4vw] h-auto object-cover rounded-lg"
             />
           </div>
 
