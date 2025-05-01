@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-
 function Contact() {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -43,28 +42,33 @@ function Contact() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row items-center max-w-4xl w-full mx-auto min-h-[100vh] justify-center space-x-0 px-4 py-8">
-      <img
-        src="./images/contactModel.png"
-        alt="3D cartoon scientist character with glasses, white lab coat, and purple tie"
-        className="w-[37vw] mb-12 object-contain"
-        style={{ maxHeight: '800px' }}
-      />
+    <div className="flex flex-col md:flex-row items-center max-w-4xl w-full mx-auto min-h-screen justify-center px-4 py-8">
+      {/* Image - smaller on mobile, proper sizing on desktop */}
+      <div className="w-full flex justify-center md:w-auto mr-9 md:justify-start">
+        <img
+          src="./images/contactModel.png"
+          alt="3D cartoon scientist character with glasses, white lab coat, and purple tie"
+          className="w-48 sm:w-60 md:w-[37vw] mb-8 md:mb-0 object-contain"
+          style={{ maxHeight: '1000px' }}
+        />
+      </div>
   
+      {/* Form - centered on mobile, proper positioning on desktop */}
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col pl-[-10vw] ml-[-12vw] w-full max-w-lg space-y-5 px-6"
+        className="flex flex-col w-full max-w-lg space-y-5 px-0 md:px-6 md:ml-[-10vw]"
       >
-        <h1 className="font-poppins text-5xl font-bold text-black">Contact</h1>
+        <h1 className="font-poppins text-4xl md:text-5xl font-bold text-black">Contact</h1>
   
-        <div className="flex gap-6">
+        {/* Name fields - stack on small mobile, side by side otherwise */}
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
           <input
             type="text"
             name="firstName"
             placeholder="First Name"
             value={formData.firstName}
             onChange={handleChange}
-            className="font-poppins-bold flex-1 border border-black rounded-md py-3 px-3 text-sm placeholder:text-sm"
+            className="font-poppins-bold flex-1 border bg-transparent border-black rounded-md py-3 px-3 text-sm placeholder:text-sm"
             required
           />
           <input
@@ -73,7 +77,7 @@ function Contact() {
             placeholder="Surname"
             value={formData.surname}
             onChange={handleChange}
-            className="font-poppins-bold flex-1 border border-black rounded-md py-3 px-3 text-sm placeholder:text-sm"
+            className="font-poppins-bold flex-1 border bg-transparent border-black rounded-md py-3 px-3 text-sm placeholder:text-sm"
             required
           />
         </div>
@@ -84,7 +88,7 @@ function Contact() {
           placeholder="Email ID"
           value={formData.email}
           onChange={handleChange}
-          className="font-poppins-bold border border-black rounded-md py-3 px-3 text-sm placeholder:text-sm"
+          className="font-poppins-bold border bg-transparent border-black rounded-md py-3 px-3 text-sm placeholder:text-sm"
           required
         />
   
@@ -94,7 +98,7 @@ function Contact() {
           rows={5}
           value={formData.query}
           onChange={handleChange}
-          className="font-poppins-bold border border-black rounded-md py-4 px-4 text-sm placeholder:text-sm placeholder:font-poppins-bold resize-none"
+          className="font-poppins-bold border bg-transparent border-black rounded-md py-4 px-4 text-sm placeholder:text-sm placeholder:font-poppins-bold resize-none"
           required
         />
   
@@ -104,14 +108,10 @@ function Contact() {
         >
           Send
           <i className="fas fa-paper-plane ml-2"></i>
-          
-        
         </button>
-        
       </form>
     </div>
   );
-  
 }
 
 export default Contact;
