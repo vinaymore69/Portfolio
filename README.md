@@ -31,7 +31,7 @@ A modern, responsive, and dynamic site built to showcase my projects, skills, an
 
 ## 📸 Preview
 
-![Portfolio Preview]([https://user-images.githubusercontent.com/vinaymore69/preview.png](https://raw.githubusercontent.com/vinaymore69/Portfolio/fc509ca98bf155665ea1f871816356ece2c1969c/preview.png)) <!-- Add your actual screenshot URL here -->
+![Portfolio Preview](https://github.com/vinaymore69/Portfolio/blob/fc509ca98bf155665ea1f871816356ece2c1969c/preview.png) <!-- Add your actual screenshot URL here -->
 
 ---
 
