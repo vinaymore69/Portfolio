@@ -4,7 +4,7 @@
 Welcome to my personal **Portfolio Website** repository! 🚀  
 A modern, responsive, and dynamic site built to showcase my projects, skills, and creative journey as a full-stack developer.
 
-🔗 **Live Site**: [vinaymore69.github.io/Portfolio](https://vinaymore69.github.io/Portfolio/)
+🔗 **Live Site**: [www.vinaymore.vercel.app](https://vinaymore.vercel.app/)
 
 ---
 
@@ -31,7 +31,7 @@ A modern, responsive, and dynamic site built to showcase my projects, skills, an
 
 ## 📸 Preview
 
-![Portfolio Preview](https://user-images.githubusercontent.com/yourusername/preview.png) <!-- Add your actual screenshot URL here -->
+![Portfolio Preview](https://github.com/vinaymore69/Portfolio/blob/fc509ca98bf155665ea1f871816356ece2c1969c/preview.png) <!-- Add your actual screenshot URL here -->
 
 ---
 
