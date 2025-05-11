@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 const projects = [
   {
@@ -7,7 +7,6 @@ const projects = [
     description: "An in-depth look at crafting and positioning your brand for maximum impact.",
     technologies: ["PHP", "MySQL", "Core HTML CSS JS", "GSAP"],
     link: "https://github.com/vinaymore69/V-PortfolinK",
-  
     image: "images/PortfoLinK.png",
   },
   {
@@ -47,14 +46,31 @@ const projects = [
 export default function HomeSection() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [hoveredProject, setHoveredProject] = useState(null);
-
+  const [lastScrollPosition, setLastScrollPosition] = useState(0);
+  
   // Find the hovered project data
   const hoveredProjectData = projects.find(proj => proj.id === hoveredProject);
   
   // Function to handle project selection and clear hover state
   const handleProjectClick = (projectId) => {
+    // Store the current scroll position before changing the view
+    setLastScrollPosition(window.scrollY);
     setSelectedProject(projectId);
     setHoveredProject(null);
+    
+    // Scroll to top when opening project detail
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+  
+  // Function to handle going back to project list
+  const handleBackClick = () => {
+    setSelectedProject(null);
+    
+    // Use setTimeout to allow the state change to take effect first
+    // before attempting to scroll back to the previous position
+    setTimeout(() => {
+      window.scrollTo({ top: lastScrollPosition, behavior: 'smooth' });
+    }, 10);
   };
 
   return (
@@ -198,7 +214,7 @@ export default function HomeSection() {
                 </div>
 
                 <button
-                  onClick={() => setSelectedProject(null)}
+                  onClick={handleBackClick}
                   className="self-start border border-black rounded-full py-2 md:py-3 px-6 md:px-8 text-sm md:text-m font-poppins-bold flex justify-between items-center gap-3 md:gap-5 hover:bg-black hover:text-white transition-all duration-300 ease-in-out"
                 >
                   <span className="text-xl md:text-2xl">←</span>
