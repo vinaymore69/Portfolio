@@ -7,7 +7,7 @@ const projects = [
     description: "An in-depth look at crafting and positioning your brand for maximum impact.",
     technologies: ["PHP", "MySQL", "Core HTML CSS JS", "GSAP"],
     link: "https://github.com/vinaymore69/V-PortfolinK",
-    image: "images/PortfoLinK.png",
+    image: "./images/PortfoLinK.png",
   },
   {
     id: 2,
