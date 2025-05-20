@@ -1,3 +1,4 @@
+import { supabase } from '../lib/supabaseClient';
 import React, { useState } from 'react';
 
 function Contact() {
