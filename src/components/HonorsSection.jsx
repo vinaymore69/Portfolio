@@ -36,6 +36,12 @@ const HonorsSection = () => {
       date: "2024",
       description: "Awarded Second Runner-Up at TechSpardha 2024-25, an inter-department technical competition organized by TechShala at Vidyalankar Polytechnic. Recognized for outstanding performance in a competitive tech environment fostering innovation and problem-solving skills.",
       icon: "🥉"
+    } ,{
+      title: "Appreciation for Creative Sketches – Alila Competition 2022",
+      issuer: "Vidyalankar Polytechnic",
+      date: "2022",
+      description: "Received appreciation for showcasing creative sketching skills under the banner of Alila – Surprisingly Charming, a creative initiative by Vidyalankar to spark imagination and artistic expression in young minds.",
+      icon: "🤗"
     }
   ];
 
