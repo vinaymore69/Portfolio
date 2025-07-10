@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import InfiniteCarousel from './InfiniteCarousel';
-import SkillsCarousel from './SkillsCarousel';
 
 export default function HomeSection() {
   const [isOpen, setIsOpen] = useState(false);
@@ -199,16 +197,6 @@ export default function HomeSection() {
         </div>
       </div>
       
-      {/* Infinite Carousel */}
-      <div className="mt-12 md:mt-20">
-        <InfiniteCarousel />
-        
-        {/* Skills Carousels */}
-        <div className="mt-8 space-y-4">
-          <SkillsCarousel direction="left" speed={1.5} />
-          <SkillsCarousel direction="right" speed={1.2} />
-        </div>
-      </div>
     </main>
   );
 }
