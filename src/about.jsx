@@ -3,6 +3,7 @@ import Header from './components/Header';
 import FadeInWrapper from './components/FadeInWrapper';
 import AboutSection from './components/AboutSection'; 
 import CircleContainer from './components/CircleContainer';
+import ScrollIndicator from './components/ScrollIndicator';
 
 function About() {
   return (
@@ -11,6 +12,7 @@ function About() {
         <Header />
         <AboutSection />
         <CircleContainer />
+        <ScrollIndicator />
       </div>
     </FadeInWrapper>
   );

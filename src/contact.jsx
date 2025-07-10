@@ -3,6 +3,7 @@ import Header from './components/Header';
 import FadeInWrapper from './components/FadeInWrapper';
 import ContactSection from './components/ContactSection'; 
 import CircleContainer from './components/CircleContainer';
+import ScrollIndicator from './components/ScrollIndicator';
 
 function Contact() {
   return (
@@ -11,6 +12,7 @@ function Contact() {
         <Header />
         <ContactSection />
         <CircleContainer />
+        <ScrollIndicator />
       </div>
     </FadeInWrapper>
   );

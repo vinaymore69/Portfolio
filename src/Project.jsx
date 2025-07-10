@@ -3,6 +3,7 @@ import Header from './components/Header';
 import FadeInWrapper from './components/FadeInWrapper';
 import ProjectSection from './components/ProjectSection'; 
 import CircleContainer from './components/CircleContainer';
+import ScrollIndicator from './components/ScrollIndicator';
 
 function Project() {
   return (
@@ -11,6 +12,7 @@ function Project() {
         <Header />
         <ProjectSection />
         <CircleContainer />
+        <ScrollIndicator />
       </div>
     </FadeInWrapper>
   );
