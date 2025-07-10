@@ -4,6 +4,7 @@ import FadeInWrapper from './components/FadeInWrapper';
 import CircleContainer from './components/CircleContainer';
 import SkillsSection from './components/SkillsSection';
 import ScrollIndicator from './components/ScrollIndicator';
+import Footer from './components/Footer';
 
 function Skills() {
   return (
@@ -13,6 +14,7 @@ function Skills() {
         <SkillsSection />
         <CircleContainer />
         <ScrollIndicator />
+        <Footer />
       </div>
     </FadeInWrapper>
   );

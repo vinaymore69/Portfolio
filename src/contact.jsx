@@ -4,6 +4,7 @@ import FadeInWrapper from './components/FadeInWrapper';
 import ContactSection from './components/ContactSection'; 
 import CircleContainer from './components/CircleContainer';
 import ScrollIndicator from './components/ScrollIndicator';
+import Footer from './components/Footer';
 
 function Contact() {
   return (
@@ -13,6 +14,7 @@ function Contact() {
         <ContactSection />
         <CircleContainer />
         <ScrollIndicator />
+        <Footer />
       </div>
     </FadeInWrapper>
   );
