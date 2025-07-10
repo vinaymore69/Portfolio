@@ -91,7 +91,7 @@ const PublicationsSection = () => {
                     Download PDF
                   </a>
                   <a
-                    href="/project"
+                    href="https://vinaymore69.github.io/SanChi-UI2/"
                     className="inline-flex items-center justify-center px-6 py-3 border border-black text-black rounded-full hover:bg-black hover:text-white transition-colors font-poppins-bold text-sm"
                   >
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
