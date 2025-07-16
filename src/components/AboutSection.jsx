@@ -13,9 +13,18 @@ function HomeSection() {
           <h1 className="font-vujahday text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
             Hello there!
           </h1>
-          <button className="font-poppins-bold bg-black text-white text-base px-6 py-2 rounded-full hover:bg-gray-800 transition-colors">
-            Resume <i className="fas fa-download ml-4"></i>
-          </button>
+         <button
+      className="font-poppins-bold bg-black text-white text-base px-6 py-2 rounded-full hover:bg-gray-800 transition-colors"
+      onClick={() =>
+        window.open(
+          'https://drive.google.com/file/d/1rxkAqgLNSY0VC4N8xyxZ6FWl4dtbIWmz/view?usp=drive_link',
+          '_blank'
+        )
+      }
+    >
+      Resume <i className="fas fa-download ml-4"></i>
+    </button>
+
         </div>
 
         {/* Center image section - responsive positioning */}

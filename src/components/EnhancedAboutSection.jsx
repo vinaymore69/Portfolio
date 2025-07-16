@@ -4,7 +4,7 @@ function EnhancedAboutSection() {
   const experiences = [
     {
       company: "Red Box Agency",
-      logo: "/images/portfolioLogo.png", // Using portfolio logo as placeholder
+      logo: "/images/redboxlogo.png", // Using portfolio logo as placeholder
       duration: "Internship · 1 yr 4 mos",
       location: "Remote",
       positions: [
@@ -28,7 +28,7 @@ function EnhancedAboutSection() {
     },
     {
       company: "Vidyalankar Polytechnic - India",
-      logo: "/images/portfolioLogo.png", // Using portfolio logo as placeholder
+      logo: "/images/vpLogo.png", // Using portfolio logo as placeholder
       duration: "Sep 2022 - Present · 2 yrs 11 mos",
       location: "Mumbai, Maharashtra, India",
       positions: [
@@ -44,14 +44,14 @@ function EnhancedAboutSection() {
   const education = [
     {
       institution: "Vidyalankar Group of Educational Institutes",
-      logo: "/images/portfolioLogo.png", // Using portfolio logo as placeholder
+      logo: "/images/vpLogo.png", // Using portfolio logo as placeholder
       degree: "High School Diploma, Computer Engineering",
       period: "Sep 2022 - Jun 2025",
       activities: "Activities and societies: Coder"
     },
     {
       institution: "Sadhana Education Society's Malti Jayant Dalal High School",
-      logo: "/images/portfolioLogo.png", // Using portfolio logo as placeholder
+      logo: "/images/mjdsLogo.png", // Using portfolio logo as placeholder
       degree: "High School/Secondary Certificate Programs",
       period: "Jun 2012 - Jun 2022",
       grade: "Grade: 87.20%",
@@ -159,7 +159,7 @@ function EnhancedAboutSection() {
                 <img
                   src={edu.logo}
                   alt={`${edu.institution} logo`}
-                  className="w-12 h-12 rounded-lg object-contain bg-gray-100 p-2"
+                  className="w-12 h-12 rounded-lg object-contain bg-gray-100 p-1"
                 />
                 <div>
                   <h3 className="text-xl font-bold font-poppins">{edu.institution}</h3>
