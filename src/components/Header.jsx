@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
+
+  // Helper function to determine if a link is active
+  const isActive = (path) => location.pathname === path;
 
   return (
     <header className="max-w-7xl mx-auto px-4 sm:px-8 py-4 flex justify-between items-center relative font-poppins-bold text-base sm:text-[2vw] text-black fade-in">
@@ -38,31 +43,51 @@ function Header() {
       <nav className="hidden md:flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 gap-[2vw]">
         <a
           href="/"
-          className="text-[1vw] px-[2vw] py-[0.5vw] border border-black rounded-full text-black no-underline hover:bg-black hover:text-white whitespace-nowrap transition-all duration-300 ease-in-out"
+          className={`text-[1vw] px-[2vw] py-[0.5vw] border border-black rounded-full no-underline whitespace-nowrap transition-all duration-300 ease-in-out ${
+            isActive('/') 
+              ? 'bg-black text-white' 
+              : 'text-black hover:bg-black hover:text-white'
+          }`}
         >
           Home
         </a>
         <a
           href="/about"
-          className="text-[1vw] px-[2vw] py-[0.5vw] border border-black rounded-full text-black no-underline hover:bg-black hover:text-white whitespace-nowrap transition-all duration-300 ease-in-out"
+          className={`text-[1vw] px-[2vw] py-[0.5vw] border border-black rounded-full no-underline whitespace-nowrap transition-all duration-300 ease-in-out ${
+            isActive('/about') 
+              ? 'bg-black text-white' 
+              : 'text-black hover:bg-black hover:text-white'
+          }`}
         >
           About
         </a>
         <a
           href="/project"
-          className="text-[1vw] px-[2vw] py-[0.5vw] border border-black rounded-full text-black no-underline hover:bg-black hover:text-white whitespace-nowrap transition-all duration-300 ease-in-out"
+          className={`text-[1vw] px-[2vw] py-[0.5vw] border border-black rounded-full no-underline whitespace-nowrap transition-all duration-300 ease-in-out ${
+            isActive('/project') 
+              ? 'bg-black text-white' 
+              : 'text-black hover:bg-black hover:text-white'
+          }`}
         >
           Projects
         </a>
         <a
           href="/skills"
-          className="text-[1vw] px-[2vw] py-[0.5vw] border border-black rounded-full text-black no-underline hover:bg-black hover:text-white whitespace-nowrap transition-all duration-300 ease-in-out"
+          className={`text-[1vw] px-[2vw] py-[0.5vw] border border-black rounded-full no-underline whitespace-nowrap transition-all duration-300 ease-in-out ${
+            isActive('/skills') 
+              ? 'bg-black text-white' 
+              : 'text-black hover:bg-black hover:text-white'
+          }`}
         >
           Skills
         </a>
         <a
           href="/contact"
-          className="text-[1vw] px-[2vw] py-[0.5vw] border border-black rounded-full text-black no-underline hover:bg-black hover:text-white whitespace-nowrap transition-all duration-300 ease-in-out"
+          className={`text-[1vw] px-[2vw] py-[0.5vw] border border-black rounded-full no-underline whitespace-nowrap transition-all duration-300 ease-in-out ${
+            isActive('/contact') 
+              ? 'bg-black text-white' 
+              : 'text-black hover:bg-black hover:text-white'
+          }`}
         >
           Contact
         </a>
@@ -75,35 +100,55 @@ function Header() {
         <nav className="flex flex-col gap-4 items-center">
           <a
             href="/"
-            className="text-lg px-6 py-2 border border-black rounded-full text-black no-underline hover:bg-black hover:text-white transition-all duration-300 ease-in-out"
+            className={`text-lg px-6 py-2 border border-black rounded-full no-underline transition-all duration-300 ease-in-out ${
+              isActive('/') 
+                ? 'bg-black text-white' 
+                : 'text-black hover:bg-black hover:text-white'
+            }`}
             onClick={() => setMobileMenuOpen(false)}
           >
             Home
           </a>
           <a
             href="/about"
-            className="text-lg px-6 py-2 border border-black rounded-full text-black no-underline hover:bg-black hover:text-white transition-all duration-300 ease-in-out"
+            className={`text-lg px-6 py-2 border border-black rounded-full no-underline transition-all duration-300 ease-in-out ${
+              isActive('/about') 
+                ? 'bg-black text-white' 
+                : 'text-black hover:bg-black hover:text-white'
+            }`}
             onClick={() => setMobileMenuOpen(false)}
           >
             About
           </a>
           <a
             href="/project"
-            className="text-lg px-6 py-2 border border-black rounded-full text-black no-underline hover:bg-black hover:text-white transition-all duration-300 ease-in-out"
+            className={`text-lg px-6 py-2 border border-black rounded-full no-underline transition-all duration-300 ease-in-out ${
+              isActive('/project') 
+                ? 'bg-black text-white' 
+                : 'text-black hover:bg-black hover:text-white'
+            }`}
             onClick={() => setMobileMenuOpen(false)}
           >
             Projects
           </a>
           <a
             href="/skills"
-            className="text-lg px-6 py-2 border border-black rounded-full text-black no-underline hover:bg-black hover:text-white transition-all duration-300 ease-in-out"
+            className={`text-lg px-6 py-2 border border-black rounded-full no-underline transition-all duration-300 ease-in-out ${
+              isActive('/skills') 
+                ? 'bg-black text-white' 
+                : 'text-black hover:bg-black hover:text-white'
+            }`}
             onClick={() => setMobileMenuOpen(false)}
           >
             Skills
           </a>
           <a
             href="/contact"
-            className="text-lg px-6 py-2 border border-black rounded-full text-black no-underline hover:bg-black hover:text-white transition-all duration-300 ease-in-out"
+            className={`text-lg px-6 py-2 border border-black rounded-full no-underline transition-all duration-300 ease-in-out ${
+              isActive('/contact') 
+                ? 'bg-black text-white' 
+                : 'text-black hover:bg-black hover:text-white'
+            }`}
             onClick={() => setMobileMenuOpen(false)}
           >
             Contact
