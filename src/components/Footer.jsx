@@ -26,7 +26,7 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a
-                href="https://www.instagram.com/redboxaggency"
+                href="https://www.instagram.com/nothing_captures?igsh=enFoZnBnNGYycmFh"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors"
@@ -42,7 +42,7 @@ const Footer = () => {
                 <FontAwesomeIcon icon={faGithub} className="text-lg" />
               </a>
               <a
-                href="https://www.linkedin.com/in/vinay--more/"
+                href="https://www.linkedin.com/in/vinay--more"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors"
@@ -90,11 +90,23 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-center space-x-3">
                 <FontAwesomeIcon icon={faEnvelope} className="text-gray-400" />
-                <span className="text-gray-300 text-sm">vinaymore.dev@gmail.com</span>
+                <a 
+                  href="mailto:vinaymore.dev@gmail.com" 
+                  className="text-gray-300 text-sm hover:text-white transition-colors"
+                >
+                  vinaymore.dev@gmail.com
+                </a>
               </li>
               <li className="flex items-center space-x-3">
                 <FontAwesomeIcon icon={faMapMarkerAlt} className="text-gray-400" />
-                <span className="text-gray-300 text-sm">Mumbai, Maharashtra, India</span>
+                <a 
+                  href="https://maps.google.com/?q=Mumbai,Maharashtra,India" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-gray-300 text-sm hover:text-white transition-colors"
+                >
+                  Mumbai, Maharashtra, India
+                </a>
               </li>
             </ul>
           </div>

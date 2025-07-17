@@ -158,7 +158,7 @@ function Header() {
         {/* Social icons in mobile menu */}
         <div className="flex items-center mt-8 gap-6">
           <a
-            href="https://www.instagram.com/redboxaggency"
+            href="https://www.instagram.com/nothing_captures?igsh=enFoZnBnNGYycmFh"
             target="_blank"
             rel="noopener noreferrer"
             className="text-3xl hover:text-gray-700 transition-colors"
@@ -174,7 +174,7 @@ function Header() {
             <FontAwesomeIcon icon={faGithub} />
           </a>
           <a
-            href="https://www.linkedin.com/in/vinay--more/"
+            href="https://www.linkedin.com/in/vinay--more"
             target="_blank"
             rel="noopener noreferrer"
             className="text-3xl hover:text-gray-700 transition-colors"
@@ -187,7 +187,7 @@ function Header() {
       {/* Desktop Social Icons */}
       <div className="hidden sm:flex items-center mt-[0.5vw] gap-4 text-[1vw] text-black fade-in-delay">
         <a
-          href="https://www.instagram.com/redboxaggency"
+          href="https://www.instagram.com/nothing_captures?igsh=enFoZnBnNGYycmFh"
           target="_blank"
           rel="noopener noreferrer"
           className="text-[2.2vw] hover:text-gray-700 transition-colors"
@@ -203,7 +203,7 @@ function Header() {
           <FontAwesomeIcon icon={faGithub} />
         </a>
         <a
-          href="https://www.linkedin.com/in/vinay--more/"
+          href="https://www.linkedin.com/in/vinay--more"
           target="_blank"
           rel="noopener noreferrer"
           className="text-[2.2vw] hover:text-gray-700 transition-colors"
