@@ -91,7 +91,7 @@ const Footer = () => {
               <li className="flex items-center space-x-3">
                 <FontAwesomeIcon icon={faEnvelope} className="text-gray-400" />
                 <a 
-                  href="mailto:vinaymore.dev@gmail.com" 
+                  href="mailto:vinaymore0110@gmail.com" 
                   className="text-gray-300 text-sm hover:text-white transition-colors"
                 >
                   vinaymore.dev@gmail.com
