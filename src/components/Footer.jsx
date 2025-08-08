@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope, faPhone, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faPhone, faMapMarkerAlt, faTree } from '@fortawesome/free-solid-svg-icons';
 
 const Footer = () => {
   return (
@@ -48,6 +48,14 @@ const Footer = () => {
                 className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors"
               >
                 <FontAwesomeIcon icon={faLinkedin} className="text-lg" />
+              </a>
+              <a
+                href="https://linktr.ee/vinaymore69"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors"
+              >
+                <FontAwesomeIcon icon={faTree} className="text-lg" />
               </a>
             </div>
           </div>
