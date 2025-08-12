@@ -55,7 +55,11 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors"
               >
-                <FontAwesomeIcon icon={faTree} className="text-lg" />
+                  <img 
+              src="/images/linktree-white-icon.webp" 
+              alt="Linktree" 
+              className="w-8 p-1.5 h-8 object-contain"
+            />
               </a>
             </div>
           </div>
