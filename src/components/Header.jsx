@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import { faBars, faXmark, faTree } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -187,7 +187,11 @@ function Header() {
             rel="noopener noreferrer"
             className="text-3xl hover:text-gray-700 transition-colors"
           >
-            <FontAwesomeIcon icon={faTree} />
+            <img 
+              src="/images/linktree-bafynmeua3noot52xbu71.webp" 
+              alt="Linktree" 
+              className="w-8 h-8 object-contain"
+            />
           </a>
         </div>
       </div>
@@ -222,9 +226,13 @@ function Header() {
           href="https://linktr.ee/vinaymore69"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[2.2vw] hover:text-gray-700 transition-colors"
+          className="hover:opacity-70 transition-opacity"
         >
-          <FontAwesomeIcon icon={faTree} />
+          <img 
+            src="/images/linktree-bafynmeua3noot52xbu71.webp" 
+            alt="Linktree" 
+            className="w-[2.2vw] h-[2.2vw] object-contain"
+          />
         </a>
       </div>
     </header>
