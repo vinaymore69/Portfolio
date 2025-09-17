@@ -61,6 +61,7 @@ function EnhancedAboutSection() {
       logo: "/images/vpLogo.png", // Using portfolio logo as placeholder
       degree: "High School Diploma, Computer Engineering",
       period: "Sep 2022 - Jun 2025",
+       grade: "Grade: 91.61%",
       activities: "Activities and societies: Coder"
     },
     {
