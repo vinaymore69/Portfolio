@@ -3,8 +3,28 @@ import React from 'react';
 function EnhancedAboutSection() {
   const experiences = [
     {
+      company: "Codeterna Private Limited",
+      logo: "/images/codeternaLogo.png",
+      duration: "Internship · 3 mos",
+      location: "Navi Mumbai, Maharashtra, India · Remote",
+      positions: [
+        {
+          title: "Mobile Application Developer",
+          period: "Sep 2025 - Present · 1 mo",
+          location: "Navi Mumbai, Maharashtra, India · Remote",
+          description: "Mobile Application Development and iOS"
+        },
+        {
+          title: "Application Developer",
+          period: "Jul 2025 - Aug 2025 · 2 mos",
+          location: "Mumbai, Maharashtra, India · On-site",
+          description: "Flutter and Application Development"
+        }
+      ]
+    },
+    {
       company: "Red Box Agency",
-      logo: "/images/redboxlogo.png", // Using portfolio logo as placeholder
+      logo: "/images/redboxlogo.png",
       duration: "Internship · 1 yr 4 mos",
       location: "Remote",
       positions: [
@@ -26,19 +46,6 @@ function EnhancedAboutSection() {
         }
       ]
     },
-    {
-      company: "Vidyalankar Polytechnic - India",
-      logo: "/images/vpLogo.png", // Using portfolio logo as placeholder
-      duration: "Sep 2022 - Present · 2 yrs 11 mos",
-      location: "Mumbai, Maharashtra, India",
-      positions: [
-        {
-          title: "Student",
-          period: "Sep 2022 - Present · 2 yrs 11 mos",
-          location: "Mumbai, Maharashtra, India"
-        }
-      ]
-    }
   ];
 
   const education = [

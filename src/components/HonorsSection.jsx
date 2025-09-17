@@ -3,6 +3,13 @@ import React from 'react';
 const HonorsSection = () => {
   const honors = [
     {
+      title: "Selected for SIH 2025 – Internal Hackathon Qualifier",
+      issuer: "Smart India Hackathon",
+      date: "2025",
+      description: "Successfully qualified through the internal hackathon round for Smart India Hackathon 2025, demonstrating innovative problem-solving skills and technical expertise in developing solutions for real-world challenges.",
+      icon: "🏅"
+    },
+    {
       title: "Campus Ambassador – GSSoC 2025 Selected Representative",
       issuer: "GirlScript Foundation",
       date: "Jun 2025",
