@@ -51,7 +51,7 @@ function EnhancedAboutSection() {
   const education = [
     {
       institution: "Xavier Institute Of Engineering",
-      logo: "/images/xieLogo.png",
+      logo: "/images/xieLogo.jpeg",
       degree: "Bachelor of Engineering - BE, Computer Engineering",
       period: "Aug 2025 - Present",
       activities: ""
