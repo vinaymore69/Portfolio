@@ -50,6 +50,13 @@ function EnhancedAboutSection() {
 
   const education = [
     {
+      institution: "Xavier Institute Of Engineering",
+      logo: "/images/xieLogo.png",
+      degree: "Bachelor of Engineering - BE, Computer Engineering",
+      period: "Aug 2025 - Present",
+      activities: ""
+    },
+    {
       institution: "Vidyalankar Group of Educational Institutes",
       logo: "/images/vpLogo.png", // Using portfolio logo as placeholder
       degree: "High School Diploma, Computer Engineering",
