@@ -82,6 +82,9 @@ const HonorsSection = () => {
           </div>
           <p className="text-sm text-gray-600 leading-relaxed text-justify">{honor.description}</p>
       </div>
+    )
+    )
+    }
     </section>
   );
 };
