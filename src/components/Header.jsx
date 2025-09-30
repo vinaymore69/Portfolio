@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInstagram, faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 function Header() {
@@ -158,14 +158,6 @@ function Header() {
         {/* Social icons in mobile menu */}
         <div className="flex items-center mt-8 gap-6">
           <a
-            href="https://www.instagram.com/nothing_captures?igsh=enFoZnBnNGYycmFh"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-3xl hover:text-gray-700 transition-colors"
-          >
-            <FontAwesomeIcon icon={faInstagram} />
-          </a>
-          <a
             href="https://github.com/vinaymore69"
             target="_blank"
             rel="noopener noreferrer"
@@ -198,14 +190,6 @@ function Header() {
 
       {/* Desktop Social Icons */}
       <div className="hidden sm:flex items-center mt-[0.5vw] gap-4 text-[1vw] text-black fade-in-delay">
-        <a
-          href="https://www.instagram.com/nothing_captures?igsh=enFoZnBnNGYycmFh"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-[2.2vw] hover:text-gray-700 transition-colors"
-        >
-          <FontAwesomeIcon icon={faInstagram} />
-        </a>
         <a
           href="https://github.com/vinaymore69"
           target="_blank"
