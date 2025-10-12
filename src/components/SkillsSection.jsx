@@ -1,232 +1,195 @@
 import React, { useState } from 'react';
 
 export default function SkillsSection() {
-  const [activeCategory, setActiveCategory] = useState('frontend');
+  const [activeCategory, setActiveCategory] = useState(null);
 
   const skillCategories = {
     frontend: {
-      title: 'Frontend & UI',
-      color: 'from-blue-500 to-cyan-500',
-      borderColor: 'border-blue-500',
-      skills: [
-        { name: 'HTML5', level: 'Expert', icon: '🌐' },
-        { name: 'CSS3', level: 'Expert', icon: '🎨' },
-        { name: 'JavaScript', level: 'Advanced', icon: '⚡' },
-        { name: 'React.js', level: 'Advanced', icon: '⚛️' },
-        { name: 'Tailwind CSS', level: 'Advanced', icon: '💨' },
-        { name: 'GSAP', level: 'Intermediate', icon: '🎭' },
-        { name: 'Locomotive JS', level: 'Intermediate', icon: '🚂' }
-      ]
+      title: 'Frontend Development',
+      position: 'top-0 left-1/2 transform -translate-x-1/2 -translate-y-4',
+      skills: ['HTML5', 'CSS3', 'JavaScript', 'React.js', 'Tailwind CSS', 'GSAP']
     },
     backend: {
-      title: 'Backend & Server',
-      color: 'from-green-500 to-emerald-500',
-      borderColor: 'border-green-500',
-      skills: [
-        { name: 'Node.js', level: 'Advanced', icon: '🟢' },
-        { name: 'Express.js', level: 'Advanced', icon: '🚀' },
-        { name: 'PHP', level: 'Intermediate', icon: '🐘' },
-        { name: 'RESTful APIs', level: 'Advanced', icon: '🔗' }
-      ]
+      title: 'Backend Development', 
+      position: 'top-1/4 right-0 transform translate-x-4 -translate-y-1/2',
+      skills: ['Node.js', 'Express.js', 'PHP', 'RESTful APIs']
     },
     mobile: {
       title: 'Mobile Development',
-      color: 'from-purple-500 to-pink-500',
-      borderColor: 'border-purple-500',
-      skills: [
-        { name: 'Flutter', level: 'Advanced', icon: '📱' },
-        { name: 'React Native', level: 'Intermediate', icon: '📲' },
-        { name: 'iOS Development', level: 'Learning', icon: '🍎' }
-      ]
-    },
-    programming: {
-      title: 'Programming Languages',
-      color: 'from-orange-500 to-red-500',
-      borderColor: 'border-orange-500',
-      skills: [
-        { name: 'JavaScript', level: 'Expert', icon: '🟨' },
-        { name: 'Java', level: 'Advanced', icon: '☕' },
-        { name: 'Python', level: 'Intermediate', icon: '🐍' },
-        { name: 'C/C++', level: 'Intermediate', icon: '⚙️' }
-      ]
+      position: 'bottom-1/4 right-0 transform translate-x-4 translate-y-1/2',
+      skills: ['Flutter', 'React Native', 'iOS Development']
     },
     database: {
       title: 'Database & Storage',
-      color: 'from-indigo-500 to-blue-600',
-      borderColor: 'border-indigo-500',
-      skills: [
-        { name: 'PostgreSQL', level: 'Advanced', icon: '🐘' },
-        { name: 'MySQL', level: 'Advanced', icon: '🗄️' },
-        { name: 'SQLite', level: 'Intermediate', icon: '💾' },
-        { name: 'Supabase', level: 'Advanced', icon: '⚡' }
-      ]
+      position: 'bottom-0 left-1/2 transform -translate-x-1/2 translate-y-4',
+      skills: ['PostgreSQL', 'MySQL', 'SQLite', 'Supabase']
+    },
+    programming: {
+      title: 'Programming Languages',
+      position: 'bottom-1/4 left-0 transform -translate-x-4 translate-y-1/2',
+      skills: ['JavaScript', 'Java', 'Python', 'C/C++']
     },
     tools: {
       title: 'Tools & Platforms',
-      color: 'from-gray-600 to-gray-800',
-      borderColor: 'border-gray-600',
-      skills: [
-        { name: 'WordPress', level: 'Advanced', icon: '📝' },
-        { name: 'WooCommerce', level: 'Intermediate', icon: '🛒' },
-        { name: 'Figma', level: 'Intermediate', icon: '🎨' },
-        { name: 'Canva', level: 'Advanced', icon: '🖼️' },
-        { name: 'Git', level: 'Advanced', icon: '📚' }
-      ]
-    }
-  };
-
-  const getLevelColor = (level) => {
-    switch (level) {
-      case 'Expert': return 'bg-green-100 text-green-800 border-green-300';
-      case 'Advanced': return 'bg-blue-100 text-blue-800 border-blue-300';
-      case 'Intermediate': return 'bg-yellow-100 text-yellow-800 border-yellow-300';
-      case 'Learning': return 'bg-purple-100 text-purple-800 border-purple-300';
-      default: return 'bg-gray-100 text-gray-800 border-gray-300';
+      position: 'top-1/4 left-0 transform -translate-x-4 -translate-y-1/2',
+      skills: ['WordPress', 'Figma', 'Canva', 'Git', 'WooCommerce']
     }
   };
 
   return (
-    <section className="min-h-screen max-w-7xl mx-auto px-4 py-12">
-      {/* Header */}
-      <div className="text-center mb-16">
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 font-poppins bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-          Technical Skills
-        </h1>
-        <p className="text-xl text-gray-600 font-poppins-bold max-w-2xl mx-auto">
-          Exploring the intersection of creativity and technology through diverse skill sets
-        </p>
-      </div>
-
-      <div className="flex flex-col lg:flex-row gap-8">
-        {/* Category Navigation */}
-        <div className="lg:w-1/4">
-          <div className="sticky top-8">
-            <h3 className="text-2xl font-bold mb-6 font-poppins">Categories</h3>
-            <div className="space-y-3">
-              {Object.entries(skillCategories).map(([key, category]) => (
-                <button
-                  key={key}
-                  onClick={() => setActiveCategory(key)}
-                  className={`w-full text-left p-4 rounded-xl transition-all duration-300 border-2 ${
-                    activeCategory === key
-                      ? `bg-gradient-to-r ${category.color} text-white shadow-lg transform scale-105`
-                      : `bg-white hover:bg-gray-50 ${category.borderColor} text-gray-700 hover:shadow-md`
-                  }`}
-                >
-                  <div className="font-semibold">{category.title}</div>
-                  <div className="text-sm opacity-75">
-                    {category.skills.length} skills
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
+    <section className="min-h-screen bg-white text-black py-20">
+      <div className="max-w-7xl mx-auto px-4">
+        {/* Header */}
+        <div className="text-center mb-20">
+          <h1 className="text-6xl md:text-8xl font-bold mb-6 font-poppins">
+            Technical Skills
+          </h1>
+          <p className="text-xl text-gray-600 font-poppins-bold">
+            My expertise across different technologies
+          </p>
         </div>
 
-        {/* Skills Display */}
-        <div className="lg:w-3/4">
-          <div className="mb-8">
-            <div className={`inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r ${skillCategories[activeCategory].color} text-white shadow-lg`}>
-              <h2 className="text-2xl font-bold font-poppins">
-                {skillCategories[activeCategory].title}
-              </h2>
-            </div>
+        {/* Main Geometric Layout */}
+        <div className="relative flex justify-center items-center min-h-[600px]">
+          
+          {/* Central Geometric Shape */}
+          <div className="relative w-80 h-80 md:w-96 md:h-96">
+            {/* Outer Polygon */}
+            <svg 
+              className="absolute inset-0 w-full h-full" 
+              viewBox="0 0 400 400"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              {/* Outer hexagon */}
+              <polygon
+                points="200,20 350,110 350,290 200,380 50,290 50,110"
+                fill="none"
+                stroke="black"
+                strokeWidth="1"
+                className="opacity-30"
+              />
+              
+              {/* Inner polygons */}
+              <polygon
+                points="200,60 310,130 310,270 200,340 90,270 90,130"
+                fill="none"
+                stroke="black"
+                strokeWidth="1"
+                className="opacity-50"
+              />
+              
+              <polygon
+                points="200,100 270,150 270,250 200,300 130,250 130,150"
+                fill="none"
+                stroke="black"
+                strokeWidth="1"
+                className="opacity-70"
+              />
+
+              {/* Central filled shape */}
+              <polygon
+                points="200,140 240,170 240,230 200,260 160,230 160,170"
+                fill="black"
+                className="opacity-20"
+              />
+
+              {/* Connection lines to skill categories */}
+              <line x1="200" y1="20" x2="200" y2="0" stroke="black" strokeWidth="1" className="opacity-40" />
+              <line x1="350" y1="110" x2="370" y2="90" stroke="black" strokeWidth="1" className="opacity-40" />
+              <line x1="350" y1="290" x2="370" y2="310" stroke="black" strokeWidth="1" className="opacity-40" />
+              <line x1="200" y1="380" x2="200" y2="400" stroke="black" strokeWidth="1" className="opacity-40" />
+              <line x1="50" y1="290" x2="30" y2="310" stroke="black" strokeWidth="1" className="opacity-40" />
+              <line x1="50" y1="110" x2="30" y2="90" stroke="black" strokeWidth="1" className="opacity-40" />
+            </svg>
           </div>
 
-          {/* Skills Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {skillCategories[activeCategory].skills.map((skill, index) => (
-              <div
-                key={skill.name}
-                className="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100"
-                style={{
-                  animationDelay: `${index * 100}ms`,
-                  animation: 'slideUp 0.6s ease-out forwards'
-                }}
-              >
-                {/* Skill Icon */}
-                <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                  {skill.icon}
-                </div>
-
-                {/* Skill Name */}
-                <h3 className="text-xl font-bold mb-3 font-poppins text-gray-800">
-                  {skill.name}
+          {/* Skill Category Labels */}
+          {Object.entries(skillCategories).map(([key, category]) => (
+            <div
+              key={key}
+              className={`absolute ${category.position} cursor-pointer group`}
+              onMouseEnter={() => setActiveCategory(key)}
+              onMouseLeave={() => setActiveCategory(null)}
+            >
+              {/* Category Title */}
+              <div className="text-center mb-2">
+                <h3 className="text-lg md:text-xl font-bold font-poppins mb-1 group-hover:text-gray-600 transition-colors">
+                  {category.title}
                 </h3>
-
-                {/* Skill Level Badge */}
-                <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ${getLevelColor(skill.level)}`}>
-                  {skill.level}
+                
+                {/* Skills List */}
+                <div className="text-sm text-gray-700 space-y-1">
+                  {category.skills.map((skill, index) => (
+                    <div 
+                      key={skill}
+                      className="group-hover:text-black transition-colors"
+                    >
+                      {skill}
+                    </div>
+                  ))}
                 </div>
-
-                {/* Hover Effect Overlay */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${skillCategories[activeCategory].color} opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-300`}></div>
               </div>
-            ))}
-          </div>
 
-          {/* Decorative Elements */}
-          <div className="mt-16 relative">
-            <div className="absolute inset-0 flex items-center justify-center opacity-5">
-              <div className={`w-96 h-96 bg-gradient-to-r ${skillCategories[activeCategory].color} rounded-full blur-3xl`}></div>
+              {/* Connection Dot */}
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2">
+                <div className="w-2 h-2 bg-black rounded-full group-hover:scale-150 transition-transform"></div>
+              </div>
             </div>
-            
-            {/* Stats */}
-            <div className="relative bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                <div>
-                  <div className="text-3xl font-bold text-gray-800 mb-2">
-                    {Object.values(skillCategories).reduce((total, cat) => total + cat.skills.length, 0)}
+          ))}
+        </div>
+
+        {/* Active Category Details */}
+        {activeCategory && (
+          <div className="mt-16 text-center">
+            <div className="bg-gray-50 rounded-2xl p-8 max-w-2xl mx-auto border border-gray-200">
+              <h3 className="text-2xl font-bold mb-4 font-poppins">
+                {skillCategories[activeCategory].title}
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {skillCategories[activeCategory].skills.map((skill) => (
+                  <div 
+                    key={skill}
+                    className="bg-white border border-gray-300 rounded-lg py-3 px-4 text-sm font-medium hover:bg-black hover:text-white transition-colors"
+                  >
+                    {skill}
                   </div>
-                  <div className="text-gray-600 font-medium">Total Skills</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-green-600 mb-2">
-                    {Object.values(skillCategories).reduce((total, cat) => 
-                      total + cat.skills.filter(skill => skill.level === 'Expert').length, 0
-                    )}
-                  </div>
-                  <div className="text-gray-600 font-medium">Expert Level</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-blue-600 mb-2">
-                    {Object.values(skillCategories).reduce((total, cat) => 
-                      total + cat.skills.filter(skill => skill.level === 'Advanced').length, 0
-                    )}
-                  </div>
-                  <div className="text-gray-600 font-medium">Advanced</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-purple-600 mb-2">6</div>
-                  <div className="text-gray-600 font-medium">Categories</div>
-                </div>
+                ))}
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* Character Image */}
+        <div className="flex justify-center mt-20">
+          <img
+            src="./images/skillsModel.png"
+            alt="3D illustration representing technical skills"
+            className="w-48 md:w-64 h-auto object-contain opacity-60"
+          />
+        </div>
+
+        {/* Skills Summary */}
+        <div className="mt-16 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="border border-gray-300 rounded-lg p-6">
+              <div className="text-3xl font-bold mb-2">25+</div>
+              <div className="text-gray-600 font-medium">Technologies</div>
+            </div>
+            <div className="border border-gray-300 rounded-lg p-6">
+              <div className="text-3xl font-bold mb-2">6</div>
+              <div className="text-gray-600 font-medium">Categories</div>
+            </div>
+            <div className="border border-gray-300 rounded-lg p-6">
+              <div className="text-3xl font-bold mb-2">3+</div>
+              <div className="text-gray-600 font-medium">Years Learning</div>
+            </div>
+            <div className="border border-gray-300 rounded-lg p-6">
+              <div className="text-3xl font-bold mb-2">10+</div>
+              <div className="text-gray-600 font-medium">Projects Built</div>
             </div>
           </div>
         </div>
       </div>
-
-      {/* Character Image */}
-      <div className="flex justify-center mt-16">
-        <img
-          src="./images/skillsModel.png"
-          alt="3D illustration of a person with technical skills"
-          className="w-64 md:w-80 h-auto object-contain opacity-80"
-        />
-      </div>
-
-      <style jsx>{`
-        @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </section>
   );
 }
