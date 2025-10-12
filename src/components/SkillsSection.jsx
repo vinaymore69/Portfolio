@@ -1,40 +1,73 @@
 import React, { useState } from 'react';
 
 export default function SkillsSection() {
-  const [activeCategory, setActiveCategory] = useState(null);
+  const [hoveredCategory, setHoveredCategory] = useState(null);
 
-  const skillCategories = {
-    frontend: {
-      title: 'Frontend Development',
-      position: 'top-0 left-1/2 transform -translate-x-1/2 -translate-y-4',
-      skills: ['HTML5', 'CSS3', 'JavaScript', 'React.js', 'Tailwind CSS', 'GSAP']
+  // Skill categories with proficiency values (0-100)
+  const skillCategories = [
+    {
+      name: 'Frontend Development',
+      value: 90,
+      skills: ['HTML5', 'CSS3', 'JavaScript', 'React.js', 'Tailwind CSS', 'GSAP'],
+      angle: 0
     },
-    backend: {
-      title: 'Backend Development', 
-      position: 'top-1/4 right-0 transform translate-x-4 -translate-y-1/2',
-      skills: ['Node.js', 'Express.js', 'PHP', 'RESTful APIs']
+    {
+      name: 'Backend Development',
+      value: 75,
+      skills: ['Node.js', 'Express.js', 'PHP', 'RESTful APIs'],
+      angle: 60
     },
-    mobile: {
-      title: 'Mobile Development',
-      position: 'bottom-1/4 right-0 transform translate-x-4 translate-y-1/2',
-      skills: ['Flutter', 'React Native', 'iOS Development']
+    {
+      name: 'Mobile Development',
+      value: 70,
+      skills: ['Flutter', 'React Native', 'iOS Development'],
+      angle: 120
     },
-    database: {
-      title: 'Database & Storage',
-      position: 'bottom-0 left-1/2 transform -translate-x-1/2 translate-y-4',
-      skills: ['PostgreSQL', 'MySQL', 'SQLite', 'Supabase']
+    {
+      name: 'Database & Storage',
+      value: 80,
+      skills: ['PostgreSQL', 'MySQL', 'SQLite', 'Supabase'],
+      angle: 180
     },
-    programming: {
-      title: 'Programming Languages',
-      position: 'bottom-1/4 left-0 transform -translate-x-4 translate-y-1/2',
-      skills: ['JavaScript', 'Java', 'Python', 'C/C++']
+    {
+      name: 'Programming Languages',
+      value: 85,
+      skills: ['JavaScript', 'Java', 'Python', 'C/C++'],
+      angle: 240
     },
-    tools: {
-      title: 'Tools & Platforms',
-      position: 'top-1/4 left-0 transform -translate-x-4 -translate-y-1/2',
-      skills: ['WordPress', 'Figma', 'Canva', 'Git', 'WooCommerce']
+    {
+      name: 'Tools & Platforms',
+      value: 65,
+      skills: ['WordPress', 'Figma', 'Canva', 'Git', 'WooCommerce'],
+      angle: 300
     }
+  ];
+
+  // Function to convert polar coordinates to cartesian
+  const polarToCartesian = (centerX, centerY, radius, angleInDegrees) => {
+    const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
+    return {
+      x: centerX + (radius * Math.cos(angleInRadians)),
+      y: centerY + (radius * Math.sin(angleInRadians))
+    };
   };
+
+  // Create radar chart points
+  const createRadarPoints = () => {
+    const centerX = 200;
+    const centerY = 200;
+    const maxRadius = 150;
+    
+    return skillCategories.map(category => {
+      const radius = (category.value / 100) * maxRadius;
+      return polarToCartesian(centerX, centerY, radius, category.angle);
+    });
+  };
+
+  const radarPoints = createRadarPoints();
+  const pathData = radarPoints.map((point, index) => 
+    `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`
+  ).join(' ') + ' Z';
 
   return (
     <section className="min-h-screen bg-white text-black py-20">
@@ -49,104 +82,116 @@ export default function SkillsSection() {
           </p>
         </div>
 
-        {/* Main Geometric Layout */}
-        <div className="relative flex justify-center items-center min-h-[600px]">
-          
-          {/* Central Geometric Shape */}
-          <div className="relative w-80 h-80 md:w-96 md:h-96">
-            {/* Outer Polygon */}
-            <svg 
-              className="absolute inset-0 w-full h-full" 
-              viewBox="0 0 400 400"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              {/* Outer hexagon */}
-              <polygon
-                points="200,20 350,110 350,290 200,380 50,290 50,110"
-                fill="none"
-                stroke="black"
-                strokeWidth="1"
-                className="opacity-30"
-              />
-              
-              {/* Inner polygons */}
-              <polygon
-                points="200,60 310,130 310,270 200,340 90,270 90,130"
-                fill="none"
-                stroke="black"
-                strokeWidth="1"
-                className="opacity-50"
-              />
-              
-              <polygon
-                points="200,100 270,150 270,250 200,300 130,250 130,150"
-                fill="none"
-                stroke="black"
-                strokeWidth="1"
-                className="opacity-70"
-              />
+        {/* Radar Chart Container */}
+        <div className="flex justify-center items-center mb-20">
+          <div className="relative">
+            <svg width="600" height="600" viewBox="0 0 400 400" className="max-w-full h-auto">
+              {/* Background grid circles */}
+              {[30, 60, 90, 120, 150].map((radius, index) => (
+                <circle
+                  key={radius}
+                  cx="200"
+                  cy="200"
+                  r={radius}
+                  fill="none"
+                  stroke="#e5e7eb"
+                  strokeWidth="1"
+                  opacity={0.5}
+                />
+              ))}
 
-              {/* Central filled shape */}
-              <polygon
-                points="200,140 240,170 240,230 200,260 160,230 160,170"
+              {/* Grid lines from center to each category */}
+              {skillCategories.map((category, index) => {
+                const endPoint = polarToCartesian(200, 200, 150, category.angle);
+                return (
+                  <line
+                    key={index}
+                    x1="200"
+                    y1="200"
+                    x2={endPoint.x}
+                    y2={endPoint.y}
+                    stroke="#e5e7eb"
+                    strokeWidth="1"
+                    opacity={0.5}
+                  />
+                );
+              })}
+
+              {/* Skill proficiency area */}
+              <path
+                d={pathData}
                 fill="black"
-                className="opacity-20"
+                fillOpacity="0.1"
+                stroke="black"
+                strokeWidth="2"
               />
 
-              {/* Connection lines to skill categories */}
-              <line x1="200" y1="20" x2="200" y2="0" stroke="black" strokeWidth="1" className="opacity-40" />
-              <line x1="350" y1="110" x2="370" y2="90" stroke="black" strokeWidth="1" className="opacity-40" />
-              <line x1="350" y1="290" x2="370" y2="310" stroke="black" strokeWidth="1" className="opacity-40" />
-              <line x1="200" y1="380" x2="200" y2="400" stroke="black" strokeWidth="1" className="opacity-40" />
-              <line x1="50" y1="290" x2="30" y2="310" stroke="black" strokeWidth="1" className="opacity-40" />
-              <line x1="50" y1="110" x2="30" y2="90" stroke="black" strokeWidth="1" className="opacity-40" />
+              {/* Data points */}
+              {radarPoints.map((point, index) => (
+                <circle
+                  key={index}
+                  cx={point.x}
+                  cy={point.y}
+                  r="4"
+                  fill="black"
+                  className="cursor-pointer hover:r-6 transition-all"
+                  onMouseEnter={() => setHoveredCategory(index)}
+                  onMouseLeave={() => setHoveredCategory(null)}
+                />
+              ))}
+
+              {/* Category labels */}
+              {skillCategories.map((category, index) => {
+                const labelPoint = polarToCartesian(200, 200, 180, category.angle);
+                const isLeft = labelPoint.x < 200;
+                const isTop = labelPoint.y < 200;
+                
+                return (
+                  <g key={index}>
+                    <text
+                      x={labelPoint.x}
+                      y={labelPoint.y}
+                      textAnchor={isLeft ? 'end' : 'start'}
+                      dominantBaseline="middle"
+                      className="text-sm font-bold fill-black cursor-pointer hover:fill-gray-600"
+                      onMouseEnter={() => setHoveredCategory(index)}
+                      onMouseLeave={() => setHoveredCategory(null)}
+                    >
+                      {category.name}
+                    </text>
+                    
+                    {/* Proficiency percentage */}
+                    <text
+                      x={labelPoint.x}
+                      y={labelPoint.y + (isTop ? -15 : 15)}
+                      textAnchor={isLeft ? 'end' : 'start'}
+                      dominantBaseline="middle"
+                      className="text-xs fill-gray-600"
+                    >
+                      {category.value}%
+                    </text>
+                  </g>
+                );
+              })}
             </svg>
           </div>
-
-          {/* Skill Category Labels */}
-          {Object.entries(skillCategories).map(([key, category]) => (
-            <div
-              key={key}
-              className={`absolute ${category.position} cursor-pointer group`}
-              onMouseEnter={() => setActiveCategory(key)}
-              onMouseLeave={() => setActiveCategory(null)}
-            >
-              {/* Category Title */}
-              <div className="text-center mb-2">
-                <h3 className="text-lg md:text-xl font-bold font-poppins mb-1 group-hover:text-gray-600 transition-colors">
-                  {category.title}
-                </h3>
-                
-                {/* Skills List */}
-                <div className="text-sm text-gray-700 space-y-1">
-                  {category.skills.map((skill, index) => (
-                    <div 
-                      key={skill}
-                      className="group-hover:text-black transition-colors"
-                    >
-                      {skill}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Connection Dot */}
-              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2">
-                <div className="w-2 h-2 bg-black rounded-full group-hover:scale-150 transition-transform"></div>
-              </div>
-            </div>
-          ))}
         </div>
 
-        {/* Active Category Details */}
-        {activeCategory && (
-          <div className="mt-16 text-center">
+        {/* Category Details */}
+        {hoveredCategory !== null && (
+          <div className="text-center mb-16">
             <div className="bg-gray-50 rounded-2xl p-8 max-w-2xl mx-auto border border-gray-200">
               <h3 className="text-2xl font-bold mb-4 font-poppins">
-                {skillCategories[activeCategory].title}
+                {skillCategories[hoveredCategory].name}
               </h3>
+              <div className="mb-4">
+                <span className="text-4xl font-bold text-black">
+                  {skillCategories[hoveredCategory].value}%
+                </span>
+                <span className="text-gray-600 ml-2">Proficiency</span>
+              </div>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {skillCategories[activeCategory].skills.map((skill) => (
+                {skillCategories[hoveredCategory].skills.map((skill) => (
                   <div 
                     key={skill}
                     className="bg-white border border-gray-300 rounded-lg py-3 px-4 text-sm font-medium hover:bg-black hover:text-white transition-colors"
@@ -159,35 +204,40 @@ export default function SkillsSection() {
           </div>
         )}
 
+        {/* Skills Legend */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          {skillCategories.map((category, index) => (
+            <div 
+              key={index}
+              className="border border-gray-300 rounded-lg p-6 hover:border-black transition-colors cursor-pointer"
+              onMouseEnter={() => setHoveredCategory(index)}
+              onMouseLeave={() => setHoveredCategory(null)}
+            >
+              <div className="flex justify-between items-center mb-3">
+                <h3 className="font-bold text-lg">{category.name}</h3>
+                <span className="text-2xl font-bold">{category.value}%</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {category.skills.map((skill) => (
+                  <span 
+                    key={skill}
+                    className="bg-gray-100 text-gray-800 px-2 py-1 rounded text-xs"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
         {/* Character Image */}
-        <div className="flex justify-center mt-20">
+        <div className="flex justify-center">
           <img
             src="./images/skillsModel.png"
             alt="3D illustration representing technical skills"
             className="w-48 md:w-64 h-auto object-contain opacity-60"
           />
-        </div>
-
-        {/* Skills Summary */}
-        <div className="mt-16 text-center">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="border border-gray-300 rounded-lg p-6">
-              <div className="text-3xl font-bold mb-2">25+</div>
-              <div className="text-gray-600 font-medium">Technologies</div>
-            </div>
-            <div className="border border-gray-300 rounded-lg p-6">
-              <div className="text-3xl font-bold mb-2">6</div>
-              <div className="text-gray-600 font-medium">Categories</div>
-            </div>
-            <div className="border border-gray-300 rounded-lg p-6">
-              <div className="text-3xl font-bold mb-2">3+</div>
-              <div className="text-gray-600 font-medium">Years Learning</div>
-            </div>
-            <div className="border border-gray-300 rounded-lg p-6">
-              <div className="text-3xl font-bold mb-2">10+</div>
-              <div className="text-gray-600 font-medium">Projects Built</div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
