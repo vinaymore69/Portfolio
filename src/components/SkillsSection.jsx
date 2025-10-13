@@ -144,7 +144,6 @@ export default function SkillsSection() {
               {skillCategories.map((category, index) => {
                 const labelPoint = polarToCartesian(200, 200, 180, category.angle);
                 const isLeft = labelPoint.x < 200;
-                const isTop = labelPoint.y < 200;
                 
                 return (
                   <g key={index}>
@@ -158,17 +157,6 @@ export default function SkillsSection() {
                       onMouseLeave={() => setHoveredCategory(null)}
                     >
                       {category.name}
-                    </text>
-                    
-                    {/* Proficiency percentage */}
-                    <text
-                      x={labelPoint.x}
-                      y={labelPoint.y + (isTop ? -15 : 15)}
-                      textAnchor={isLeft ? 'end' : 'start'}
-                      dominantBaseline="middle"
-                      className="text-xs fill-gray-600"
-                    >
-                      {category.value}%
                     </text>
                   </g>
                 );
@@ -184,12 +172,6 @@ export default function SkillsSection() {
               <h3 className="text-2xl font-bold mb-4 font-poppins">
                 {skillCategories[hoveredCategory].name}
               </h3>
-              <div className="mb-4">
-                <span className="text-4xl font-bold text-black">
-                  {skillCategories[hoveredCategory].value}%
-                </span>
-                <span className="text-gray-600 ml-2">Proficiency</span>
-              </div>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {skillCategories[hoveredCategory].skills.map((skill) => (
                   <div 
@@ -213,10 +195,7 @@ export default function SkillsSection() {
               onMouseEnter={() => setHoveredCategory(index)}
               onMouseLeave={() => setHoveredCategory(null)}
             >
-              <div className="flex justify-between items-center mb-3">
-                <h3 className="font-bold text-lg">{category.name}</h3>
-                <span className="text-2xl font-bold">{category.value}%</span>
-              </div>
+              <h3 className="font-bold text-lg mb-3">{category.name}</h3>
               <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill) => (
                   <span 
