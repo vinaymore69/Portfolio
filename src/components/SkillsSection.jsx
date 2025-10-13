@@ -6,38 +6,32 @@ export default function SkillsSection() {
   const skillCategories = [
     {
       name: 'Frontend',
-      icon: '🎨',
-      color: 'from-blue-500 to-purple-600',
+      icon: '⚡',
       skills: ['HTML5', 'CSS3', 'JavaScript', 'React.js', 'Tailwind CSS', 'GSAP']
     },
     {
       name: 'Backend',
       icon: '⚙️',
-      color: 'from-green-500 to-teal-600',
       skills: ['Node.js', 'Express.js', 'PHP', 'RESTful APIs']
     },
     {
       name: 'Mobile',
       icon: '📱',
-      color: 'from-orange-500 to-red-600',
       skills: ['Flutter', 'React Native', 'iOS Development']
     },
     {
       name: 'Database',
-      icon: '🗄️',
-      color: 'from-indigo-500 to-blue-600',
+      icon: '🗃️',
       skills: ['PostgreSQL', 'MySQL', 'SQLite', 'Supabase']
     },
     {
       name: 'Languages',
       icon: '💻',
-      color: 'from-purple-500 to-pink-600',
       skills: ['JavaScript', 'Java', 'Python', 'C/C++']
     },
     {
       name: 'Tools',
-      icon: '🛠️',
-      color: 'from-gray-500 to-gray-700',
+      icon: '🔧',
       skills: ['WordPress', 'Figma', 'Canva', 'Git', 'WooCommerce']
     }
   ];
@@ -55,82 +49,81 @@ export default function SkillsSection() {
           </p>
         </div>
 
-        {/* Hexagonal Grid Layout */}
-        <div className="flex justify-center items-center mb-20">
-          <div className="relative w-full max-w-4xl">
-            {/* Central Hub */}
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-              <div className="w-32 h-32 bg-black rounded-full flex items-center justify-center">
-                <div className="text-center text-white">
-                  <div className="text-2xl font-bold">Skills</div>
-                  <div className="text-sm">Portfolio</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Skill Category Hexagons */}
-            <div className="relative w-full h-96 md:h-[500px]">
-              {skillCategories.map((category, index) => {
-                const angle = (index * 60) * (Math.PI / 180);
-                const radius = 180;
-                const x = Math.cos(angle) * radius;
-                const y = Math.sin(angle) * radius;
+        {/* Skill Categories Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-16 max-w-4xl mx-auto">
+          {skillCategories.map((category, index) => (
+            <div
+              key={index}
+              className={`relative cursor-pointer group transition-all duration-500 ${
+                activeCategory === index ? 'transform scale-110' : ''
+              }`}
+              onClick={() => setActiveCategory(index)}
+              onMouseEnter={() => setActiveCategory(index)}
+            >
+              {/* Category Card */}
+              <div className={`relative border-2 rounded-2xl p-8 text-center transition-all duration-500 ${
+                activeCategory === index 
+                  ? 'bg-black text-white border-black shadow-2xl' 
+                  : 'bg-white text-black border-gray-300 hover:border-black hover:shadow-lg'
+              }`}>
                 
-                return (
-                  <div
-                    key={index}
-                    className="absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer group"
-                    style={{
-                      left: `calc(50% + ${x}px)`,
-                      top: `calc(50% + ${y}px)`,
-                    }}
-                    onMouseEnter={() => setActiveCategory(index)}
-                  >
-                    {/* Hexagon Shape */}
-                    <div className="relative">
-                      <div className={`w-24 h-24 bg-gradient-to-br ${category.color} rounded-2xl flex items-center justify-center transform group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl`}>
-                        <div className="text-center text-white">
-                          <div className="text-2xl mb-1">{category.icon}</div>
-                          <div className="text-xs font-bold">{category.name}</div>
-                        </div>
-                      </div>
-                      
-                      {/* Connection Line to Center */}
-                      <div 
-                        className="absolute w-px bg-gray-300 origin-center"
-                        style={{
-                          height: `${radius - 48}px`,
-                          left: '50%',
-                          top: '50%',
-                          transform: `translate(-50%, -50%) rotate(${angle + Math.PI}rad)`,
-                          transformOrigin: `0 ${(radius - 48) / 2}px`
-                        }}
-                      />
-                    </div>
+                {/* Icon */}
+                <div className={`text-4xl mb-4 transition-all duration-300 ${
+                  activeCategory === index ? 'transform scale-125' : ''
+                }`}>
+                  {category.icon}
+                </div>
+                
+                {/* Category Name */}
+                <h3 className="font-bold text-xl mb-2 font-poppins">
+                  {category.name}
+                </h3>
+                
+                {/* Skill Count */}
+                <p className={`text-sm ${
+                  activeCategory === index ? 'text-gray-300' : 'text-gray-600'
+                }`}>
+                  {category.skills.length} Technologies
+                </p>
+
+                {/* Active Indicator */}
+                {activeCategory === index && (
+                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-white rounded-full flex items-center justify-center">
+                    <div className="w-3 h-3 bg-black rounded-full"></div>
                   </div>
-                );
-              })}
+                )}
+              </div>
+
+              {/* Connection Lines for Active Category */}
+              {activeCategory === index && (
+                <div className="absolute inset-0 pointer-events-none">
+                  <div className="absolute top-1/2 left-1/2 w-32 h-px bg-black transform -translate-x-1/2 -translate-y-1/2 rotate-45 opacity-30"></div>
+                  <div className="absolute top-1/2 left-1/2 w-32 h-px bg-black transform -translate-x-1/2 -translate-y-1/2 -rotate-45 opacity-30"></div>
+                </div>
+              )}
             </div>
-          </div>
+          ))}
         </div>
 
         {/* Active Category Details */}
-        <div className="text-center mb-16">
-          <div className="bg-gray-50 rounded-2xl p-8 max-w-4xl mx-auto border border-gray-200">
-            <div className="flex items-center justify-center mb-6">
-              <div className={`w-16 h-16 bg-gradient-to-br ${skillCategories[activeCategory].color} rounded-2xl flex items-center justify-center mr-4`}>
-                <span className="text-2xl">{skillCategories[activeCategory].icon}</span>
+        <div className="max-w-4xl mx-auto mb-16">
+          <div className="bg-gray-50 border-2 border-gray-200 rounded-2xl p-8 transition-all duration-500">
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-black text-white rounded-2xl mb-4">
+                <span className="text-3xl">{skillCategories[activeCategory].icon}</span>
               </div>
-              <h3 className="text-3xl font-bold font-poppins">
+              <h3 className="text-3xl font-bold font-poppins mb-2">
                 {skillCategories[activeCategory].name} Development
               </h3>
+              <div className="w-24 h-1 bg-black mx-auto"></div>
             </div>
             
+            {/* Skills Grid */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {skillCategories[activeCategory].skills.map((skill, skillIndex) => (
                 <div 
                   key={skill}
-                  className="bg-white border border-gray-300 rounded-lg py-4 px-4 text-sm font-medium hover:bg-black hover:text-white transition-all duration-300 transform hover:scale-105"
+                  className="bg-white border-2 border-gray-300 rounded-xl py-4 px-4 text-center font-medium hover:bg-black hover:text-white hover:border-black transition-all duration-300 transform hover:scale-105 cursor-pointer"
                   style={{
                     animationDelay: `${skillIndex * 100}ms`
                   }}
@@ -142,50 +135,22 @@ export default function SkillsSection() {
           </div>
         </div>
 
-        {/* Skills Overview Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {skillCategories.map((category, index) => (
-            <div 
-              key={index}
-              className={`border-2 rounded-2xl p-6 transition-all duration-300 cursor-pointer ${
-                activeCategory === index 
-                  ? 'border-black bg-black text-white' 
-                  : 'border-gray-300 hover:border-black'
-              }`}
-              onClick={() => setActiveCategory(index)}
-            >
-              <div className="flex items-center mb-4">
-                <div className={`w-12 h-12 bg-gradient-to-br ${category.color} rounded-xl flex items-center justify-center mr-3`}>
-                  <span className="text-xl">{category.icon}</span>
-                </div>
-                <h3 className="font-bold text-lg">{category.name}</h3>
-              </div>
-              
-              <div className="flex flex-wrap gap-2">
-                {category.skills.slice(0, 3).map((skill) => (
-                  <span 
-                    key={skill}
-                    className={`px-2 py-1 rounded text-xs ${
-                      activeCategory === index 
-                        ? 'bg-white text-black' 
-                        : 'bg-gray-100 text-gray-800'
-                    }`}
-                  >
-                    {skill}
-                  </span>
-                ))}
-                {category.skills.length > 3 && (
-                  <span className={`px-2 py-1 rounded text-xs ${
-                    activeCategory === index 
-                      ? 'bg-white text-black' 
-                      : 'bg-gray-100 text-gray-800'
-                  }`}>
-                    +{category.skills.length - 3} more
-                  </span>
-                )}
-              </div>
+        {/* Skills Overview */}
+        <div className="text-center mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
+            <div className="bg-black text-white rounded-2xl p-6">
+              <div className="text-3xl font-bold mb-2">6</div>
+              <div className="text-sm uppercase tracking-wide">Categories</div>
             </div>
-          ))}
+            <div className="border-2 border-black rounded-2xl p-6">
+              <div className="text-3xl font-bold mb-2">25+</div>
+              <div className="text-sm uppercase tracking-wide">Technologies</div>
+            </div>
+            <div className="bg-gray-100 border-2 border-gray-300 rounded-2xl p-6">
+              <div className="text-3xl font-bold mb-2">3+</div>
+              <div className="text-sm uppercase tracking-wide">Years Experience</div>
+            </div>
+          </div>
         </div>
 
         {/* Character Image */}
