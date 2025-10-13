@@ -1,73 +1,46 @@
 import React, { useState } from 'react';
 
 export default function SkillsSection() {
-  const [hoveredCategory, setHoveredCategory] = useState(null);
+  const [activeCategory, setActiveCategory] = useState(0);
 
-  // Skill categories with proficiency values (0-100)
   const skillCategories = [
     {
-      name: 'Frontend Development',
-      value: 90,
-      skills: ['HTML5', 'CSS3', 'JavaScript', 'React.js', 'Tailwind CSS', 'GSAP'],
-      angle: 0
+      name: 'Frontend',
+      icon: '🎨',
+      color: 'from-blue-500 to-purple-600',
+      skills: ['HTML5', 'CSS3', 'JavaScript', 'React.js', 'Tailwind CSS', 'GSAP']
     },
     {
-      name: 'Backend Development',
-      value: 75,
-      skills: ['Node.js', 'Express.js', 'PHP', 'RESTful APIs'],
-      angle: 60
+      name: 'Backend',
+      icon: '⚙️',
+      color: 'from-green-500 to-teal-600',
+      skills: ['Node.js', 'Express.js', 'PHP', 'RESTful APIs']
     },
     {
-      name: 'Mobile Development',
-      value: 70,
-      skills: ['Flutter', 'React Native', 'iOS Development'],
-      angle: 120
+      name: 'Mobile',
+      icon: '📱',
+      color: 'from-orange-500 to-red-600',
+      skills: ['Flutter', 'React Native', 'iOS Development']
     },
     {
-      name: 'Database & Storage',
-      value: 80,
-      skills: ['PostgreSQL', 'MySQL', 'SQLite', 'Supabase'],
-      angle: 180
+      name: 'Database',
+      icon: '🗄️',
+      color: 'from-indigo-500 to-blue-600',
+      skills: ['PostgreSQL', 'MySQL', 'SQLite', 'Supabase']
     },
     {
-      name: 'Programming Languages',
-      value: 85,
-      skills: ['JavaScript', 'Java', 'Python', 'C/C++'],
-      angle: 240
+      name: 'Languages',
+      icon: '💻',
+      color: 'from-purple-500 to-pink-600',
+      skills: ['JavaScript', 'Java', 'Python', 'C/C++']
     },
     {
-      name: 'Tools & Platforms',
-      value: 65,
-      skills: ['WordPress', 'Figma', 'Canva', 'Git', 'WooCommerce'],
-      angle: 300
+      name: 'Tools',
+      icon: '🛠️',
+      color: 'from-gray-500 to-gray-700',
+      skills: ['WordPress', 'Figma', 'Canva', 'Git', 'WooCommerce']
     }
   ];
-
-  // Function to convert polar coordinates to cartesian
-  const polarToCartesian = (centerX, centerY, radius, angleInDegrees) => {
-    const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
-    return {
-      x: centerX + (radius * Math.cos(angleInRadians)),
-      y: centerY + (radius * Math.sin(angleInRadians))
-    };
-  };
-
-  // Create radar chart points
-  const createRadarPoints = () => {
-    const centerX = 200;
-    const centerY = 200;
-    const maxRadius = 150;
-    
-    return skillCategories.map(category => {
-      const radius = (category.value / 100) * maxRadius;
-      return polarToCartesian(centerX, centerY, radius, category.angle);
-    });
-  };
-
-  const radarPoints = createRadarPoints();
-  const pathData = radarPoints.map((point, index) => 
-    `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`
-  ).join(' ') + ' Z';
 
   return (
     <section className="min-h-screen bg-white text-black py-20">
@@ -78,133 +51,138 @@ export default function SkillsSection() {
             Technical Skills
           </h1>
           <p className="text-xl text-gray-600 font-poppins-bold">
-            My expertise across different technologies
+            Technologies I work with
           </p>
         </div>
 
-        {/* Radar Chart Container */}
+        {/* Hexagonal Grid Layout */}
         <div className="flex justify-center items-center mb-20">
-          <div className="relative">
-            <svg width="600" height="600" viewBox="0 0 400 400" className="max-w-full h-auto">
-              {/* Background grid circles */}
-              {[30, 60, 90, 120, 150].map((radius, index) => (
-                <circle
-                  key={radius}
-                  cx="200"
-                  cy="200"
-                  r={radius}
-                  fill="none"
-                  stroke="#e5e7eb"
-                  strokeWidth="1"
-                  opacity={0.5}
-                />
-              ))}
+          <div className="relative w-full max-w-4xl">
+            {/* Central Hub */}
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+              <div className="w-32 h-32 bg-black rounded-full flex items-center justify-center">
+                <div className="text-center text-white">
+                  <div className="text-2xl font-bold">Skills</div>
+                  <div className="text-sm">Portfolio</div>
+                </div>
+              </div>
+            </div>
 
-              {/* Grid lines from center to each category */}
+            {/* Skill Category Hexagons */}
+            <div className="relative w-full h-96 md:h-[500px]">
               {skillCategories.map((category, index) => {
-                const endPoint = polarToCartesian(200, 200, 150, category.angle);
-                return (
-                  <line
-                    key={index}
-                    x1="200"
-                    y1="200"
-                    x2={endPoint.x}
-                    y2={endPoint.y}
-                    stroke="#e5e7eb"
-                    strokeWidth="1"
-                    opacity={0.5}
-                  />
-                );
-              })}
-
-              {/* Skill proficiency area */}
-              <path
-                d={pathData}
-                fill="black"
-                fillOpacity="0.1"
-                stroke="black"
-                strokeWidth="2"
-              />
-
-              {/* Data points */}
-              {radarPoints.map((point, index) => (
-                <circle
-                  key={index}
-                  cx={point.x}
-                  cy={point.y}
-                  r="4"
-                  fill="black"
-                  className="cursor-pointer hover:r-6 transition-all"
-                  onMouseEnter={() => setHoveredCategory(index)}
-                  onMouseLeave={() => setHoveredCategory(null)}
-                />
-              ))}
-
-              {/* Category labels */}
-              {skillCategories.map((category, index) => {
-                const labelPoint = polarToCartesian(200, 200, 180, category.angle);
-                const isLeft = labelPoint.x < 200;
+                const angle = (index * 60) * (Math.PI / 180);
+                const radius = 180;
+                const x = Math.cos(angle) * radius;
+                const y = Math.sin(angle) * radius;
                 
                 return (
-                  <g key={index}>
-                    <text
-                      x={labelPoint.x}
-                      y={labelPoint.y}
-                      textAnchor={isLeft ? 'end' : 'start'}
-                      dominantBaseline="middle"
-                      className="text-sm font-bold fill-black cursor-pointer hover:fill-gray-600"
-                      onMouseEnter={() => setHoveredCategory(index)}
-                      onMouseLeave={() => setHoveredCategory(null)}
-                    >
-                      {category.name}
-                    </text>
-                  </g>
+                  <div
+                    key={index}
+                    className="absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer group"
+                    style={{
+                      left: `calc(50% + ${x}px)`,
+                      top: `calc(50% + ${y}px)`,
+                    }}
+                    onMouseEnter={() => setActiveCategory(index)}
+                  >
+                    {/* Hexagon Shape */}
+                    <div className="relative">
+                      <div className={`w-24 h-24 bg-gradient-to-br ${category.color} rounded-2xl flex items-center justify-center transform group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl`}>
+                        <div className="text-center text-white">
+                          <div className="text-2xl mb-1">{category.icon}</div>
+                          <div className="text-xs font-bold">{category.name}</div>
+                        </div>
+                      </div>
+                      
+                      {/* Connection Line to Center */}
+                      <div 
+                        className="absolute w-px bg-gray-300 origin-center"
+                        style={{
+                          height: `${radius - 48}px`,
+                          left: '50%',
+                          top: '50%',
+                          transform: `translate(-50%, -50%) rotate(${angle + Math.PI}rad)`,
+                          transformOrigin: `0 ${(radius - 48) / 2}px`
+                        }}
+                      />
+                    </div>
+                  </div>
                 );
               })}
-            </svg>
+            </div>
           </div>
         </div>
 
-        {/* Category Details */}
-        {hoveredCategory !== null && (
-          <div className="text-center mb-16">
-            <div className="bg-gray-50 rounded-2xl p-8 max-w-2xl mx-auto border border-gray-200">
-              <h3 className="text-2xl font-bold mb-4 font-poppins">
-                {skillCategories[hoveredCategory].name}
-              </h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {skillCategories[hoveredCategory].skills.map((skill) => (
-                  <div 
-                    key={skill}
-                    className="bg-white border border-gray-300 rounded-lg py-3 px-4 text-sm font-medium hover:bg-black hover:text-white transition-colors"
-                  >
-                    {skill}
-                  </div>
-                ))}
+        {/* Active Category Details */}
+        <div className="text-center mb-16">
+          <div className="bg-gray-50 rounded-2xl p-8 max-w-4xl mx-auto border border-gray-200">
+            <div className="flex items-center justify-center mb-6">
+              <div className={`w-16 h-16 bg-gradient-to-br ${skillCategories[activeCategory].color} rounded-2xl flex items-center justify-center mr-4`}>
+                <span className="text-2xl">{skillCategories[activeCategory].icon}</span>
               </div>
+              <h3 className="text-3xl font-bold font-poppins">
+                {skillCategories[activeCategory].name} Development
+              </h3>
+            </div>
+            
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {skillCategories[activeCategory].skills.map((skill, skillIndex) => (
+                <div 
+                  key={skill}
+                  className="bg-white border border-gray-300 rounded-lg py-4 px-4 text-sm font-medium hover:bg-black hover:text-white transition-all duration-300 transform hover:scale-105"
+                  style={{
+                    animationDelay: `${skillIndex * 100}ms`
+                  }}
+                >
+                  {skill}
+                </div>
+              ))}
             </div>
           </div>
-        )}
+        </div>
 
-        {/* Skills Legend */}
+        {/* Skills Overview Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {skillCategories.map((category, index) => (
             <div 
               key={index}
-              className="border border-gray-300 rounded-lg p-6 hover:border-black transition-colors cursor-pointer"
-              onMouseEnter={() => setHoveredCategory(index)}
-              onMouseLeave={() => setHoveredCategory(null)}
+              className={`border-2 rounded-2xl p-6 transition-all duration-300 cursor-pointer ${
+                activeCategory === index 
+                  ? 'border-black bg-black text-white' 
+                  : 'border-gray-300 hover:border-black'
+              }`}
+              onClick={() => setActiveCategory(index)}
             >
-              <h3 className="font-bold text-lg mb-3">{category.name}</h3>
+              <div className="flex items-center mb-4">
+                <div className={`w-12 h-12 bg-gradient-to-br ${category.color} rounded-xl flex items-center justify-center mr-3`}>
+                  <span className="text-xl">{category.icon}</span>
+                </div>
+                <h3 className="font-bold text-lg">{category.name}</h3>
+              </div>
+              
               <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill) => (
+                {category.skills.slice(0, 3).map((skill) => (
                   <span 
                     key={skill}
-                    className="bg-gray-100 text-gray-800 px-2 py-1 rounded text-xs"
+                    className={`px-2 py-1 rounded text-xs ${
+                      activeCategory === index 
+                        ? 'bg-white text-black' 
+                        : 'bg-gray-100 text-gray-800'
+                    }`}
                   >
                     {skill}
                   </span>
                 ))}
+                {category.skills.length > 3 && (
+                  <span className={`px-2 py-1 rounded text-xs ${
+                    activeCategory === index 
+                      ? 'bg-white text-black' 
+                      : 'bg-gray-100 text-gray-800'
+                  }`}>
+                    +{category.skills.length - 3} more
+                  </span>
+                )}
               </div>
             </div>
           ))}
