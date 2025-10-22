@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInstagram, faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faPhone, faMapMarkerAlt, faTree } from '@fortawesome/free-solid-svg-icons';
 
 const Footer = () => {
@@ -25,14 +25,6 @@ const Footer = () => {
               Always eager to learn and take on new challenges.
             </p>
             <div className="flex space-x-4">
-              <a
-                href="https://www.instagram.com/nothing_captures?igsh=enFoZnBnNGYycmFh"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors"
-              >
-                <FontAwesomeIcon icon={faInstagram} className="text-lg" />
-              </a>
               <a
                 href="https://github.com/vinaymore69"
                 target="_blank"

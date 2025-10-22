@@ -24,17 +24,24 @@ const HonorsSection = () => {
       icon: "🥈"
     },
     {
+      title: "First Prize - 10th Standard Academic Excellence",
+      issuer: "Sadhana Education Society's Malti Jayant Dalal High School",
+      date: "2022",
+      description: "Achieved First Prize for outstanding academic performance in 10th Standard examinations, demonstrating consistent excellence across all subjects and maintaining top position in the class.",
+      icon: "🏆"
+    },
+    {
       title: "Academic Excellence - MSBTE Summer 2023 Examination",
       issuer: "Vidyalankar Polytechnic",
       date: "2023",
-      description: "Achieved 86.75% in the Summer 2023 examination conducted by the Maharashtra State Board of Technical Education (MSBTE). Recognized by Vidyalankar Polytechnic, Department of Computer Engineering (NBA Accredited), for outstanding academic performance in Class CO21 Division C.",
+      description: "Achieved 86.75% in the Summer 2023 examination conducted by the Maharashtra State Board of Technical Education (MSBTE). Recognized by Vidyalankar Polytechnic, Department of Computer Engineering (NBA Accredited), for outstanding academic performance in Class CO5IC Division C.",
       icon: "📚"
     },
     {
       title: "First Rank In Class - MSBTE Winter 2022 Examination",
       issuer: "Vidyalankar Polytechnic",
       date: "2022",
-      description: "Secured 1st position in Class CO11 Division C with 86.71% in the Winter 2022 examination, conducted by the Maharashtra State Board of Technical Education (MSBTE). Awarded by Vidyalankar Polytechnic, Department of Computer Engineering (NBA Accredited).",
+      description: "Secured 1st position in Class CO3IC Division C with 86.71% in the Winter 2022 examination, conducted by the Maharashtra State Board of Technical Education (MSBTE). Awarded by Vidyalankar Polytechnic, Department of Computer Engineering (NBA Accredited).",
       icon: "🥇"
     },
     {

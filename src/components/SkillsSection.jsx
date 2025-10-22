@@ -1,105 +1,166 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-export default function Skills() {
+export default function SkillsSection() {
+  const [activeCategory, setActiveCategory] = useState(0);
+
+  const skillCategories = [
+    {
+      name: 'Frontend',
+      icon: '⚡',
+      skills: ['HTML5', 'CSS3', 'JavaScript', 'React.js', 'Tailwind CSS', 'GSAP']
+    },
+    {
+      name: 'Backend',
+      icon: '⚙️',
+      skills: ['Node.js', 'Express.js', 'PHP', 'RESTful APIs']
+    },
+    {
+      name: 'Mobile',
+      icon: '📱',
+      skills: ['Flutter', 'React Native', 'iOS Development']
+    },
+    {
+      name: 'Database',
+      icon: '🗃️',
+      skills: ['PostgreSQL', 'MySQL', 'SQLite', 'Supabase']
+    },
+    {
+      name: 'Languages',
+      icon: '💻',
+      skills: ['JavaScript', 'Java', 'Python', 'C/C++']
+    },
+    {
+      name: 'Tools',
+      icon: '🔧',
+      skills: ['WordPress', 'Figma', 'Canva', 'Git', 'WooCommerce']
+    }
+  ];
+
   return (
-    <section className="flex font-poppins-bold flex-col lg:flex-row lg:items-start lg:space-x-12 h-auto max-w-7xl mx-auto px-4 py-6">
-      {/* Left scrollable skills list */}
-      <div className="overflow-y-auto w-full pr-0 md:pr-4">
-        <h2 className="font-extrabold text-2xl sm:text-3xl md:text-[2.9vw] leading-tight border-t-2 pt-6 md:pt-[3vw] mt-6 md:mt-[3vw] mb-2">Frontend & UI Development</h2>
-        <p className="text-base md:text-[1.2vw] mb-1">Core:</p>
-        <div className="flex flex-wrap gap-2 md:gap-4 mb-4">
-          {['HTML, CSS', 'TAILWIND CSS', 'REACT', 'JAVASCRIPT'].map((skill) => (
-            <button
-              key={skill}
-              className="text-xs sm:text-sm md:text-[1vw] font-normal border border-gray-300 rounded-full py-1 md:py-2 px-3 md:px-6 whitespace-nowrap"
+    <section className="min-h-screen bg-white text-black py-20">
+      <div className="max-w-7xl mx-auto px-4">
+        {/* Header */}
+        <div className="text-center mb-20">
+          <h1 className="text-6xl md:text-8xl font-bold mb-6 font-poppins">
+            Technical Skills
+          </h1>
+          <p className="text-xl text-gray-600 font-poppins-bold">
+            Technologies I work with
+          </p>
+        </div>
+
+        {/* Skill Categories Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-16 max-w-4xl mx-auto">
+          {skillCategories.map((category, index) => (
+            <div
+              key={index}
+              className={`relative cursor-pointer group transition-all duration-500 ${
+                activeCategory === index ? 'transform scale-110' : ''
+              }`}
+              onClick={() => setActiveCategory(index)}
+              onMouseEnter={() => setActiveCategory(index)}
             >
-              {skill}
-            </button>
+              {/* Category Card */}
+              <div className={`relative border-2 rounded-2xl p-8 text-center transition-all duration-500 ${
+                activeCategory === index 
+                  ? 'bg-black text-white border-black shadow-2xl' 
+                  : 'bg-white text-black border-gray-300 hover:border-black hover:shadow-lg'
+              }`}>
+                
+                {/* Icon */}
+                <div className={`text-4xl mb-4 transition-all duration-300 ${
+                  activeCategory === index ? 'transform scale-125' : ''
+                }`}>
+                  {category.icon}
+                </div>
+                
+                {/* Category Name */}
+                <h3 className="font-bold text-xl mb-2 font-poppins">
+                  {category.name}
+                </h3>
+                
+                {/* Skill Count */}
+                <p className={`text-sm ${
+                  activeCategory === index ? 'text-gray-300' : 'text-gray-600'
+                }`}>
+                  {category.skills.length} Technologies
+                </p>
+
+                {/* Active Indicator */}
+                {activeCategory === index && (
+                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-white rounded-full flex items-center justify-center">
+                    <div className="w-3 h-3 bg-black rounded-full"></div>
+                  </div>
+                )}
+              </div>
+
+              {/* Connection Lines for Active Category */}
+              {activeCategory === index && (
+                <div className="absolute inset-0 pointer-events-none">
+                  <div className="absolute top-1/2 left-1/2 w-32 h-px bg-black transform -translate-x-1/2 -translate-y-1/2 rotate-45 opacity-30"></div>
+                  <div className="absolute top-1/2 left-1/2 w-32 h-px bg-black transform -translate-x-1/2 -translate-y-1/2 -rotate-45 opacity-30"></div>
+                </div>
+              )}
+            </div>
           ))}
         </div>
 
-        <p className="text-base md:text-[1.2vw] mb-1">Animation & Interactivity:</p>
-        <div className="flex flex-wrap gap-2 md:gap-4 mb-6">
-          {['GSAP', 'LOCOMOTIVE JS'].map((skill) => (
-            <button
-              key={skill}
-              className="text-xs sm:text-sm md:text-[1vw] font-normal border border-gray-300 rounded-full py-1 md:py-2 px-3 md:px-6 whitespace-nowrap"
-            >
-              {skill}
-            </button>
-          ))}
+        {/* Active Category Details */}
+        <div className="max-w-4xl mx-auto mb-16">
+          <div className="bg-gray-50 border-2 border-gray-200 rounded-2xl p-8 transition-all duration-500">
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-black text-white rounded-2xl mb-4">
+                <span className="text-3xl">{skillCategories[activeCategory].icon}</span>
+              </div>
+              <h3 className="text-3xl font-bold font-poppins mb-2">
+                {skillCategories[activeCategory].name} Development
+              </h3>
+              <div className="w-24 h-1 bg-black mx-auto"></div>
+            </div>
+            
+            {/* Skills Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {skillCategories[activeCategory].skills.map((skill, skillIndex) => (
+                <div 
+                  key={skill}
+                  className="bg-white border-2 border-gray-300 rounded-xl py-4 px-4 text-center font-medium hover:bg-black hover:text-white hover:border-black transition-all duration-300 transform hover:scale-105 cursor-pointer"
+                  style={{
+                    animationDelay: `${skillIndex * 100}ms`
+                  }}
+                >
+                  {skill}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <h2 className="font-extrabold text-2xl sm:text-3xl md:text-[2.9vw] border-t-2 pt-6 md:pt-[3vw] leading-tight mb-2">Backend, Programming & Databases</h2>
-        <p className="text-base md:text-[1.2vw] mb-1">Backend Frameworks:</p>
-        <div className="flex flex-wrap gap-2 md:gap-4 mb-4">
-          {['NODE JS', 'EXPRESS', 'PHP'].map((tool) => (
-            <button
-              key={tool}
-              className="text-xs sm:text-sm md:text-[1vw] font-normal border border-gray-300 rounded-full py-1 md:py-2 px-3 md:px-6 whitespace-nowrap"
-            >
-              {tool}
-            </button>
-          ))}
+        {/* Skills Overview */}
+        <div className="text-center mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
+            <div className="bg-black text-white rounded-2xl p-6">
+              <div className="text-3xl font-bold mb-2">6</div>
+              <div className="text-sm uppercase tracking-wide">Categories</div>
+            </div>
+            <div className="border-2 border-black rounded-2xl p-6">
+              <div className="text-3xl font-bold mb-2">25+</div>
+              <div className="text-sm uppercase tracking-wide">Technologies</div>
+            </div>
+            <div className="bg-gray-100 border-2 border-gray-300 rounded-2xl p-6">
+              <div className="text-3xl font-bold mb-2">3+</div>
+              <div className="text-sm uppercase tracking-wide">Years Experience</div>
+            </div>
+          </div>
         </div>
 
-        <p className="text-base md:text-[1.2vw] mb-1">Programming Languages:</p>
-        <div className="flex flex-wrap gap-2 md:gap-4 mb-4">
-          {['JAVA', 'C & C++', 'PYTHON'].map((lang) => (
-            <button
-              key={lang}
-              className="text-xs sm:text-sm md:text-[1vw] font-normal border border-gray-300 rounded-full py-1 md:py-2 px-3 md:px-6 whitespace-nowrap"
-            >
-              {lang}
-            </button>
-          ))}
+        {/* Character Image */}
+        <div className="flex justify-center">
+          <img
+            src="./images/skillsModel.png"
+            alt="3D illustration representing technical skills"
+            className="w-48 md:w-64 h-auto object-contain opacity-60"
+          />
         </div>
-
-        <p className="text-base md:text-[1.2vw] mb-1">Databases:</p>
-        <div className="flex flex-wrap gap-2 md:gap-4 mb-6">
-          {['POSTGRESQL', 'MYSQL', 'SQLITE'].map((db) => (
-            <button
-              key={db}
-              className="text-xs sm:text-sm md:text-[1vw] font-normal border border-gray-300 rounded-full py-1 md:py-2 px-3 md:px-6 whitespace-nowrap"
-            >
-              {db}
-            </button>
-          ))}
-        </div>
-
-        <h2 className="font-extrabold text-2xl sm:text-3xl md:text-[2.9vw] leading-tight mb-2 border-t-2 pt-6 md:pt-[3vw]">Tools & Platforms</h2>
-        <p className="text-base md:text-[1.2vw] mb-1">CMS & E-Commerce:</p>
-        <div className="flex flex-wrap gap-2 md:gap-4 mb-6">
-          {['WORDPRESS', 'WOOCOMMERCE'].map((cms) => (
-            <button
-              key={cms}
-              className="text-xs sm:text-sm md:text-[1vw] font-normal border border-gray-300 rounded-full py-1 md:py-2 px-3 md:px-6 whitespace-nowrap"
-            >
-              {cms}
-            </button>
-          ))}
-        </div>
-
-        <p className="text-base md:text-[1.2vw] mb-1">Design Tools:</p>
-        <div className="flex flex-wrap gap-2 md:gap-4">
-          {['CANVA', 'FIGMA'].map((tool) => (
-            <button
-              key={tool}
-              className="text-xs sm:text-sm md:text-[1vw] font-normal border border-gray-300 rounded-full py-1 md:py-2 px-3 md:px-6 mb-6 md:mb-[5vw] whitespace-nowrap"
-            >
-              {tool}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Right image - centered on mobile, sticky on desktop */}
-      <div className="flex justify-center mt-6 lg:mt-0 lg:sticky lg:top-[30vh] lg:self-start">
-        <img
-          src="./images/skillsModel.png"
-          alt="3D illustration of a person sitting on a blue beanbag chair looking at a phone"
-          className="w-58 sm:w-64 md:w-72 lg:w-[30vw] h-auto object-contain"
-        />
       </div>
     </section>
   );
