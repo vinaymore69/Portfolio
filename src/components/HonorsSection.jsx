@@ -10,6 +10,13 @@ const HonorsSection = () => {
       icon: "🏅"
     },
     {
+      title: "Winner – Sprint Nova 6-Hour Hackathon",
+      issuer: "Xavier Institute of Engineering",
+      date: "2025",
+      description: "Won the Sprint Nova 6-hour hackathon competition at Xavier Institute of Engineering, demonstrating rapid prototyping skills, innovative problem-solving, and technical excellence under time constraints. Successfully developed and presented a complete solution within the challenging 6-hour timeframe.",
+      icon: "🚀"
+    },
+    {
       title: "Campus Ambassador – GSSoC 2025 Selected Representative",
       issuer: "GirlScript Foundation",
       date: "Jun 2025",
