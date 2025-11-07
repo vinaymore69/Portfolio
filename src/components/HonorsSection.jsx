@@ -1,6 +1,61 @@
 import React from 'react';
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const HonorsSection = () => {
+  const titleRef = useRef(null);
+  const cardsRef = useRef([]);
+
+  useEffect(() => {
+    // Title animation
+    gsap.fromTo(titleRef.current,
+      {
+        opacity: 0,
+        y: 50,
+        scale: 0.9
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: titleRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+
+    // Cards stagger animation
+    gsap.fromTo(cardsRef.current,
+      {
+        opacity: 0,
+        y: 80,
+        rotationX: -45,
+        scale: 0.8
+      },
+      {
+        opacity: 1,
+        y: 0,
+        rotationX: 0,
+        scale: 1,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: cardsRef.current[0],
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  }, []);
+
   const honors = [
     {
       title: "Selected for SIH 2025 – Internal Hackathon Qualifier",
@@ -69,13 +124,14 @@ const HonorsSection = () => {
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-20">
       <div className="text-center mb-12">
-        <h2 className="text-4xl md:text-6xl font-bold mb-4 font-poppins">Honors & Awards</h2>
+        <h2 ref={titleRef} className="text-4xl md:text-6xl font-bold mb-4 font-poppins">Honors & Awards</h2>
         <p className="text-lg text-gray-600 font-poppins-bold">Recognition for academic excellence and technical achievements</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         {honors.map((honor, index) => (
           <div 
+            ref={el => cardsRef.current[index] = el}
             key={index}
             className="bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
           >

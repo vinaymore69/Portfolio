@@ -1,7 +1,103 @@
 import React, { useState } from 'react';
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function SkillsSection() {
   const [activeCategory, setActiveCategory] = useState(0);
+  const titleRef = useRef(null);
+  const categoriesRef = useRef([]);
+  const skillCardsRef = useRef([]);
+  const statsRef = useRef([]);
+
+  useEffect(() => {
+    // Title animation with stagger effect
+    gsap.fromTo(titleRef.current,
+      {
+        opacity: 0,
+        y: 50,
+        scale: 0.9
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: titleRef.current,
+          start: "top 80%",
+          end: "bottom 20%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+
+    // Category buttons animation
+    gsap.fromTo(categoriesRef.current,
+      {
+        opacity: 0,
+        y: 30,
+        scale: 0.8
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: categoriesRef.current[0],
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+
+    // Stats cards animation
+    gsap.fromTo(statsRef.current,
+      {
+        opacity: 0,
+        y: 50,
+        rotationX: -90
+      },
+      {
+        opacity: 1,
+        y: 0,
+        rotationX: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: statsRef.current[0],
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    // Animate skill cards when category changes
+    gsap.fromTo(skillCardsRef.current,
+      {
+        opacity: 0,
+        y: 20,
+        scale: 0.9
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.5,
+        stagger: 0.1,
+        ease: "power2.out"
+      }
+    );
+  }, [activeCategory]);
 
   const skillCategories = [
     {
@@ -36,7 +132,7 @@ export default function SkillsSection() {
         
         {/* Header */}
         <div className="text-center mb-20">
-          <h1 className="text-6xl md:text-8xl font-bold mb-6 font-poppins">
+          <h1 ref={titleRef} className="text-6xl md:text-8xl font-bold mb-6 font-poppins">
             Technical Skills
           </h1>
           <div className="w-24 h-px bg-black mx-auto"></div>
@@ -46,6 +142,7 @@ export default function SkillsSection() {
         <div className="flex flex-wrap justify-center gap-4 mb-16">
           {skillCategories.map((category, index) => (
             <button
+              ref={el => categoriesRef.current[index] = el}
               key={index}
               onClick={() => setActiveCategory(index)}
               className={`px-8 py-3 border transition-all duration-300 font-medium ${
@@ -70,11 +167,9 @@ export default function SkillsSection() {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl">
               {skillCategories[activeCategory].skills.map((skill, skillIndex) => (
                 <div 
+                  ref={el => skillCardsRef.current[skillIndex] = el}
                   key={skill}
                   className="border border-gray-300 py-6 px-4 text-center font-medium hover:bg-black hover:text-white hover:border-black transition-all duration-300 cursor-pointer"
-                  style={{
-                    animationDelay: `${skillIndex * 100}ms`
-                  }}
                 >
                   {skill}
                 </div>
@@ -86,15 +181,15 @@ export default function SkillsSection() {
         {/* Skills Overview */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto mb-16">
           <div className="text-center border border-gray-300 py-8 px-6">
-            <div className="text-4xl font-bold mb-2">6</div>
+            <div ref={el => statsRef.current[0] = el} className="text-4xl font-bold mb-2">6</div>
             <div className="text-sm uppercase tracking-wide text-gray-600">Categories</div>
           </div>
           <div className="text-center bg-black text-white py-8 px-6">
-            <div className="text-4xl font-bold mb-2">25+</div>
+            <div ref={el => statsRef.current[1] = el} className="text-4xl font-bold mb-2">25+</div>
             <div className="text-sm uppercase tracking-wide">Technologies</div>
           </div>
           <div className="text-center border border-gray-300 py-8 px-6">
-            <div className="text-4xl font-bold mb-2">3+</div>
+            <div ref={el => statsRef.current[2] = el} className="text-4xl font-bold mb-2">3+</div>
             <div className="text-sm uppercase tracking-wide text-gray-600">Years</div>
           </div>
         </div>

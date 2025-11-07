@@ -1,4 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
@@ -47,6 +51,96 @@ export default function HomeSection() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [hoveredProject, setHoveredProject] = useState(null);
   const [lastScrollPosition, setLastScrollPosition] = useState(0);
+  const titleRef = useRef(null);
+  const imageRef = useRef(null);
+  const buttonsRef = useRef([]);
+  const hoverImageRef = useRef(null);
+
+  useEffect(() => {
+    // Title animation
+    gsap.fromTo(titleRef.current,
+      {
+        opacity: 0,
+        y: 100,
+        scale: 0.8
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 1.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: titleRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+
+    // Project image animation
+    gsap.fromTo(imageRef.current,
+      {
+        opacity: 0,
+        x: -100,
+        rotation: -5
+      },
+      {
+        opacity: 1,
+        x: 0,
+        rotation: 0,
+        duration: 1,
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: imageRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+
+    // Project buttons stagger animation
+    gsap.fromTo(buttonsRef.current,
+      {
+        opacity: 0,
+        y: 50,
+        scale: 0.8
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: buttonsRef.current[0],
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    // Hover image animation
+    if (hoveredProject && hoverImageRef.current) {
+      gsap.fromTo(hoverImageRef.current,
+        {
+          opacity: 0,
+          scale: 0.8,
+          y: 20
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.4,
+          ease: "back.out(1.7)"
+        }
+      );
+    }
+  }, [hoveredProject]);
   
   // Find the hovered project data
   const hoveredProjectData = projects.find(proj => proj.id === hoveredProject);
@@ -77,6 +171,7 @@ export default function HomeSection() {
     <main className="relative w-full overflow-hidden min-h-screen bg-white text-black">
       {/* Hover Preview Image - Hidden on mobile */}
       <div 
+        ref={hoverImageRef}
         className={`fixed left-1/2 transform -translate-x-1/2 top-10 z-10 transition-all duration-300 ease-in-out hidden md:block ${
           hoveredProject ? "opacity-100" : "opacity-0"
         }`}
@@ -98,7 +193,7 @@ export default function HomeSection() {
         }`}
       >
         <div className="mb-8 md:mb-20">
-          <h1 className="text-4xl md:text-6xl font-bold mb-2 font-poppins">My Projects</h1>
+          <h1 ref={titleRef} className="text-4xl md:text-6xl font-bold mb-2 font-poppins">My Projects</h1>
           <p className="font-poppins-bold text-sm">Learning From my Each project.</p>
         </div>
 
@@ -106,6 +201,7 @@ export default function HomeSection() {
         <div className="flex flex-col md:flex-row items-center md:items-start">
           <div className="mb-6 md:mb-0">
             <img
+              ref={imageRef}
               src="./images/projectsModel.png"
               alt="Project Illustration"
               lazyload="true"
@@ -119,6 +215,7 @@ export default function HomeSection() {
               {/* First row - stacked on mobile, row-reverse on desktop */}
               <div className="flex flex-col md:flex-row-reverse gap-4 md:gap-8 justify-start items-stretch md:items-end">
                 <button
+                  ref={el => buttonsRef.current[0] = el}
                   onClick={() => handleProjectClick(1)}
                   onMouseEnter={() => setHoveredProject(1)}
                   onMouseLeave={() => setHoveredProject(null)}
@@ -128,6 +225,7 @@ export default function HomeSection() {
                   <span className="ml-2 md:ml-4">→</span>
                 </button>
                 <button
+                  ref={el => buttonsRef.current[1] = el}
                   onClick={() => handleProjectClick(2)}
                   onMouseEnter={() => setHoveredProject(2)}
                   onMouseLeave={() => setHoveredProject(null)}
@@ -141,6 +239,7 @@ export default function HomeSection() {
               {/* Second row - stacked on mobile, row-reverse on desktop */}
               <div className="flex flex-col md:flex-row-reverse gap-4 md:gap-8 justify-start items-stretch md:items-end">
                 <button
+                  ref={el => buttonsRef.current[2] = el}
                   onClick={() => handleProjectClick(3)}
                   onMouseEnter={() => setHoveredProject(3)}
                   onMouseLeave={() => setHoveredProject(null)}
@@ -150,6 +249,7 @@ export default function HomeSection() {
                   <span className="ml-2 md:ml-4">→</span>
                 </button>
                 <button
+                  ref={el => buttonsRef.current[3] = el}
                   onClick={() => handleProjectClick(4)}
                   onMouseEnter={() => setHoveredProject(4)}
                   onMouseLeave={() => setHoveredProject(null)}
@@ -159,6 +259,7 @@ export default function HomeSection() {
                   <span className="ml-2 md:ml-4">→</span>
                 </button>
                 <button
+                  ref={el => buttonsRef.current[4] = el}
                   onClick={() => handleProjectClick(5)}
                   onMouseEnter={() => setHoveredProject(5)}
                   onMouseLeave={() => setHoveredProject(null)}

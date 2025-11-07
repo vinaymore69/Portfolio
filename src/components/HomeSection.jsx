@@ -1,8 +1,103 @@
 import React, { useState } from 'react';
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function HomeSection() {
   const [isOpen, setIsOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const titleRef = useRef(null);
+  const imageRef = useRef(null);
+  const buttonRef = useRef(null);
+
+  useEffect(() => {
+    const tl = gsap.timeline();
+    
+    // Title animation - split text effect
+    tl.fromTo(titleRef.current, 
+      { 
+        opacity: 0, 
+        y: 100,
+        scale: 0.8
+      },
+      { 
+        opacity: 1, 
+        y: 0,
+        scale: 1,
+        duration: 1.2,
+        ease: "power3.out"
+      }
+    )
+    // Image animation with bounce
+    .fromTo(imageRef.current,
+      {
+        opacity: 0,
+        scale: 0.5,
+        rotation: -10
+      },
+      {
+        opacity: 1,
+        scale: 1,
+        rotation: 0,
+        duration: 1,
+        ease: "back.out(1.7)"
+      },
+      "-=0.5"
+    )
+    // Button floating animation
+    .fromTo(buttonRef.current,
+      {
+        opacity: 0,
+        scale: 0
+      },
+      {
+        opacity: 1,
+        scale: 1,
+        duration: 0.8,
+        ease: "elastic.out(1, 0.5)"
+      },
+      "-=0.3"
+    );
+
+    // Continuous floating animation for button
+    gsap.to(buttonRef.current, {
+      y: -10,
+      duration: 2,
+      ease: "power2.inOut",
+      yoyo: true,
+      repeat: -1
+    });
+
+    // Image hover effect
+    const handleImageHover = () => {
+      gsap.to(imageRef.current, {
+        scale: 1.05,
+        rotation: 2,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    };
+
+    const handleImageLeave = () => {
+      gsap.to(imageRef.current, {
+        scale: 1,
+        rotation: 0,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    };
+
+    const imageElement = imageRef.current;
+    imageElement.addEventListener('mouseenter', handleImageHover);
+    imageElement.addEventListener('mouseleave', handleImageLeave);
+
+    return () => {
+      imageElement.removeEventListener('mouseenter', handleImageHover);
+      imageElement.removeEventListener('mouseleave', handleImageLeave);
+    };
+  }, []);
 
   const handleNextClick = () => {
     if (isAnimating) return;
@@ -29,19 +124,21 @@ export default function HomeSection() {
 
   return (
     <main className="max-w-7xl mx-auto mt-10 px-4 sm:px-8 relative text-center">
-      <h1 className="font-poppins font-bold text-4xl sm:text-[8vw] leading-tight sm:leading-[7vw] text-black m-0">
+      <h1 ref={titleRef} className="font-poppins font-bold text-4xl sm:text-[8vw] leading-tight sm:leading-[7vw] text-black m-0">
         EXPLORE<br />
         MY PORTFOLIO
       </h1>
       
       <div className="relative">
         <img
+          ref={imageRef}
           src="/images/profile.png"
           alt="Young man smiling wearing white shirt"
           className="mt-4 sm:mt-[-4vw] w-50 sm:w-[26vw] myImage h-auto rounded-none inline-block"
         />
         
         <button
+          ref={buttonRef}
           aria-label="Next"
           className="absolute top-1/2 right-1/4 sm:left-[20.95vw] sm:rotate-[20deg] transform -translate-y-1/2 sm:-translate-y-[220%] w-10 h-10 sm:w-[3vw] sm:h-[3vw] border border-black rounded-full 
                    bg-transparent text-black cursor-pointer flex items-center justify-center 
