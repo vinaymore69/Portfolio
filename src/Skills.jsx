@@ -9,7 +9,7 @@ import Footer from './components/Footer';
 function Skills() {
   return (
     <FadeInWrapper>
-      <div className="px-5 py-2 m-0 bg-white font-inter">
+      <div className="px-5 py-2 m-0 bg-white font-inter pb-0">
         <Header />
         <SkillsSection />
         <CircleContainer />

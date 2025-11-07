@@ -1,6 +1,193 @@
 import React from 'react';
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 function EnhancedAboutSection() {
+  const titleRef = useRef(null);
+  const subtitleRef = useRef(null);
+  const descriptionRef = useRef(null);
+  const imageRef = useRef(null);
+  const statsRef = useRef([]);
+  const experienceRef = useRef([]);
+  const educationRef = useRef([]);
+
+  useEffect(() => {
+    // Split text animation for main title
+    if (titleRef.current) {
+      const chars = titleRef.current.textContent.split('');
+      titleRef.current.innerHTML = chars.map(char => 
+        char === ' ' ? ' ' : `<span style="display: inline-block;">${char}</span>`
+      ).join('');
+      
+      gsap.fromTo(titleRef.current.children,
+        {
+          opacity: 0,
+          y: 50,
+          rotationX: -90
+        },
+        {
+          opacity: 1,
+          y: 0,
+          rotationX: 0,
+          duration: 0.8,
+          stagger: 0.05,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+
+    // Split text for subtitle
+    if (subtitleRef.current) {
+      const words = subtitleRef.current.textContent.split(' ');
+      subtitleRef.current.innerHTML = words.map(word => 
+        `<span style="display: inline-block; margin-right: 0.3em;">${word}</span>`
+      ).join('');
+      
+      gsap.fromTo(subtitleRef.current.children,
+        {
+          opacity: 0,
+          y: 30,
+          scale: 0.8
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: subtitleRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+
+    // Split text for description
+    if (descriptionRef.current) {
+      const words = descriptionRef.current.textContent.split(' ');
+      descriptionRef.current.innerHTML = words.map(word => 
+        `<span style="display: inline-block; margin-right: 0.25em;">${word}</span>`
+      ).join('');
+      
+      gsap.fromTo(descriptionRef.current.children,
+        {
+          opacity: 0,
+          y: 20
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.4,
+          stagger: 0.03,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: descriptionRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+
+    // Image animation
+    gsap.fromTo(imageRef.current,
+      {
+        opacity: 0,
+        scale: 0.5,
+        rotation: -10
+      },
+      {
+        opacity: 1,
+        scale: 1,
+        rotation: 0,
+        duration: 1,
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: imageRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+
+    // Stats animation
+    gsap.fromTo(statsRef.current,
+      {
+        opacity: 0,
+        y: 50,
+        scale: 0.8
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: statsRef.current[0],
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+
+    // Experience cards animation
+    gsap.fromTo(experienceRef.current,
+      {
+        opacity: 0,
+        x: -100,
+        rotationY: -45
+      },
+      {
+        opacity: 1,
+        x: 0,
+        rotationY: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: experienceRef.current[0],
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+
+    // Education cards animation
+    gsap.fromTo(educationRef.current,
+      {
+        opacity: 0,
+        x: 100,
+        rotationY: 45
+      },
+      {
+        opacity: 1,
+        x: 0,
+        rotationY: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: educationRef.current[0],
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  }, []);
+
   const experiences = [
     {
       company: "Codeterna Private Limited",
@@ -80,10 +267,10 @@ function EnhancedAboutSection() {
         
         {/* Left block */}
         <div className="text-left z-10 mb-8 md:mb-12 w-full md:max-w-xs">
-          <p className="text-sm sm:text-base md:text-lg font-medium mb-4">
+          <p ref={subtitleRef} className="text-sm sm:text-base md:text-lg font-medium mb-4">
             Looking for an affordable and passionate developer for your tech solutions
           </p>
-          <h1 className="font-vujahday text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+          <h1 ref={titleRef} className="font-vujahday text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
             Hello there!
           </h1>
           <button className="font-poppins-bold bg-black text-white text-base px-6 py-2 rounded-full hover:bg-gray-800 transition-colors">
@@ -97,17 +284,18 @@ function EnhancedAboutSection() {
           {/* Stats block - responsive spacing */}
           <div className="flex space-x-8 md:space-x-[8vw] mb-6 md:mb-[6vw]">
             <div className="text-center">
-              <h2 className="text-4xl md:text-7xl font-bold">10+</h2>
-              <p className="text-sm md:text-[1.1vw]">Projects</p>
+              <h2 ref={el => statsRef.current[0] = el} className="text-4xl md:text-7xl font-bold">10+</h2>
+              <p ref={el => statsRef.current[1] = el} className="text-sm md:text-[1.1vw]">Projects</p>
             </div>
             <div className="text-center">
-              <h2 className="text-4xl md:text-7xl font-bold">1+ Years</h2>
-              <p className="text-sm md:text-[1.1vw]">Internship</p>
+              <h2 ref={el => statsRef.current[2] = el} className="text-4xl md:text-7xl font-bold">1+ Years</h2>
+              <p ref={el => statsRef.current[3] = el} className="text-sm md:text-[1.1vw]">Internship</p>
             </div>
           </div>
 
           {/* Character Image - responsive sizing */}
           <img
+            ref={imageRef}
             src="./images/aboutModel.png"
             alt="3D Character"
             className="h-50 sm:h-64 md:h-96 object-contain"
@@ -116,7 +304,7 @@ function EnhancedAboutSection() {
 
         {/* Right block */}
         <div className="text-right z-10 mb-8 md:mb-12 w-full md:max-w-xs md:ml-auto">
-          <p className="text-sm sm:text-base font-medium mb-4">
+          <p ref={descriptionRef} className="text-sm sm:text-base font-medium mb-4">
             <b className="text-base md:text-[1.3vw]">Computer Engineering</b> student at <b className="text-base md:text-[1.3vw]">Vidyalankar Polytechnic</b> passionate about coding.
           </p>
           <h1 className="font-vujahday text-center leading-tight text-5xl md:text-7xl font-bold">
@@ -132,7 +320,7 @@ function EnhancedAboutSection() {
         
         <div className="space-y-8">
           {experiences.map((exp, index) => (
-            <div key={index} className="border-l-2 border-gray-200 pl-6 ml-4">
+            <div ref={el => experienceRef.current[index] = el} key={index} className="border-l-2 border-gray-200 pl-6 ml-4">
               <div className="flex items-start space-x-4 mb-4">
                 <img
                   src={exp.logo}
@@ -169,7 +357,7 @@ function EnhancedAboutSection() {
         
         <div className="space-y-8">
           {education.map((edu, index) => (
-            <div key={index} className="border-l-2 border-gray-200 pl-6 ml-4">
+            <div ref={el => educationRef.current[index] = el} key={index} className="border-l-2 border-gray-200 pl-6 ml-4">
               <div className="flex items-start space-x-4 mb-4">
                 <img
                   src={edu.logo}

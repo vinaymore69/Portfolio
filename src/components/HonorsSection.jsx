@@ -8,9 +8,66 @@ gsap.registerPlugin(ScrollTrigger);
 const HonorsSection = () => {
   const titleRef = useRef(null);
   const cardsRef = useRef([]);
+  const subtitleRef = useRef(null);
 
   useEffect(() => {
-    // Title animation
+    // Split text animation for title
+    if (titleRef.current) {
+      const words = titleRef.current.textContent.split(' ');
+      titleRef.current.innerHTML = words.map(word => 
+        `<span style="display: inline-block; margin-right: 0.3em;">${word}</span>`
+      ).join('');
+      
+      gsap.fromTo(titleRef.current.children,
+        {
+          opacity: 0,
+          y: 100,
+          rotationX: -90
+        },
+        {
+          opacity: 1,
+          y: 0,
+          rotationX: 0,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+
+    // Split text for subtitle
+    if (subtitleRef.current) {
+      const words = subtitleRef.current.textContent.split(' ');
+      subtitleRef.current.innerHTML = words.map(word => 
+        `<span style="display: inline-block; margin-right: 0.25em;">${word}</span>`
+      ).join('');
+      
+      gsap.fromTo(subtitleRef.current.children,
+        {
+          opacity: 0,
+          y: 30
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.4,
+          stagger: 0.05,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: subtitleRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+
+    // Title animation (fallback if split text fails)
     gsap.fromTo(titleRef.current,
       {
         opacity: 0,
@@ -125,7 +182,7 @@ const HonorsSection = () => {
     <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-20">
       <div className="text-center mb-12">
         <h2 ref={titleRef} className="text-4xl md:text-6xl font-bold mb-4 font-poppins">Honors & Awards</h2>
-        <p className="text-lg text-gray-600 font-poppins-bold">Recognition for academic excellence and technical achievements</p>
+        <p ref={subtitleRef} className="text-lg text-gray-600 font-poppins-bold">Recognition for academic excellence and technical achievements</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">

@@ -5,7 +5,7 @@ import { faEnvelope, faPhone, faMapMarkerAlt, faTree } from '@fortawesome/free-s
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white py-12 md:py-16">
+    <footer className="bg-black text-white py-12 md:py-16 mt-16 md:mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
           
