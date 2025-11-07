@@ -44,34 +44,24 @@ function EnhancedAboutSection() {
       );
     }
 
-    // Split text for subtitle
-    if (subtitleRef.current) {
-      const words = subtitleRef.current.textContent.split(' ');
-      subtitleRef.current.innerHTML = words.map(word => 
-        `<span style="display: inline-block; margin-right: 0.3em;">${word}</span>`
-      ).join('');
-      
-      gsap.fromTo(subtitleRef.current.children,
-        {
-          opacity: 0,
-          y: 30,
-          scale: 0.8
-        },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: subtitleRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse"
-          }
+    // Simple fade-in for subtitle without text splitting
+    gsap.fromTo(subtitleRef.current,
+      {
+        opacity: 0,
+        y: 30
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: subtitleRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
         }
-      );
-    }
+      }
+    );
 
     // Split text for description
     if (descriptionRef.current) {
