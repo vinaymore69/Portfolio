@@ -14,7 +14,21 @@ export default function HomeSection() {
 
   useEffect(() => {
     const tl = gsap.timeline();
+       const titleElement = titleRef.current;
+    const lines = titleElement.querySelectorAll('.title-line');
     
+
+        // Title animation - line by line 3D flip effect
+    tl.from(lines, {
+       rotationX: -100,
+      transformOrigin: "50% 50% -160px",
+      opacity: 0,
+      duration: 1,
+      delay: 0.3, 
+      ease: "power5.out",
+      stagger: 0.35,
+    })
+
     // Title animation - split text effect
     tl.fromTo(titleRef.current, 
       { 
@@ -60,6 +74,8 @@ export default function HomeSection() {
       },
       "-=0.3"
     );
+
+    
 
     // Continuous floating animation for button
     gsap.to(buttonRef.current, {
@@ -125,10 +141,15 @@ export default function HomeSection() {
   return (
     <main className="max-w-7xl mx-auto mt-10 px-4 sm:px-8 relative text-center">
       <h1 ref={titleRef} className="font-poppins font-bold text-4xl sm:text-[8vw] leading-tight sm:leading-[7vw] text-black m-0">
-        EXPLORE<br />
-        MY PORTFOLIO
+        EXPLORE
       </h1>
-      
+
+      <h1 ref={titleRef} className="font-poppins font-bold text-4xl sm:text-[8vw] leading-tight sm:leading-[7vw] text-black m-0">
+  MY PORTFOLIO
+      </h1>
+           
+
+
       <div className="relative">
         <img
           ref={imageRef}
