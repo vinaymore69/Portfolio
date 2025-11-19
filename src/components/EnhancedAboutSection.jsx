@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import jsPDF from 'jspdf';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -178,6 +179,72 @@ function EnhancedAboutSection() {
     );
   }, []);
 
+  const handleDownloadResume = () => {
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    
+    // Add content to PDF
+    pdf.setFontSize(20);
+    pdf.text('Vinay More', 105, 20, { align: 'center' });
+    
+    pdf.setFontSize(12);
+    pdf.text('Computer Engineering Student & Full Stack Developer', 105, 30, { align: 'center' });
+    pdf.text('Mumbai, India | vinaymore0110@gmail.com | +91 9137405110', 105, 40, { align: 'center' });
+    
+    // Experience Section
+    pdf.setFontSize(16);
+    pdf.text('Experience', 20, 60);
+    pdf.line(20, 65, 190, 65);
+    
+    pdf.setFontSize(12);
+    pdf.text('Codeterna Private Limited', 20, 75);
+    pdf.setFontSize(10);
+    pdf.text('Mobile Application Developer | Sep 2025 - Present', 20, 82);
+    pdf.text('• Flutter, iOS Development, Cross-platform Apps', 25, 89);
+    pdf.text('• Application Developer | Jul 2025 - Aug 2025', 25, 96);
+    
+    pdf.setFontSize(12);
+    pdf.text('Red Box Agency', 20, 110);
+    pdf.setFontSize(10);
+    pdf.text('Website Developer & Digital Marketer | Jul 2024 - Present', 20, 117);
+    pdf.text('• WordPress, HTML/CSS/JS, SEO, Social Media Strategy', 25, 124);
+    pdf.text('• Web Development & Digital Marketing | Apr 2024 - Jul 2024', 25, 131);
+    
+    // Education Section
+    pdf.setFontSize(16);
+    pdf.text('Education', 20, 150);
+    pdf.line(20, 155, 190, 155);
+    
+    pdf.setFontSize(12);
+    pdf.text('Xavier Institute Of Engineering', 20, 165);
+    pdf.setFontSize(10);
+    pdf.text('Bachelor of Engineering - BE, Computer Engineering | Aug 2025 - Present', 20, 172);
+    
+    pdf.setFontSize(12);
+    pdf.text('Vidyalankar Group of Educational Institutes', 20, 185);
+    pdf.setFontSize(10);
+    pdf.text('High School Diploma, Computer Engineering | Sep 2022 - Jun 2025', 20, 192);
+    pdf.text('Grade: 91.61%', 20, 199);
+    
+    // Projects Section
+    pdf.setFontSize(16);
+    pdf.text('Key Projects', 20, 220);
+    pdf.line(20, 225, 190, 225);
+    
+    pdf.setFontSize(12);
+    pdf.text('SanChi - Educational Platform', 20, 235);
+    pdf.setFontSize(10);
+    pdf.text('Web-based volunteering-driven educational platform', 20, 242);
+    pdf.text('Technologies: HTML, CSS, JavaScript, Express.js, PostgreSQL', 20, 249);
+    
+    pdf.setFontSize(12);
+    pdf.text('VPortfolinK - Portfolio Platform', 20, 260);
+    pdf.setFontSize(10);
+    pdf.text('Dynamic portfolio creation platform', 20, 267);
+    pdf.text('Technologies: PHP, MySQL, HTML, CSS, JavaScript, GSAP', 20, 274);
+    
+    // Download the PDF
+    pdf.save('Vinay_More_Resume.pdf');
+  };
   const experiences = [
     {
       company: "Codeterna Private Limited",
@@ -263,7 +330,10 @@ function EnhancedAboutSection() {
           <h1 ref={titleRef} className="font-vujahday text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
             Hello there!
           </h1>
-          <button className="font-poppins-bold bg-black text-white text-base px-6 py-2 rounded-full hover:bg-gray-800 transition-colors">
+          <button 
+            onClick={handleDownloadResume}
+            className="font-poppins-bold bg-black text-white text-base px-6 py-2 rounded-full hover:bg-gray-800 transition-colors"
+          >
             Resume <i className="fas fa-download ml-4"></i>
           </button>
         </div>
