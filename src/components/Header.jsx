@@ -150,6 +150,15 @@ function Header() {
       <div className={`fixed inset-0 bg-white z-20 flex flex-col justify-center items-center transition-opacity duration-300 md:hidden ${
         mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
       }`}>
+        {/* Close Button */}
+        <button 
+          className="absolute top-6 right-6 text-black hover:text-gray-600 transition-colors"
+          onClick={() => setMobileMenuOpen(false)}
+          aria-label="Close menu"
+        >
+          <FontAwesomeIcon icon={faXmark} className="text-2xl" />
+        </button>
+        
         <nav className="flex flex-col gap-4 items-center">
           <a
             href="/"

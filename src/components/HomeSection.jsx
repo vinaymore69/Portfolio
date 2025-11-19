@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function HomeSection() {
   const [isOpen, setIsOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const resumeContentRef = useRef(null);
   const titleRef = useRef(null);
   const imageRef = useRef(null);
   const buttonRef = useRef(null);
@@ -138,6 +141,40 @@ export default function HomeSection() {
     }, 600);
   };
 
+  const handleDownloadPDF = async () => {
+    try {
+      const element = resumeContentRef.current;
+      const canvas = await html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#ffffff'
+      });
+      
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgWidth = 210;
+      const pageHeight = 295;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+      let position = 0;
+      
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+      
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      
+      pdf.save('Vinay_More_Resume.pdf');
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      alert('Error generating PDF. Please try again.');
+    }
+  };
   return (
     <main className="max-w-7xl mx-auto mt-10 px-4 sm:px-8 relative text-center">
       <h1 ref={titleRef} className="font-poppins font-bold text-4xl sm:text-[8vw] leading-tight sm:leading-[7vw] text-black m-0">
@@ -197,20 +234,20 @@ export default function HomeSection() {
           </div>
           
           {/* Window Content */}
-          <div className="p-4 sm:p-6 overflow-auto" style={{ maxHeight: 'calc(90vh - 40px)' }}>
+          <div ref={resumeContentRef} className="p-4 sm:p-6 overflow-auto" style={{ maxHeight: 'calc(90vh - 40px)' }}>
             <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800"> Resume</h2>
             
             <div className="space-y-6 sm:space-y-8">
               {/* Personal Info */}
               <div className="text-center mb-4 sm:mb-6">
                 <h3 className="text-lg sm:text-xl font-bold text-gray-800">Vinay More</h3>
-                <p className="text-gray-600 text-sm sm:text-base">Computer Engineering Student & Web Developer</p>
+                <p className="text-gray-600 text-sm sm:text-base">Computer Engineering Student & Full Stack Developer</p>
                 <div className="flex flex-wrap justify-center gap-1 sm:gap-0 sm:space-x-4 mt-2 text-xs sm:text-sm text-gray-600">
                   <span>Mumbai, India</span>
                   <span className="hidden sm:inline">•</span>
-                  <span>34 followers</span>
+                  <span>vinaymore0110@gmail.com</span>
                   <span className="hidden sm:inline">•</span>
-                  <span>31 connections</span>
+                  <span>+91 9137405110</span>
                 </div>
               </div>
               
@@ -221,26 +258,21 @@ export default function HomeSection() {
                 <div className="space-y-4 sm:space-y-6">
                   <div className="flex flex-col">
                     <div className="font-medium text-left">
-                      <div className="text-gray-800">Red Box Agency</div>
-                      <div className="text-gray-600 text-xs sm:text-sm">Internship · 1 yr 1 mo</div>
-                      <div className="text-gray-600 text-xs sm:text-sm">Remote</div>
+                      <div className="text-gray-800">Codeterna Private Limited</div>
+                      <div className="text-gray-600 text-xs sm:text-sm">Mobile Application Developer · 4 mos</div>
+                      <div className="text-gray-600 text-xs sm:text-sm">Navi Mumbai, Maharashtra, India</div>
                     </div>
                     <div className="text-left mt-2">
                       <ul className="list-disc ml-5 text-gray-700 text-sm">
                         <li className="mb-3 sm:mb-4">
-                          <div className="font-medium text-gray-800">Website Development and Social media marketing</div>
-                          <div className="text-gray-600 text-xs sm:text-sm">Jul 2024 - Present · 10 mos</div>
-                          <div className="text-gray-600 text-xs sm:text-sm">Mumbai, Maharashtra, India</div>
-                        </li>
-                        <li className="mb-3 sm:mb-4">
-                          <div className="font-medium text-gray-800">Web Development & Social media marketing strategy Development</div>
-                          <div className="text-gray-600 text-xs sm:text-sm">Jun 2024 - Jul 2024 · 2 mos</div>
-                          <div className="text-gray-600 text-xs sm:text-sm">Mumbai, Maharashtra, India</div>
+                          <div className="font-medium text-gray-800">Mobile Application Developer</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">Sep 2025 - Present · 4 mos</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">Flutter, iOS Development, Cross-platform Apps</div>
                         </li>
                         <li>
-                          <div className="font-medium text-gray-800">Website Development</div>
-                          <div className="text-gray-600 text-xs sm:text-sm">Apr 2024 - Jun 2024 · 3 mos</div>
-                          <div className="text-gray-600 text-xs sm:text-sm">Andheri Mumbai India</div>
+                          <div className="font-medium text-gray-800">Application Developer</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">Jul 2025 - Aug 2025 · 2 mos</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">Flutter Application Development</div>
                         </li>
                       </ul>
                     </div>
@@ -248,14 +280,28 @@ export default function HomeSection() {
                   
                   <div className="flex flex-col">
                     <div className="font-medium text-left">
-                      <div className="text-gray-800">Student</div>
-                      <div className="text-gray-600 text-xs sm:text-sm">Sep 2022 - Present · 2 yrs 8 mos</div>
+                      <div className="text-gray-800">Red Box Agency</div>
+                      <div className="text-gray-600 text-xs sm:text-sm">Website Developer & Digital Marketer · 1 yr 4 mos</div>
+                      <div className="text-gray-600 text-xs sm:text-sm">Mumbai, Maharashtra, India</div>
                     </div>
-                    <div className="text-left mt-1">
-                      <div className="font-medium text-gray-800">Vidyalankar Group of Educational Institutes</div>
-                      <div className="text-xs sm:text-sm text-gray-700 mt-1">
-                        Mumbai, Maharashtra, India
-                      </div>
+                    <div className="text-left mt-2">
+                      <ul className="list-disc ml-5 text-gray-700 text-sm">
+                        <li className="mb-3 sm:mb-4">
+                          <div className="font-medium text-gray-800">Website Development and Social media marketing</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">Jul 2024 - Present · 1 yr 1 mo</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">WordPress, HTML/CSS/JS, SEO, Social Media Strategy</div>
+                        </li>
+                        <li className="mb-3 sm:mb-4">
+                          <div className="font-medium text-gray-800">Web Development & Social media marketing strategy Development</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">Jun 2024 - Jul 2024 · 2 mos</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">Digital Marketing Strategy, Content Creation</div>
+                        </li>
+                        <li>
+                          <div className="font-medium text-gray-800">Website Development</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">Apr 2024 - Jun 2024 · 3 mos</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">Frontend Development, Responsive Design</div>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </div>
@@ -268,13 +314,26 @@ export default function HomeSection() {
                 <div className="space-y-4 sm:space-y-6">
                   <div className="flex flex-col">
                     <div className="font-medium text-left">
+                      <div className="text-gray-800">Xavier Institute Of Engineering</div>
+                      <div className="text-gray-600 text-xs sm:text-sm">Aug 2025 - Present</div>
+                    </div>
+                    <div className="text-left mt-1">
+                      <div className="font-medium text-gray-800">Bachelor of Engineering - BE, Computer Engineering</div>
+                      <div className="text-xs sm:text-sm text-gray-700 mt-1">
+                        Currently pursuing BE in Computer Engineering
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-col">
+                    <div className="font-medium text-left">
                       <div className="text-gray-800">Vidyalankar Group of Educational Institutes</div>
                       <div className="text-gray-600 text-xs sm:text-sm">Sep 2022 - Jun 2025</div>
                     </div>
                     <div className="text-left mt-1">
                       <div className="font-medium text-gray-800">High School Diploma, Computer Engineering</div>
                       <div className="text-xs sm:text-sm text-gray-700 mt-1">
-                        Activities and societies: Coder
+                        Grade: 91.61% | Activities: Programming, Technical Projects
                       </div>
                     </div>
                   </div>
@@ -295,20 +354,71 @@ export default function HomeSection() {
                 </div>
               </div>
               
+              {/* Projects Section */}
+              <div>
+                <h3 className="text-base sm:text-lg font-bold border-b border-gray-300 pb-2 mb-3 sm:mb-4 text-left">Key Projects</h3>
+                
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold text-gray-800">SanChi - Educational Platform</h4>
+                    <p className="text-xs sm:text-sm text-gray-600 mb-1">Web-based volunteering-driven educational platform</p>
+                    <p className="text-xs text-gray-500">Technologies: HTML, CSS, JavaScript, Express.js, PostgreSQL</p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-800">VPortfolinK - Portfolio Platform</h4>
+                    <p className="text-xs sm:text-sm text-gray-600 mb-1">Dynamic portfolio creation platform</p>
+                    <p className="text-xs text-gray-500">Technologies: PHP, MySQL, HTML, CSS, JavaScript, GSAP</p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-800">V-Visit - Visiting Application</h4>
+                    <p className="text-xs sm:text-sm text-gray-600 mb-1">Modern visiting card application</p>
+                    <p className="text-xs text-gray-500">Technologies: React, Tailwind CSS, Node.js</p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Achievements Section */}
+              <div>
+                <h3 className="text-base sm:text-lg font-bold border-b border-gray-300 pb-2 mb-3 sm:mb-4 text-left">Key Achievements</h3>
+                
+                <div className="space-y-2">
+                  <div className="text-xs sm:text-sm text-gray-700">• Winner - Sprint Nova 6-Hour Hackathon, Xavier Institute of Engineering (2025)</div>
+                  <div className="text-xs sm:text-sm text-gray-700">• Selected for SIH 2025 - Internal Hackathon Qualifier</div>
+                  <div className="text-xs sm:text-sm text-gray-700">• Campus Ambassador - GSSoC 2025, GirlScript Foundation</div>
+                  <div className="text-xs sm:text-sm text-gray-700">• Runner Up - Final Year Project Exhibition, Vidyalankar Polytechnic</div>
+                  <div className="text-xs sm:text-sm text-gray-700">• Published Research Paper - "SanChi: Empowerment Through Education" (IJRPR, 2025)</div>
+                </div>
+              </div>
+              
               {/* Skills Section */}
               <div>
                 <h3 className="text-base sm:text-lg font-bold border-b border-gray-300 pb-2 mb-3 sm:mb-4 text-left">Skills</h3>
                 
                 <div className="flex flex-wrap gap-2">
-                  <span className="bg-gray-100 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm text-gray-800">Website Development</span>
-                  <span className="bg-gray-100 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm text-gray-800">Social Media Marketing</span>
-                  <span className="bg-gray-100 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm text-gray-800">Web Development</span>
-                  <span className="bg-gray-100 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm text-gray-800">Marketing Strategy</span>
-                  <span className="bg-gray-100 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm text-gray-800">Computer Engineering</span>
-                  <span className="bg-gray-100 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm text-gray-800">Coding</span>
-                  <span className="bg-gray-100 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm text-gray-800">Cricket</span>
-                  <span className="bg-gray-100 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm text-gray-800">Painting</span>
+                  <span className="bg-gray-100 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm text-gray-800">React.js</span>
+                  <span className="bg-gray-100 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm text-gray-800">Node.js</span>
+                  <span className="bg-gray-100 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm text-gray-800">Flutter</span>
+                  <span className="bg-gray-100 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm text-gray-800">JavaScript</span>
+                  <span className="bg-gray-100 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm text-gray-800">PHP</span>
+                  <span className="bg-gray-100 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm text-gray-800">MySQL</span>
+                  <span className="bg-gray-100 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm text-gray-800">PostgreSQL</span>
+                  <span className="bg-gray-100 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm text-gray-800">HTML/CSS</span>
+                  <span className="bg-gray-100 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm text-gray-800">Tailwind CSS</span>
+                  <span className="bg-gray-100 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm text-gray-800">GSAP</span>
+                  <span className="bg-gray-100 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm text-gray-800">WordPress</span>
+                  <span className="bg-gray-100 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm text-gray-800">Digital Marketing</span>
                 </div>
+              </div>
+              
+              {/* Download Button */}
+              <div className="text-center pt-6 border-t border-gray-200">
+                <button
+                  onClick={handleDownloadPDF}
+                  className="bg-black text-white px-6 py-3 rounded-full hover:bg-gray-800 transition-colors font-medium"
+                >
+                  Download PDF Resume
+                  <i className="fas fa-download ml-2"></i>
+                </button>
               </div>
             </div>
           </div>
