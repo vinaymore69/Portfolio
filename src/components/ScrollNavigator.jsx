@@ -9,7 +9,7 @@ const ScrollNavigator = () => {
   const lastScrollY = useRef(0);
 
   // Define page order for navigation
-  const pages = ['/', '/about', '/project', '/skills', '/contact'];
+  const pages = ['/', '/about', '/project', '/skills', '/contact', '/privacy-policy', '/terms-conditions'];
   const currentIndex = pages.indexOf(location.pathname);
 
   useEffect(() => {

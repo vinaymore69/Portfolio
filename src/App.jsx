@@ -6,6 +6,8 @@ import About from './about'; // <- your about page
 import Contact from './contact';
 import Project from './Project';
 import Skills from './Skills';
+import PrivacyPolicy from './PrivacyPolicy';
+import TermsConditions from './TermsConditions';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/project" element={<Project />} />
           <Route path="/skills" element={<Skills />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-conditions" element={<TermsConditions />} />
         </Routes>
       </PageWrapper>
     </Router>

@@ -11,7 +11,9 @@ const ScrollIndicator = () => {
     { path: '/about', name: 'About' },
     { path: '/project', name: 'Projects' },
     { path: '/skills', name: 'Skills' },
-    { path: '/contact', name: 'Contact' }
+    { path: '/contact', name: 'Contact' },
+    { path: '/privacy-policy', name: 'Privacy' },
+    { path: '/terms-conditions', name: 'Terms' }
   ];
 
   const currentIndex = pages.findIndex(page => page.path === location.pathname);

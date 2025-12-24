@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
           
           {/* Brand Section */}
-          <div className="md:col-span-2">
+          <div className="md:col-span-1">
             <div className="flex items-center gap-3 mb-6">
               <img
                 src="/images/portfolioLogoInvert.png"
@@ -88,8 +88,25 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Contact Info */}
+          {/* Legal Links */}
           <div>
+            <h3 className="text-lg font-bold mb-4 font-geom">Legal</h3>
+            <ul className="space-y-2">
+              <li>
+                <a href="/privacy-policy" className="text-gray-300 hover:text-white transition-colors">
+                  Privacy Policy
+                </a>
+              </li>
+              <li>
+                <a href="/terms-conditions" className="text-gray-300 hover:text-white transition-colors">
+                  Terms & Conditions
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Contact Info */}
+          <div className="md:col-span-1">
             <h3 className="text-lg font-bold mb-4 font-geom">Get In Touch</h3>
             <ul className="space-y-3">
               <li className="flex items-center space-x-3">
