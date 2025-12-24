@@ -6,8 +6,7 @@ module.exports = {
     theme: {
       extend: {
         fontFamily: {
-          'inter': ['Inter', 'sans-serif'],
-          'poppins': ['Poppins', 'sans-serif'],
+          'geom': ['Geom', 'sans-serif'],
           'vujahday': ['Vujahday Script', 'cursive'],
           custom: ['HolidayFree', 'cursive'],
         },

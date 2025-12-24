@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geom:ital,wght@0,300..900;1,300..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Vujahday+Script&display=swap');
 /* Ensure Tailwind CSS directives are correctly included */
 
@@ -8,7 +7,7 @@
 @tailwind utilities;
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Geom', sans-serif;
   margin: 0;
   overflow-x: hidden; /* Prevent horizontal scroll during transitions */
   scroll-behavior: smooth; /* Enable smooth scrolling */

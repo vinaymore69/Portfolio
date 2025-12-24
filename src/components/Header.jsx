@@ -70,6 +70,7 @@ function Header() {
 
   return (
     <header className="max-w-7xl mx-auto px-4 sm:px-8 py-4 flex justify-between items-center relative font-poppins-bold text-base sm:text-[2vw] text-black fade-in">
+    <header className="max-w-7xl mx-auto px-4 sm:px-8 py-4 flex justify-between items-center relative font-geom font-bold text-base sm:text-[2vw] text-black fade-in">
       {/* Logo */}
       <div ref={logoRef} className="flex items-center gap-2 text-sm sm:text-[1vw] text-black z-20">
         <img
