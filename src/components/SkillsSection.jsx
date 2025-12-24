@@ -212,6 +212,7 @@ export default function SkillsSection() {
                 onClick={() => setActiveCategory(index)}
               >
                 <h4 className="font-bold text-lg mb-4 font-poppins">
+                <h4 className="font-bold text-lg mb-4 font-geom">
                   {category.name}
                 </h4>
                 <div className="space-y-2">

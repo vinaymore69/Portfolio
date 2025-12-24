@@ -99,7 +99,7 @@ function Contact() {
           rows={5}
           value={formData.query}
           onChange={handleChange}
-          className="font-poppins-bold border bg-transparent border-black rounded-md py-4 px-4 text-sm placeholder:text-sm placeholder:font-poppins-bold resize-none"
+          className="font-geom font-bold border bg-transparent border-black rounded-md py-4 px-4 text-sm placeholder:text-sm placeholder:font-geom placeholder:font-bold resize-none"
           required
         />
   

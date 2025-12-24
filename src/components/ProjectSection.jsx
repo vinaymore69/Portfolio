@@ -316,7 +316,7 @@ export default function HomeSection() {
 
                 <button
                   onClick={handleBackClick}
-                  className="self-start border border-black rounded-full py-2 md:py-3 px-6 md:px-8 text-sm md:text-m font-poppins-bold flex justify-between items-center gap-3 md:gap-5 hover:bg-black hover:text-white transition-all duration-300 ease-in-out"
+                  className="self-start border border-black rounded-full py-2 md:py-3 px-6 md:px-8 text-sm md:text-m font-geom font-bold flex justify-between items-center gap-3 md:gap-5 hover:bg-black hover:text-white transition-all duration-300 ease-in-out"
                 >
                   <span className="text-xl md:text-2xl">←</span>
                   Back

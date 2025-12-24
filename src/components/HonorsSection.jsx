@@ -193,7 +193,7 @@ const HonorsSection = () => {
             className="bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
           >
             <div className="text-4xl mb-4">{honor.icon}</div>
-            <h3 className="text-lg font-bold mb-2 font-poppins leading-tight">{honor.title}</h3>
+            <h3 className="text-lg font-bold mb-2 font-geom leading-tight">{honor.title}</h3>
             <div className="flex items-center justify-between mb-3">
               <p className="text-sm font-semibold text-gray-700">{honor.issuer}</p>
               <span className="text-xs bg-gray-100 px-2 py-1 rounded-full">{honor.date}</span>

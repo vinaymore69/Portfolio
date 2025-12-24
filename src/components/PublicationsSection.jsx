@@ -134,7 +134,7 @@ const PublicationsSection = () => {
           </p>
           <a
             href="/contact"
-            className="inline-flex items-center justify-center px-8 py-3 bg-black text-white rounded-full hover:bg-gray-800 transition-colors font-poppins-bold"
+            className="inline-flex items-center justify-center px-8 py-3 bg-black text-white rounded-full hover:bg-gray-800 transition-colors font-geom font-bold"
           >
             Get In Touch
             <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

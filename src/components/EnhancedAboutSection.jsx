@@ -332,7 +332,7 @@ function EnhancedAboutSection() {
           </h1>
           <button 
             onClick={handleDownloadResume}
-            className="font-poppins-bold bg-black text-white text-base px-6 py-2 rounded-full hover:bg-gray-800 transition-colors"
+            className="font-geom font-bold bg-black text-white text-base px-6 py-2 rounded-full hover:bg-gray-800 transition-colors"
           >
             Resume <i className="fas fa-download ml-4"></i>
           </button>

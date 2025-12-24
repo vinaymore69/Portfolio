@@ -90,7 +90,7 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-lg font-bold mb-4 font-poppins">Get In Touch</h3>
+            <h3 className="text-lg font-bold mb-4 font-geom">Get In Touch</h3>
             <ul className="space-y-3">
               <li className="flex items-center space-x-3">
                 <FontAwesomeIcon icon={faEnvelope} className="text-gray-400" />
