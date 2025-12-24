@@ -177,7 +177,7 @@ export default function HomeSection() {
   };
   return (
     <main className="max-w-7xl mx-auto mt-10 px-4 sm:px-8 relative text-center">
-      <h1 ref={titleRef} className="font-poppins font-bold text-4xl sm:text-[8vw] leading-tight sm:leading-[7vw] text-black m-0">
+      <h1 ref={titleRef} className="font-geom font-bold text-4xl sm:text-[8vw] leading-tight sm:leading-[7vw] text-black m-0">
         EXPLORE
       </h1>
 
