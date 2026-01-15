@@ -259,19 +259,24 @@ export default function HomeSection() {
                   <div className="flex flex-col">
                     <div className="font-medium text-left">
                       <div className="text-gray-800">Codeterna Private Limited</div>
-                      <div className="text-gray-600 text-xs sm:text-sm">Mobile Application Developer · 4 mos</div>
+                      <div className="text-gray-600 text-xs sm:text-sm">Mobile Application Developer · 7 mos</div>
                       <div className="text-gray-600 text-xs sm:text-sm">Navi Mumbai, Maharashtra, India</div>
                     </div>
                     <div className="text-left mt-2">
                       <ul className="list-disc ml-5 text-gray-700 text-sm">
                         <li className="mb-3 sm:mb-4">
                           <div className="font-medium text-gray-800">Mobile Application Developer</div>
-                          <div className="text-gray-600 text-xs sm:text-sm">Sep 2025 - Present · 4 mos</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">Nov 2025 - Present · 3 mos</div>
                           <div className="text-gray-600 text-xs sm:text-sm">Flutter, iOS Development, Cross-platform Apps</div>
                         </li>
                         <li>
-                          <div className="font-medium text-gray-800">Application Developer</div>
-                          <div className="text-gray-600 text-xs sm:text-sm">Jul 2025 - Aug 2025 · 2 mos</div>
+                          <div className="font-medium text-gray-800">Mobile Application Developer (Internship)</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">Sep 2025 - Nov 2025 · 3 mos</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">Mobile Application Development, iOS</div>
+                        </li>
+                        <li>
+                          <div className="font-medium text-gray-800">Mobile Application Developer</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">Jul 2025 - Aug 2025 · 1 mo</div>
                           <div className="text-gray-600 text-xs sm:text-sm">Flutter Application Development</div>
                         </li>
                       </ul>
@@ -280,25 +285,42 @@ export default function HomeSection() {
                   
                   <div className="flex flex-col">
                     <div className="font-medium text-left">
+                      <div className="text-gray-800">Skill Stream</div>
+                      <div className="text-gray-600 text-xs sm:text-sm">Video Editor · 1 yr 9 mos</div>
+                      <div className="text-gray-600 text-xs sm:text-sm">Mumbai, Maharashtra, India · Remote</div>
+                    </div>
+                    <div className="text-left mt-2">
+                      <ul className="list-disc ml-5 text-gray-700 text-sm">
+                        <li>
+                          <div className="font-medium text-gray-800">Video Editor (Part-time)</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">May 2024 - Present · 1 yr 9 mos</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">Video Editing, Content Creation</div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-col">
+                    <div className="font-medium text-left">
                       <div className="text-gray-800">Red Box Agency</div>
-                      <div className="text-gray-600 text-xs sm:text-sm">Website Developer & Digital Marketer · 1 yr 4 mos</div>
+                      <div className="text-gray-600 text-xs sm:text-sm">Website Developer & Digital Marketer · 1 yr 10 mos</div>
                       <div className="text-gray-600 text-xs sm:text-sm">Mumbai, Maharashtra, India</div>
                     </div>
                     <div className="text-left mt-2">
                       <ul className="list-disc ml-5 text-gray-700 text-sm">
                         <li className="mb-3 sm:mb-4">
-                          <div className="font-medium text-gray-800">Website Development and Social media marketing</div>
-                          <div className="text-gray-600 text-xs sm:text-sm">Jul 2024 - Present · 1 yr 1 mo</div>
-                          <div className="text-gray-600 text-xs sm:text-sm">WordPress, HTML/CSS/JS, SEO, Social Media Strategy</div>
+                          <div className="font-medium text-gray-800">Web Developer & Creative Head</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">Aug 2025 - Present · 6 mos</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">Web Development, Creative Direction, Team Leadership</div>
                         </li>
                         <li className="mb-3 sm:mb-4">
-                          <div className="font-medium text-gray-800">Web Development & Social media marketing strategy Development</div>
-                          <div className="text-gray-600 text-xs sm:text-sm">Jun 2024 - Jul 2024 · 2 mos</div>
-                          <div className="text-gray-600 text-xs sm:text-sm">Digital Marketing Strategy, Content Creation</div>
+                          <div className="font-medium text-gray-800">Website Development and Social Media Marketing</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">Jul 2024 - Aug 2025 · 1 yr 2 mos</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">WordPress, HTML/CSS/JS, SEO, Social Media Strategy</div>
                         </li>
                         <li>
                           <div className="font-medium text-gray-800">Website Development</div>
-                          <div className="text-gray-600 text-xs sm:text-sm">Apr 2024 - Jun 2024 · 3 mos</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">Apr 2024 - Jun 2024 · 2 mos</div>
                           <div className="text-gray-600 text-xs sm:text-sm">Frontend Development, Responsive Design</div>
                         </li>
                       </ul>
