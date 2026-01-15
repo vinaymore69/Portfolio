@@ -198,95 +198,209 @@ function EnhancedAboutSection() {
     pdf.setFontSize(12);
     pdf.text('Codeterna Private Limited', 20, 75);
     pdf.setFontSize(10);
-    pdf.text('Mobile Application Developer | Sep 2025 - Present', 20, 82);
+    pdf.text('Mobile Application Developer | Nov 2025 - Present', 20, 82);
     pdf.text('• Flutter, iOS Development, Cross-platform Apps', 25, 89);
-    pdf.text('• Application Developer | Jul 2025 - Aug 2025', 25, 96);
+    pdf.text('• Previous roles: Internship (Sep-Nov 2025), Full-time (Jul-Aug 2025)', 25, 96);
     
     pdf.setFontSize(12);
-    pdf.text('Red Box Agency', 20, 110);
+    pdf.text('Skill Stream', 20, 110);
     pdf.setFontSize(10);
-    pdf.text('Website Developer & Digital Marketer | Jul 2024 - Present', 20, 117);
-    pdf.text('• WordPress, HTML/CSS/JS, SEO, Social Media Strategy', 25, 124);
-    pdf.text('• Web Development & Digital Marketing | Apr 2024 - Jul 2024', 25, 131);
+    pdf.text('Video Editor | May 2024 - Present', 20, 117);
+    pdf.text('• Video Editing, Content Creation', 25, 124);
+    
+    pdf.setFontSize(12);
+    pdf.text('Red Box Agency', 20, 140);
+    pdf.setFontSize(10);
+    pdf.text('Web Developer & Creative Head | Aug 2025 - Present', 20, 147);
+    pdf.text('• Website Development, Social Media Marketing', 25, 154);
+    pdf.text('• Previous roles: Multiple internship positions (Apr 2024 - Aug 2025)', 25, 161);
     
     // Education Section
     pdf.setFontSize(16);
-    pdf.text('Education', 20, 150);
-    pdf.line(20, 155, 190, 155);
+    pdf.text('Education', 20, 180);
+    pdf.line(20, 185, 190, 185);
     
     pdf.setFontSize(12);
-    pdf.text('Xavier Institute Of Engineering', 20, 165);
+    pdf.text('Xavier Institute Of Engineering', 20, 195);
     pdf.setFontSize(10);
-    pdf.text('Bachelor of Engineering - BE, Computer Engineering | Aug 2025 - Present', 20, 172);
+    pdf.text('Bachelor of Engineering - BE, Computer Engineering | Aug 2025 - Present', 20, 202);
     
     pdf.setFontSize(12);
-    pdf.text('Vidyalankar Group of Educational Institutes', 20, 185);
+    pdf.text('Vidyalankar Group of Educational Institutes', 20, 215);
     pdf.setFontSize(10);
-    pdf.text('High School Diploma, Computer Engineering | Sep 2022 - Jun 2025', 20, 192);
-    pdf.text('Grade: 91.61%', 20, 199);
+    pdf.text('High School Diploma, Computer Engineering | Sep 2022 - Jun 2025', 20, 222);
+    pdf.text('Grade: 91.61%', 20, 229);
     
     // Projects Section
     pdf.setFontSize(16);
-    pdf.text('Key Projects', 20, 220);
-    pdf.line(20, 225, 190, 225);
+    pdf.text('Key Projects', 20, 250);
+    pdf.line(20, 255, 190, 255);
     
     pdf.setFontSize(12);
-    pdf.text('SanChi - Educational Platform', 20, 235);
+    pdf.text('SanChi - Educational Platform', 20, 265);
     pdf.setFontSize(10);
-    pdf.text('Web-based volunteering-driven educational platform', 20, 242);
-    pdf.text('Technologies: HTML, CSS, JavaScript, Express.js, PostgreSQL', 20, 249);
+    pdf.text('Web-based volunteering-driven educational platform', 20, 272);
+    pdf.text('Technologies: HTML, CSS, JavaScript, Express.js, PostgreSQL', 20, 279);
     
     pdf.setFontSize(12);
-    pdf.text('VPortfolinK - Portfolio Platform', 20, 260);
+    pdf.text('VPortfolinK - Portfolio Platform', 20, 290);
     pdf.setFontSize(10);
-    pdf.text('Dynamic portfolio creation platform', 20, 267);
-    pdf.text('Technologies: PHP, MySQL, HTML, CSS, JavaScript, GSAP', 20, 274);
+    pdf.text('Dynamic portfolio creation platform', 20, 297);
+    pdf.text('Technologies: PHP, MySQL, HTML, CSS, JavaScript, GSAP', 20, 304);
     
     // Download the PDF
     pdf.save('Vinay_More_Resume.pdf');
   };
+
+  // Helper function to calculate duration between two dates
+  const calculateDuration = (startDate, endDate = null) => {
+    const start = new Date(startDate);
+    const end = endDate ? new Date(endDate) : new Date();
+    
+    let years = end.getFullYear() - start.getFullYear();
+    let months = end.getMonth() - start.getMonth();
+    
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+    
+    if (years > 0 && months > 0) {
+      return `${years} yr${years > 1 ? 's' : ''} ${months} mo${months > 1 ? 's' : ''}`;
+    } else if (years > 0) {
+      return `${years} yr${years > 1 ? 's' : ''}`;
+    } else if (months > 0) {
+      return `${months} mo${months > 1 ? 's' : ''}`;
+    } else {
+      return '1 mo';
+    }
+  };
+
+  // Helper function to format date range
+  const formatDateRange = (startDate, endDate = null) => {
+    const start = new Date(startDate);
+    const end = endDate ? new Date(endDate) : new Date();
+    
+    const formatDate = (date) => {
+      return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+    };
+    
+    const duration = calculateDuration(startDate, endDate);
+    const endText = endDate ? formatDate(end) : 'Present';
+    
+    return `${formatDate(start)} - ${endText} · ${duration}`;
+  };
+
+  // Helper function to calculate total company duration
+  const calculateCompanyDuration = (positions) => {
+    if (!positions || positions.length === 0) return '';
+    
+    const allDates = positions.flatMap(pos => [
+      new Date(pos.startDate),
+      pos.endDate ? new Date(pos.endDate) : new Date()
+    ]);
+    
+    const earliestStart = new Date(Math.min(...allDates.filter((_, index) => index % 2 === 0)));
+    const latestEnd = new Date(Math.max(...allDates));
+    
+    return calculateDuration(earliestStart, positions.some(pos => !pos.endDate) ? null : latestEnd);
+  };
+
   const experiences = [
     {
       company: "Codeterna Private Limited",
       logo: "/images/codeternaLogo.png",
-      duration: "Internship · 3 mos",
-      location: "Navi Mumbai, Maharashtra, India · Remote",
+      startDate: "2025-07-01",
+      location: "Mumbai, Maharashtra, India",
       positions: [
         {
           title: "Mobile Application Developer",
-          period: "Sep 2025 - Present · 1 mo",
-          location: "Navi Mumbai, Maharashtra, India · Remote",
-          description: "Mobile Application Development and iOS"
+          type: "Full-time",
+          startDate: "2025-11-01",
+          endDate: null,
+          location: "Mumbai, Maharashtra, India · On-site",
+          description: "Mobile Application Development and iOS",
+          skills: ["Mobile Application Development", "iOS"]
         },
         {
-          title: "Application Developer",
-          period: "Jul 2025 - Aug 2025 · 2 mos",
+          title: "Mobile Application Developer",
+          type: "Internship",
+          startDate: "2025-09-01",
+          endDate: "2025-11-01",
+          location: "Navi Mumbai, Maharashtra, India · Remote",
+          description: "Mobile Application Development and iOS",
+          skills: ["Mobile Application Development", "iOS"]
+        },
+        {
+          title: "Mobile Application Developer",
+          type: "Full-time",
+          startDate: "2025-07-01",
+          endDate: "2025-08-01",
           location: "Mumbai, Maharashtra, India · On-site",
-          description: "Flutter and Application Development"
+          description: "Flutter and Application Development",
+          skills: ["Flutter", "Application Development"]
+        }
+      ]
+    },
+    {
+      company: "Skill Stream",
+      logo: "/images/portfolioLogo.png", // Using portfolio logo as placeholder
+      startDate: "2024-05-01",
+      location: "Mumbai, Maharashtra, India · Remote",
+      positions: [
+        {
+          title: "Video Editor",
+          type: "Part-time",
+          startDate: "2024-05-01",
+          endDate: null,
+          location: "Mumbai, Maharashtra, India · Remote",
+          description: "Video editing and content creation for various projects",
+          skills: ["Video Editing", "Content Creation"]
         }
       ]
     },
     {
       company: "Red Box Agency",
       logo: "/images/redboxlogo.png",
-      duration: "Internship · 1 yr 4 mos",
-      location: "Remote",
+      startDate: "2024-04-01",
+      location: "Mumbai, Maharashtra, India",
       positions: [
         {
-          title: "Website Development and Social media marketing",
-          period: "Jul 2024 - Present · 1 yr 1 mo",
+          title: "Web Developer & Creative Head",
+          type: "Part-time",
+          startDate: "2025-08-01",
+          endDate: null,
           location: "Mumbai, Maharashtra, India",
-          description: "Web Development & Social media marketing strategy Development."
+          description: "Leading web development projects and creative initiatives",
+          skills: ["Web Development", "Creative Direction", "Team Leadership"]
         },
         {
-          title: "Web Development & Social media marketing strategy Development",
-          period: "Jun 2024 - Jul 2024 · 2 mos",
-          location: "Mumbai, Maharashtra, India"
+          title: "Website Development and Social Media Marketing",
+          type: "Internship",
+          startDate: "2024-07-01",
+          endDate: "2025-08-01",
+          location: "Mumbai, Maharashtra, India",
+          description: "Web Development & Social media marketing strategy Development",
+          skills: ["WordPress", "HTML/CSS/JS", "SEO", "Social Media Strategy"]
+        },
+        {
+          title: "Web Development & Social Media Marketing Strategy Development",
+          type: "Internship",
+          startDate: "2024-06-01",
+          endDate: "2024-07-01",
+          location: "Mumbai, Maharashtra, India",
+          description: "Developing comprehensive digital marketing strategies",
+          skills: ["Digital Marketing", "Strategy Development"]
         },
         {
           title: "Website Development",
-          period: "Apr 2024 - Jun 2024 · 3 mos",
-          location: "Andheri Mumbai India"
+          type: "Internship",
+          startDate: "2024-04-01",
+          endDate: "2024-06-01",
+          location: "Andheri Mumbai India",
+          description: "Frontend development and website creation",
+          skills: ["HTML", "CSS", "JavaScript", "Responsive Design"],
+          certificate: "6 Week Internship Completion Certificate"
         }
       ]
     },
@@ -389,7 +503,7 @@ function EnhancedAboutSection() {
                 />
                 <div>
                   <h3 className="text-xl font-bold font-poppins">{exp.company}</h3>
-                  <p className="text-gray-600 font-medium">{exp.duration}</p>
+                  <p className="text-gray-600 font-medium">{calculateCompanyDuration(exp.positions)}</p>
                   <p className="text-gray-500 text-sm">{exp.location}</p>
                 </div>
               </div>
@@ -397,11 +511,28 @@ function EnhancedAboutSection() {
               <div className="space-y-4 ml-16">
                 {exp.positions.map((position, posIndex) => (
                   <div key={posIndex} className="pb-4">
-                    <h4 className="font-semibold text-lg">{position.title}</h4>
-                    <p className="text-gray-600 text-sm mb-1">{position.period}</p>
+                    <div className="flex items-center gap-2 mb-1">
+                      <h4 className="font-semibold text-lg">{position.title}</h4>
+                      <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">
+                        {position.type}
+                      </span>
+                    </div>
+                    <p className="text-gray-600 text-sm mb-1">{formatDateRange(position.startDate, position.endDate)}</p>
                     <p className="text-gray-500 text-sm mb-2">{position.location}</p>
                     {position.description && (
                       <p className="text-gray-700">{position.description}</p>
+                    )}
+                    {position.skills && (
+                      <div className="flex flex-wrap gap-1 mt-2">
+                        {position.skills.map((skill, skillIndex) => (
+                          <span key={skillIndex} className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs">
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    {position.certificate && (
+                      <p className="text-green-600 text-sm mt-1 font-medium">📜 {position.certificate}</p>
                     )}
                   </div>
                 ))}
