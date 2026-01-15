@@ -267,7 +267,7 @@ export default function HomeSection() {
                         <li className="mb-3 sm:mb-4">
                           <div className="font-medium text-gray-800">Mobile Application Developer</div>
                           <div className="text-gray-600 text-xs sm:text-sm">Nov 2025 - Present · 3 mos</div>
-                          <div className="text-gray-600 text-xs sm:text-sm">Flutter, iOS Development, Cross-platform Apps</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">Flutter, iOS Development, Cross-platform Apps · Remote</div>
                         </li>
                         <li>
                           <div className="font-medium text-gray-800">Mobile Application Developer (Internship)</div>

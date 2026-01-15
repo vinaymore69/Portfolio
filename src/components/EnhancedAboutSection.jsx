@@ -318,7 +318,7 @@ function EnhancedAboutSection() {
           type: "Full-time",
           startDate: "2025-11-01",
           endDate: null,
-          location: "Mumbai, Maharashtra, India · On-site",
+          location: "Mumbai, Maharashtra, India · Remote",
           description: "Mobile Application Development and iOS",
           skills: ["Mobile Application Development", "iOS"]
         },
