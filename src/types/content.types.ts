@@ -209,6 +209,26 @@ export interface About extends BasePageConfig {
       }>;
     }>;
   };
+  /** Honors and awards section */
+  honors?: {
+    /** Whether to display honors section */
+    display: boolean;
+    /** Title for the honors section */
+    title: string;
+    /** List of honors and awards */
+    awards: Array<{
+      /** Award title */
+      title: string;
+      /** Organization that gave the award */
+      organization: string;
+      /** Year received */
+      year: string;
+      /** Award description */
+      description: React.ReactNode;
+      /** Award icon/emoji */
+      icon?: string;
+    }>;
+  };
 }
 
 /**

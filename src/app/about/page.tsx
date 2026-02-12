@@ -49,6 +49,11 @@ export default function About() {
       display: about.technical.display,
       items: about.technical.skills.map((skill) => skill.title),
     },
+    {
+      title: about.honors?.title || "Honors & Awards",
+      display: about.honors?.display || false,
+      items: about.honors?.awards.map((award) => award.title) || [],
+    },
   ];
   return (
     <Column maxWidth="m">
@@ -330,6 +335,45 @@ export default function About() {
                         ))}
                       </Row>
                     )}
+                  </Column>
+                ))}
+              </Column>
+            </>
+          )}
+
+          {about.honors?.display && (
+            <>
+              <Heading
+                as="h2"
+                id={about.honors.title}
+                variant="display-strong-s"
+                marginBottom="m"
+                paddingTop="m"
+              >
+                {about.honors.title}
+              </Heading>
+              <Column fillWidth gap="l" marginBottom="40">
+                {about.honors.awards.map((award, index) => (
+                  <Column key={`${award.title}-${index}`} fillWidth gap="4">
+                    <Row gap="8" vertical="center">
+                      {award.icon && (
+                        <Text variant="heading-strong-l">{award.icon}</Text>
+                      )}
+                      <Text id={award.title} variant="heading-strong-l">
+                        {award.title}
+                      </Text>
+                    </Row>
+                    <Row fillWidth horizontal="between" wrap>
+                      <Text variant="body-default-s" onBackground="brand-weak">
+                        {award.organization}
+                      </Text>
+                      <Text variant="heading-default-xs" onBackground="neutral-weak">
+                        {award.year}
+                      </Text>
+                    </Row>
+                    <Text variant="body-default-m" onBackground="neutral-weak">
+                      {award.description}
+                    </Text>
                   </Column>
                 ))}
               </Column>

@@ -2,14 +2,14 @@ import { About, Blog, Gallery, Home, Newsletter, Person, Social, Work } from "@/
 import { Line, Row, Text } from "@once-ui-system/core";
 
 const person: Person = {
-  firstName: "Selene",
-  lastName: "Yu",
-  name: `Selene Yu`,
-  role: "Design Engineer",
+  firstName: "Vinay",
+  lastName: "More",
+  name: `Vinay More`,
+  role: "Mobile Application Developer & Web Developer",
   avatar: "/images/avatar.jpg",
-  email: "example@gmail.com",
-  location: "Asia/Jakarta", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-  languages: ["English", "Bahasa"], // optional: Leave the array empty if you don't want to display languages
+  email: "vinayprakashmore@gmail.com",
+  location: "Asia/Kolkata", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
+  languages: [ "Hindi", "Marathi","English"], // optional: Leave the array empty if you don't want to display languages
 };
 
 const newsletter: Newsletter = {
@@ -25,27 +25,27 @@ const social: Social = [
   {
     name: "GitHub",
     icon: "github",
-    link: "https://github.com/once-ui-system",
+    link: "https://github.com/vinaymore69",
     essential: true,
   },
   {
     name: "LinkedIn",
     icon: "linkedin",
-    link: "https://www.linkedin.com/company/once-ui/",
+    link: "https://www.linkedin.com/vinay--more",
     essential: true,
   },
-  {
-    name: "Instagram",
-    icon: "instagram",
-    link: "https://www.instagram.com/once_ui/",
-    essential: false,
-  },
-  {
-    name: "Threads",
-    icon: "threads",
-    link: "https://www.threads.com/@once_ui",
-    essential: true,
-  },
+  // {
+  //   name: "Instagram",
+  //   icon: "instagram",
+  //   link: "https://www.instagram.com/once_ui/",
+  //   essential: false,
+  // },
+  // {
+  //   name: "Threads",
+  //   icon: "threads",
+  //   link: "https://www.threads.com/@once_ui",
+  //   essential: true,
+  // },
   {
     name: "Email",
     icon: "email",
@@ -60,12 +60,12 @@ const home: Home = {
   label: "Home",
   title: `${person.name}'s Portfolio`,
   description: `Portfolio website showcasing my work as a ${person.role}`,
-  headline: <>Building bridges between design and code</>,
+  headline: <>Computer Engineering student passionate about coding.</>,
   featured: {
     display: true,
     title: (
       <Row gap="12" vertical="center">
-        <strong className="ml-4">Once UI</strong>{" "}
+        <strong className="ml-4">Codeterna Pvt. Ltd. & Red Box Agency</strong>{" "}
         <Line background="brand-alpha-strong" vert height="20" />
         <Text marginRight="4" onBackground="brand-medium">
           Featured work
@@ -76,7 +76,7 @@ const home: Home = {
   },
   subline: (
     <>
-    I'm Selene, a design engineer at <Text as="span" size="xl" weight="strong">ONCE UI</Text>, where I craft intuitive <br /> user experiences. After hours, I build my own projects.
+    I'm Vinay, a Mobile Application Developer & Web Developer at <Text as="span" size="xl" weight="strong">Codeterna Pvt. Ltd. & Red Box Agency</Text>, where I craft intuitive <br /> industry-ready applications. Always eager to learn and take on new challenges.
 </>
   ),
 };
@@ -102,9 +102,13 @@ const about: About = {
     title: "Introduction",
     description: (
       <>
-        Selene is a Jakarta-based design engineer with a passion for transforming complex challenges
-        into simple, elegant design solutions. Her work spans digital interfaces, interactive
-        experiences, and the convergence of design and technology.
+        🚀 I’m Vinay More, a Computer Engineer passionate about AI, Machine Learning, and Full-Stack Development. A Diploma graduate from Vidyalankar Polytechnic and currently pursuing B.E. at Xavier Institute of Technology, I’ve worked at Codeterna Pvt. Ltd. and Red Box Agency on mobile (Flutter, iOS) and web development projects.
+<br/>
+<br/>
+💡 With 15+ industry certifications (Microsoft & Google Cloud AI, PHP, WhatsApp API) and experience as a GSSoC 2025 Tech Contributor, I focus on building scalable, user-centric solutions that drive real-world impact.
+<br/>
+<br/>
+Let’s connect and build innovative tech together.
       </>
     ),
   },
@@ -113,41 +117,46 @@ const about: About = {
     title: "Work Experience",
     experiences: [
       {
-        company: "FLY",
-        timeframe: "2022 - Present",
-        role: "Senior Design Engineer",
+        company: "Codeterna Private Limited",
+        timeframe: "Nov 2025 - Present",
+        role: "Mobile Application Developer (Full-time)",
         achievements: [
           <>
-            Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user
-            engagement and 30% faster load times.
+            Developing cross-platform mobile applications using Flutter and iOS, focusing on performance optimization and user experience.
           </>,
           <>
-            Spearheaded the integration of AI tools into design workflows, enabling designers to
-            iterate 50% faster.
+            Previously worked as Mobile Application Developer Intern (Sep 2025 - Nov 2025) and Full-time Developer (Jul 2025 - Aug 2025), gaining comprehensive experience in mobile app development lifecycle.
           </>,
         ],
-        images: [
-          // optional: leave the array empty if you don't want to display images
-          {
-            src: "/images/projects/project-01/cover-01.jpg",
-            alt: "Once UI Project",
-            width: 16,
-            height: 9,
-          },
-        ],
+        images: [],
       },
       {
-        company: "Creativ3",
-        timeframe: "2018 - 2022",
-        role: "Lead Designer",
+        company: "Skill Stream",
+        timeframe: "May 2024 - Present",
+        role: "Video Editor (Part-time)",
         achievements: [
           <>
-            Developed a design system that unified the brand across multiple platforms, improving
-            design consistency by 40%.
+            Creating engaging video content and managing video editing projects for various clients.
           </>,
           <>
-            Led a cross-functional team to launch a new product line, contributing to a 15% increase
-            in overall company revenue.
+            Specializing in content creation and post-production workflows.
+          </>,
+        ],
+        images: [],
+      },
+      {
+        company: "Red Box Agency",
+        timeframe: "Mar 2024 - Present",
+        role: "Web Developer & Creative Head (Part-time)",
+        achievements: [
+          <>
+            Currently leading web development projects and creative initiatives (Aug 2025 - Present).
+          </>,
+          <>
+            Previously worked on website development and social media marketing (Jul 2024 - Aug 2025), developing comprehensive digital marketing strategies (Jun 2024 - Jul 2024), and frontend development (Apr 2024 - Jun 2024).
+          </>,
+          <>
+            Proficient in WordPress, HTML/CSS/JS, SEO, and social media strategy development.
           </>,
         ],
         images: [],
@@ -159,12 +168,16 @@ const about: About = {
     title: "Studies",
     institutions: [
       {
-        name: "University of Jakarta",
-        description: <>Studied software engineering.</>,
+        name: "Xavier Institute Of Engineering",
+        description: <>Bachelor of Engineering in Computer Engineering (Aug 2025 - Present)</>,
       },
       {
-        name: "Build the Future",
-        description: <>Studied online marketing and personal branding.</>,
+        name: "Vidyalankar Polytechnic",
+        description: <>Diploma in Computer Engineering (Sep 2022 - Jun 2025) - Grade: 91.61%</>,
+      },
+      {
+        name: "Malti Jayant Dalal High School",
+        description: <>Secondary School Certificate (Jun 2012 - Jun 2022) - Grade: 87.20%</>,
       },
     ],
   },
@@ -173,60 +186,126 @@ const about: About = {
     title: "Technical skills",
     skills: [
       {
-        title: "Figma",
+        title: "Frontend Development",
         description: (
-          <>Able to prototype in Figma with Once UI with unnatural speed.</>
+          <>Building responsive and interactive user interfaces with modern web technologies.</>
         ),
         tags: [
-          {
-            name: "Figma",
-            icon: "figma",
-          },
+          { name: "HTML5", icon: "html" },
+          { name: "CSS3", icon: "css" },
+          { name: "JavaScript", icon: "javascript" },
+          { name: "React.js", icon: "react" },
+          { name: "Tailwind CSS", icon: "tailwind" },
         ],
-        // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-02.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-          {
-            src: "/images/projects/project-01/cover-03.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-        ],
+        images: [],
       },
       {
-        title: "Next.js",
+        title: "Backend Development",
         description: (
-          <>Building next gen apps with Next.js + Once UI + Supabase.</>
+          <>Creating scalable server-side applications and RESTful APIs.</>
         ),
         tags: [
-          {
-            name: "JavaScript",
-            icon: "javascript",
-          },
-          {
-            name: "Next.js",
-            icon: "nextjs",
-          },
-          {
-            name: "Supabase",
-            icon: "supabase",
-          },
+          { name: "Node.js", icon: "nodejs" },
+          { name: "Express.js", icon: "express" },
+          { name: "PHP", icon: "php" },
         ],
-        // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-04.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
+        images: [],
+      },
+      {
+        title: "Mobile Development",
+        description: (
+          <>Developing cross-platform mobile applications with Flutter and iOS.</>
+        ),
+        tags: [
+          { name: "Flutter", icon: "flutter" },
+          { name: "Dart", icon: "dart" },
+          { name: "React Native", icon: "react" },
+          { name: "iOS", icon: "apple" },
         ],
+        images: [],
+      },
+      {
+        title: "Database & Tools",
+        description: (
+          <>Managing data with modern databases and development tools.</>
+        ),
+        tags: [
+          { name: "PostgreSQL", icon: "postgresql" },
+          { name: "MySQL", icon: "mysql" },
+          { name: "Supabase", icon: "supabase" },
+          { name: "WordPress", icon: "wordpress" },
+          { name: "Git", icon: "github" },
+        ],
+        images: [],
+      },
+    ],
+  },
+  honors: {
+    display: true,
+    title: "Honors & Awards",
+    awards: [
+      {
+        icon: "🏅",
+        title: "Selected for SIH 2025 – Internal Hackathon Qualifier",
+        organization: "Smart India Hackathon",
+        year: "2025",
+        description: <>Successfully qualified through the internal hackathon round for Smart India Hackathon 2025, demonstrating innovative problem-solving skills and technical expertise in developing solutions for real-world challenges.</>,
+      },
+      {
+        icon: "🚀",
+        title: "Winner – Sprint Nova 6-Hour Hackathon",
+        organization: "Xavier Institute of Engineering",
+        year: "2025",
+        description: <>Won the Sprint Nova 6-hour hackathon competition, demonstrating rapid prototyping skills, innovative problem-solving, and technical excellence under time constraints.</>,
+      },
+      {
+        icon: "🏆",
+        title: "Campus Ambassador – GSSoC 2025",
+        organization: "GirlScript Foundation",
+        year: "Jun 2025",
+        description: <>Selected as the official Campus Ambassador for GirlScript Summer of Code 2025, promoting open-source contributions and conducting awareness sessions within the college community.</>,
+      },
+      {
+        icon: "🥈",
+        title: "Runner Up – Final Year Project Exhibition",
+        organization: "Vidyalankar Polytechnic",
+        year: "Apr 2025",
+        description: <>Secured Runner Up position in the Final Year Project Exhibition for the Department of Computer Engineering, recognized for innovation and technical excellence.</>,
+      },
+      {
+        icon: "🏆",
+        title: "First Prize - 10th Standard Academic Excellence",
+        organization: "Malti Jayant Dalal High School",
+        year: "2022",
+        description: <>Achieved First Prize for outstanding academic performance in 10th Standard examinations, maintaining top position in the class.</>,
+      },
+      {
+        icon: "📚",
+        title: "Academic Excellence - MSBTE Summer 2023",
+        organization: "Vidyalankar Polytechnic",
+        year: "2023",
+        description: <>Achieved 86.75% in the Summer 2023 examination conducted by MSBTE, recognized for outstanding academic performance in Class CO5IC Division C.</>,
+      },
+      {
+        icon: "🥇",
+        title: "First Rank In Class - MSBTE Winter 2022",
+        organization: "Vidyalankar Polytechnic",
+        year: "2022",
+        description: <>Secured 1st position in Class CO3IC Division C with 86.71% in the Winter 2022 examination conducted by MSBTE.</>,
+      },
+      {
+        icon: "🥉",
+        title: "Second Runner-Up – TechSpardha 2024-25",
+        organization: "Vidyalankar Polytechnic",
+        year: "2024",
+        description: <>Awarded Second Runner-Up at TechSpardha 2024-25, an inter-department technical competition organized by TechShala, recognized for outstanding performance in a competitive tech environment.</>,
+      },
+      {
+        icon: "🤗",
+        title: "Appreciation for Creative Sketches – Alila Competition",
+        organization: "Vidyalankar Polytechnic",
+        year: "2022",
+        description: <>Received appreciation for showcasing creative sketching skills under the banner of Alila – Surprisingly Charming, a creative initiative to spark imagination and artistic expression.</>,
       },
     ],
   },
