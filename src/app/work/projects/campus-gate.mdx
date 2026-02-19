@@ -1,0 +1,74 @@
+---
+title: "Campus Gateway — Smart Access & Geofenced Campus Management System"
+publishedAt: "2026-02-19"
+summary: "A comprehensive digital campus access platform featuring QR authentication, role-based services, facility bookings, and geofencing to prevent off-campus attendance fraud."
+images:
+  - "/images/projects/campus-gate/cover-02.png"
+  - "/images/projects/campus-gate/cover-01.png"
+  
+team:
+  - name: "Vinay More"
+    role: "Full-Stack Developer"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/"
+link: "https://your-project-link.com/"
+---
+
+## Overview
+
+Campus Gateway is a smart access control and campus management system designed to digitize and secure institutional operations. It replaces manual registers and fragmented processes with QR-based authentication, real-time tracking, and role-driven services accessible through a unified mobile application.
+
+A core objective of the system is to ensure **authentic on-campus presence verification**. To achieve this, the platform integrates geofencing technology alongside QR-based validation, preventing users from marking attendance or accessing restricted services from outside campus boundaries.
+
+The solution enhances security, operational efficiency, and transparency across academic, administrative, and visitor workflows.
+
+## Key Features
+
+- **QR-Based Entry & Exit System**: Users generate secure, time-limited QR codes for facility access. Authorized scanners validate the code and automatically record entry or exit logs.
+- **Geofenced Attendance Control**: Attendance, library access, and certain actions are allowed only when the user is physically inside the campus perimeter. GPS-based verification prevents remote or fraudulent attendance attempts.
+- **Role-Based Access Control**: Supports students, faculty, administrators, and visitors with customized permissions and feature sets.
+- **Visitor & Meeting Management**: External visitors can request appointments with faculty members, which administrators review and approve through a centralized system.
+- **Ground & Facility Booking**: Users can reserve sports grounds and facilities with real-time availability checks and approval mechanisms.
+- **Timetable Integration**: Students access personalized schedules dynamically based on their department and class.
+- **Digital Profiles & Records**: Stores user information, contact details, and historical activity logs securely.
+- **Application Status Tracking**: Displays approval states for bookings, meetings, and service requests.
+- **Administrative Monitoring Dashboard**: Provides insights into QR scans, attendance patterns, facility usage, and system activity.
+
+## Geofencing Implementation
+
+A critical innovation of the Campus Gateway system is its location-aware security layer:
+
+- **Campus Boundary Enforcement**: GPS coordinates define a virtual perimeter around the institution.
+- **Attendance Validation**: Users cannot mark attendance, generate valid access tokens, or complete check-ins when outside this boundary.
+- **Fraud Prevention**: Blocks proxy attendance and remote misuse of QR codes.
+- **Real-Time Location Verification**: Location data is validated at the time of action, not just at login.
+- **Graceful Denial Handling**: Users attempting actions outside campus receive clear feedback explaining the restriction.
+- **Administrative Overrides**: Optional controls allow authorized personnel to handle exceptional cases.
+
+This ensures that digital attendance reflects actual physical presence on campus.
+
+## Technologies Used
+
+- **Flutter**: Cross-platform mobile development with responsive UI design.
+- **PHP & MySQL**: Backend services and relational data management.
+- **RESTful APIs**: Secure communication between client and server.
+- **QR Code Technology**: Temporary, secure access credentials.
+- **Geolocation & Geofencing APIs**: For location validation and boundary enforcement.
+- **JSON-Based Data Exchange**: Lightweight communication format.
+- **Role-Based Database Architecture**: Structured tables for students, faculty, visitors, and administrators.
+
+## Challenges and Learnings
+
+Designing a system that balances usability with strict security controls was a major challenge. Implementing geofencing required handling GPS inaccuracies, permission management, and edge cases such as weak signals or indoor environments.
+
+Another challenge involved preventing QR misuse, including repeated entries without exits and expired code usage. This required session validation logic and state tracking. Additionally, building scalable APIs capable of supporting multiple concurrent services demanded careful database normalization and efficient query design.
+
+## Outcome
+
+Campus Gateway successfully modernizes campus operations by providing a secure, automated platform for access control, attendance, visitor handling, and facility management. The integration of geofencing ensures that all recorded activities correspond to actual on-site presence, significantly reducing fraud and manual verification overhead.
+
+Administrators gain actionable insights into campus usage, while users benefit from a convenient, transparent digital experience. The project demonstrates the effectiveness of combining mobile technology, backend systems, and location intelligence to create a robust smart-campus solution.
+
+---
+
+This project showcases strong capabilities in full-stack development, system architecture, mobile engineering, security design, and real-world problem solving—making it highly relevant for portfolios focused on smart infrastructure and digital transformation.
