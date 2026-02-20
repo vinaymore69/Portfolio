@@ -40,6 +40,18 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
           }
         }
 
+        // Check for [username] dynamic route pattern
+        // Any single-segment path that doesn't match existing routes could be a username
+        if (routes["/[username]" as keyof typeof routes]) {
+          const pathSegments = pathname.split('/').filter(Boolean);
+          // Single segment paths (e.g., /vinay69) should match [username] pattern
+          // Exclude paths that start with known static routes
+          const staticPaths = ['about', 'work', 'blog', 'gallery', 'xie', 'api'];
+          if (pathSegments.length === 1 && !staticPaths.includes(pathSegments[0])) {
+            return true;
+          }
+        }
+
         return false;
       };
 

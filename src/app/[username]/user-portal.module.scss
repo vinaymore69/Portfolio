@@ -1,0 +1,293 @@
+// Login Container
+.loginContainer {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem;
+}
+
+.loginBox {
+  background: white;
+  border-radius: 1rem;
+  padding: 3rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  
+  h1 {
+    margin: 0 0 0.5rem 0;
+    color: #333;
+    text-align: center;
+    font-size: 2rem;
+  }
+  
+  p {
+    color: #666;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.passwordInput {
+  padding: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  
+  &:focus {
+    outline: none;
+    border-color: #667eea;
+  }
+}
+
+.loginButton {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  
+  &:hover:not(:disabled) {
+    background: #5a67d8;
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+// Dashboard Container
+.dashboardContainer {
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.header {
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  h1 {
+    margin: 0;
+    color: #1a202c;
+    font-size: 1.5rem;
+  }
+}
+
+.logoutButton {
+  background: #e53e3e;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background: #c53030;
+  }
+}
+
+.main {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.loading {
+  text-align: center;
+  color: #666;
+  font-size: 1.1rem;
+  padding: 3rem;
+}
+
+.filesHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  
+  h2 {
+    margin: 0;
+    color: #1a202c;
+  }
+}
+
+.refreshButton {
+  background: #4299e1;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background: #3182ce;
+  }
+}
+
+.noFiles {
+  text-align: center;
+  background: white;
+  border-radius: 0.5rem;
+  padding: 3rem;
+  border: 1px solid #e2e8f0;
+  
+  p {
+    color: #666;
+    margin: 0.5rem 0;
+    
+    &:first-child {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #1a202c;
+    }
+  }
+}
+
+// File Grid
+.fileGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.fileCard {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  
+  &:hover {
+    border-color: #cbd5e0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.fileIcon {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.fileInfo {
+  margin-bottom: 1.5rem;
+}
+
+.fileName {
+  margin: 0 0 0.5rem 0;
+  color: #1a202c;
+  font-size: 1rem;
+  font-weight: 500;
+  word-break: break-word;
+  line-height: 1.4;
+}
+
+.fileDetails {
+  color: #666;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.fileActions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.downloadButton,
+.printButton {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.2s;
+}
+
+.downloadButton {
+  background: #38a169;
+  color: white;
+  
+  &:hover {
+    background: #2f855a;
+  }
+}
+
+.printButton {
+  background: #3182ce;
+  color: white;
+  
+  &:hover {
+    background: #2c5282;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .loginContainer {
+    padding: 1rem;
+  }
+  
+  .loginBox {
+    padding: 2rem;
+  }
+  
+  .header {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .main {
+    padding: 1rem;
+  }
+  
+  .filesHeader {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .fileGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .fileActions {
+    flex-direction: column;
+  }
+}

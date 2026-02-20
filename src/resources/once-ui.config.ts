@@ -23,6 +23,7 @@ const routes: RoutesConfig = {
   "/blog": true,
   "/gallery": true,
   "/xie": true,
+  "/[username]": true,
 };
 
 const display: DisplayConfig = {

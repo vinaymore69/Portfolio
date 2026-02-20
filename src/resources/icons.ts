@@ -7,11 +7,19 @@ import {
   HiEnvelope,
   HiCalendarDays,
   HiArrowRight,
+  HiChevronRight,
   HiOutlineEye,
   HiOutlineEyeSlash,
   HiOutlineDocument,
   HiOutlineGlobeAsiaAustralia,
   HiOutlineRocketLaunch,
+  HiArrowDownTray,
+  HiArrowPath,
+  HiArrowRightOnRectangle,
+  HiOutlinePrinter,
+  HiExclamationCircle,
+  HiOutlineFolder,
+  HiFolderOpen,
 } from "react-icons/hi2";
 
 import {
@@ -64,6 +72,14 @@ export const iconLibrary: Record<string, IconType> = {
   reddit: FaReddit,
   telegram: FaTelegram,
   instagram: FaInstagram,
+  download: HiArrowDownTray,
+  refresh: HiArrowPath,
+  logout: HiArrowRightOnRectangle,
+  print: HiOutlinePrinter,
+  errorCircle: HiExclamationCircle,
+  folder: HiOutlineFolder,
+  folderOpen: HiFolderOpen,
+  chevronRight: HiChevronRight,
 };
 
 export type IconLibrary = typeof iconLibrary;

@@ -9,7 +9,7 @@ const person: Person = {
   avatar: "/images/avatar.jpg",
   email: "vinayprakashmore@gmail.com",
   location: "Asia/Kolkata", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-  languages: [ "Hindi", "Marathi","English"], // optional: Leave the array empty if you don't want to display languages
+  languages: [ "C / C++","JAVA","PHP","HTML/CSS","JavaScript","ReactJS","NextJS","Flutter(Dart)","MySQL","SQLite","ThreeJS"], // optional: Leave the array empty if you don't want to display languages
 };
 
 const newsletter: Newsletter = {
@@ -95,7 +95,7 @@ const about: About = {
   },
   calendar: {
     display: true,
-    link: "https://cal.com",
+    link: "https://cal.com/vinaymore69",
   },
   intro: {
     display: true,
