@@ -1,0 +1,169 @@
+---
+title: "Work Anniversary Project"
+summary: "A web application that automates employee work anniversary celebrations and recognition."
+publishedAt: "2024-01-01"
+tag: "Project"
+---
+
+## 🎉 Project Overview
+
+The **Work Anniversary Project** is a web application designed to help organizations automate and celebrate employee work anniversaries ("Workiversaries").
+
+The platform fosters a culture of appreciation, engagement, and retention by tracking employee milestones and enabling meaningful recognition across the organization.
+
+---
+
+## ✨ Key Features
+
+### 🏠 Core Pages
+
+- **Home Page:** Overview of the platform’s purpose and benefits  
+- **About Us:** Mission, story, and core values — Excellence, Empathy, Innovation  
+- **User Authentication:** Secure Login and Signup functionality  
+
+### 📄 Legal & Support
+
+- **Privacy Policy:** Transparency on data collection and usage  
+- **Terms and Policy:** User responsibilities and service terms  
+- **FAQ:** Answers to common platform questions  
+- **Sitemap:** Centralized navigation hub for all public pages  
+
+---
+
+## 🎨 User Experience & Design
+
+The platform focuses on delivering a premium, modern user experience:
+
+- Responsive mobile-first design using `vw` / `vh` scaling  
+- Smooth scrolling powered by Lenis  
+- Clean typography and structured layouts  
+- Glassmorphism effects and pastel gradients  
+- Consistent UI across devices  
+
+---
+
+## 📁 Project Structure
+
+<CodeBlock
+  marginBottom="16"
+  codes={[
+    {
+      code:
+`public/
+  index.php            → Landing page
+  about.php            → About Us page
+  sitemap.php          → Navigation hub
+  legal/
+    privacy-policy.php
+    terms-and-policy.php
+    faq.php
+
+assets/
+  css/ js/ images/ fonts/
+
+app/
+  Controllers, Models, Services
+
+database/
+  Connection files and scripts`,
+      language: "text",
+      label: "Directory Structure"
+    }
+  ]}
+/>
+
+---
+
+## ⚙️ Getting Started
+
+### ✅ Prerequisites
+
+- PHP 8.0 or higher  
+- Local server environment (XAMPP, WAMP, or PHP built-in server)
+
+---
+
+### ▶️ Running the Application
+
+Navigate to the project directory:
+
+<CodeBlock
+  marginBottom="16"
+  codes={[
+    {
+      code: `cd c:\\Projects\\my_app_v6`,
+      language: "bash",
+      label: "Navigate to Project"
+    }
+  ]}
+/>
+
+Start the PHP built-in server targeting the public directory:
+
+<CodeBlock
+  marginBottom="16"
+  codes={[
+    {
+      code: `php -S localhost:8080 -t public`,
+      language: "bash",
+      label: "Start Server"
+    }
+  ]}
+/>
+
+Open your browser and visit:
+
+<CodeBlock
+  marginBottom="16"
+  codes={[
+    {
+      code: `http://localhost:8080`,
+      language: "text",
+      label: "Local URL"
+    }
+  ]}
+/>
+
+---
+
+## 🎛 Customization
+
+### 🎨 Styles
+
+Global styles are located at:
+
+- `public/assets/css/global.css`
+
+Page-specific styles follow naming conventions:
+
+- `about.css`  
+- `legal.css`  
+- etc.
+
+---
+
+### ⚙️ Configuration
+
+Environment and database settings can be configured in:
+
+- `.env` (if used)  
+- `app/Config` directory  
+
+---
+
+## 🏆 Purpose & Impact
+
+This project demonstrates how organizations can:
+
+- Improve employee engagement  
+- Strengthen workplace culture  
+- Recognize long-term contributions  
+- Automate HR processes efficiently  
+
+---
+
+## 📜 License
+
+© 2024 Work Anniversary Project. All rights reserved.
+
+---

@@ -1,0 +1,203 @@
+---
+title: "XIE Student Council Web Platform 🎓"
+publishedAt: "2023-02-22"
+summary: "A comprehensive platform for managing fests, events, winners, and communications at Xavier Institute of Engineering."
+tag: "Project"
+---
+
+The **XIE Student Council Web Platform** is a full-stack system designed to streamline event management, communication, and administration for the Xavier Institute of Engineering Student Council.
+
+It enables efficient handling of fests, announcements, winners, emails, and digital records through a modern web interface.
+
+---
+
+## 🚀 Quick Start
+
+### Build & Run
+
+<Column fillWidth gap="-1" marginBottom="16" marginTop="8">
+<CodeBlock
+  radius="none"
+  topRadius="l"
+  codes={[
+    {
+      code:
+`# Install dependencies
+npm install
+
+# Start development servers (Frontend + Backend)
+npm run dev:all
+
+# Frontend only: http://localhost:5173
+# Backend only: http://localhost:3001`,
+      language: "bash",
+      label: "Run Project"
+    }
+  ]}
+/>
+</Column>
+
+---
+
+## 🔑 Environment Variables
+
+Create a `.env` file in the root directory:
+
+<Column fillWidth gap="-1" marginBottom="16" marginTop="8">
+<CodeBlock
+  radius="none"
+  topRadius="l"
+  codes={[
+    {
+      code:
+`# Supabase Configuration
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_URL=your_supabase_project_url
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+
+# EmailJS Configuration (Primary)
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=service_vei7zkb
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=template_uy56km2
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=a96Zc2TRgfEwyM3eB
+
+# EmailJS Configuration (Secondary)
+EMAILJS_SERVICE_ID_SECONDARY=service_abb3y8s
+EMAILJS_TEMPLATE_ID_SECONDARY=template_twg03ab
+EMAILJS_PUBLIC_KEY_SECONDARY=wdUryE-n6It7hgomx
+
+# Server Configuration
+PORT=3001
+NODE_ENV=development`,
+      language: "env",
+      label: ".env"
+    }
+  ]}
+/>
+</Column>
+
+---
+
+## 📌 Required Environment Variables Explained
+
+<Column fillWidth gap="-1" marginBottom="16" marginTop="8">
+<CodeBlock
+  radius="none"
+  topRadius="l"
+  codes={[
+    {
+      code:
+`VITE_SUPABASE_URL            → Supabase project URL
+VITE_SUPABASE_ANON_KEY       → Public API key
+SUPABASE_SERVICE_ROLE_KEY    → Admin API key (KEEP SECRET)
+
+NEXT_PUBLIC_EMAILJS_SERVICE_ID   → Email service ID
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID  → Email template ID
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY   → EmailJS public key`,
+      language: "text",
+      label: "Environment Variables Guide"
+    }
+  ]}
+/>
+</Column>
+
+---
+
+## 🌐 Hosting Requirements
+
+### Frontend Hosting (Vercel / Netlify)
+
+- Build Command: `npm run build`  
+- Output Directory: `dist`  
+- Install Command: `npm install`  
+- Node Version: 18.x or higher  
+- Add all `VITE_*` and `NEXT_PUBLIC_*` variables  
+
+---
+
+### Backend Hosting (Railway / Render / Heroku)
+
+- Start Command: `node server.js`  
+- Install Command: `npm install`  
+- Node Version: 18.x or higher  
+- Uses dynamic port via `process.env.PORT`  
+- Add Supabase variables + PORT  
+
+---
+
+## 📦 Required Services
+
+### Supabase — Database & Authentication
+
+- Sign up: https://supabase.com  
+- Create project and obtain API keys  
+
+### EmailJS — Email Service
+
+- Sign up: https://emailjs.com  
+- Configure email service (Gmail / SMTP)  
+- Create email templates  
+
+---
+
+## 🛠 Tech Stack
+
+<Column fillWidth gap="-1" marginBottom="16" marginTop="8">
+<AccordionGroup 
+  items={[
+    {
+      title: "Frontend",
+      content: <Text>React + TypeScript + Vite + TailwindCSS</Text>
+    },
+    {
+      title: "Backend",
+      content: <Text>Node.js + Express</Text>
+    },
+    {
+      title: "Database",
+      content: <Text>Supabase (PostgreSQL)</Text>
+    },
+    {
+      title: "Email & Storage",
+      content: <Text>EmailJS + Supabase Storage</Text>
+    }
+  ]}
+/>
+</Column>
+
+---
+
+## 📝 Important Notes
+
+<Column fillWidth marginBottom="16" marginTop="8">
+<Feedback
+  icon
+  variant="warning"
+  title="Project Configuration Notes"
+  description="Two EmailJS setups are used: one for admin emails and one for public forms. Backend must run for file uploads. Update SERVER_URL to match deployment."
+/>
+</Column>
+
+- Backend server must run for file upload features  
+- Update `SERVER_URL` in components for production  
+- Configure Supabase database tables  
+
+---
+
+## 🔒 Security
+
+<Column fillWidth marginBottom="16" marginTop="8">
+<Feedback
+  icon
+  variant="danger"
+  title="Security Guidelines"
+  description="Never commit .env files. Keep service role keys secret. Use environment variables in production and restrict CORS to trusted domains."
+/>
+</Column>
+
+- Never commit `.env` to Git  
+- Keep `SUPABASE_SERVICE_ROLE_KEY` confidential  
+- Use secure environment variables in production  
+- Enable CORS only for trusted domains  
+
+---

@@ -101,7 +101,8 @@ export default function Home() {
         </Column>
       </Column>
       <RevealFx translateY="16" delay={0.6}>
-        <Projects range={[1, 1]} />
+        {/* Show Maha Krushi Mittra as the first project */}
+        <Projects range={[2, 2]} />
       </RevealFx>
       {routes["/blog"] && (
         <Column fillWidth gap="24" marginBottom="l">

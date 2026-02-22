@@ -1,0 +1,160 @@
+---
+title: "Sanchi - Vidyalankar Volunteering Committee Web Platform"
+summary: "A comprehensive multi-lingual web platform designed to manage volunteering activities, resources, and user engagement for the Vidyalankar Volunteering Committee."
+image: "/images/gallery/SanChi.png"
+publishedAt: "2025-04-22"
+tag: "Project"
+---
+
+## Overview
+
+Sanchi is a comprehensive, multi-lingual web platform developed for the Vidyalankar Volunteering Committee. The platform is focused on creating positive social impact by encouraging student participation in volunteering activities across eight major social domains.
+
+It serves as a centralized hub for the committee’s operations, offering public information, educational resources, and a full user management system. The platform supports English, Hindi, and Marathi to ensure accessibility for a wider audience and is built on a modern full-stack architecture with a Node.js backend.
+
+## Key Features
+
+### User System
+
+- Secure user registration, login, and password reset functionality  
+- Personal dashboard for volunteers  
+- Profile management and account updates  
+
+### Multi-Language Support
+
+- Dynamic content switching between English, Hindi, and Marathi  
+- Language preference stored using cookies  
+- Implemented through JavaScript-based content mapping  
+
+### Social Domains
+
+Dedicated pages for eight focus areas:
+
+- Girls Education  
+- Primary Education  
+- Unprivileged Students Welfare  
+- Physical Health  
+- Mental Health  
+- Environment  
+- Digital Literacy  
+- Anti-Narcotics  
+
+### Resource Hub
+
+- Audiobooks with a custom synchronized player  
+- Educational video library  
+- Notes downloader with filtering by class and subject  
+
+### User Dashboard
+
+- Profile editing interface  
+- Upload forms for audio, video, and notes  
+- Digital sticky notes application with full CRUD operations  
+- Notes stored per user account  
+
+### Dynamic Public Pages
+
+- Home page with advanced animations and interactive domain list  
+- About page with team profiles and contribution slider  
+- Responsive gallery with masonry layout and lightbox  
+- Contact form with multiple file attachment support  
+
+### Backend Services
+
+- Automatic video processing into HLS streams with thumbnail generation  
+- File upload handling for media and documents  
+- Email services for contact submissions and password resets  
+
+## Technology Stack
+
+### Frontend
+
+- HTML5 for structure  
+- CSS3 (Flexbox, Grid, Media Queries) for layout and responsiveness  
+- JavaScript (ES6+) for interactivity and API communication  
+
+Libraries and Tools:
+
+- GSAP for animations  
+- Swiper.js for sliders and carousels  
+- Lenis for smooth scrolling  
+
+### Backend
+
+- Node.js for server-side runtime  
+- Express.js for routing and APIs  
+- PostgreSQL for data storage  
+- Nodemailer for email services  
+- Multer for file uploads  
+- FFmpeg for video transcoding and thumbnail extraction  
+
+### Integrations
+
+- Botpress chatbot for user assistance  
+
+## Project Structure
+
+The project is organized into modular folders for maintainability:
+
+- **html/** — All static pages including public pages, domain pages, resource pages, and authentication interfaces  
+- **css_files/** — Global styles, page-specific styles, domain styles, and dashboard styles  
+- **javascript_files/** — Core scripts, page logic, language system, dashboard scripts, and utilities  
+- **custom_modules/** — Backend modules for video processing, file uploads, email services, and helper utilities  
+
+## HTML Pages
+
+Key pages include:
+
+- Home page introducing the committee and domains  
+- About page describing vision, mission, and team  
+- Contact page with file-enabled form submission  
+- Gallery with animated grid and lightbox  
+- Privacy policy with sticky navigation  
+- Domain-specific pages for each volunteering area  
+- Authentication pages for login, registration, and password reset  
+- Resource pages for audio, video, and downloadable notes  
+- Dashboard panels for profile editing, uploads, and notes management  
+
+## CSS Styling
+
+- Global styles define layout, navigation, footer, and language switcher  
+- Page-specific styles maintain visual consistency while isolating designs  
+- Domain pages share reusable layout patterns  
+- Responsive design implemented using media queries  
+- Multiple Google Fonts support multilingual typography  
+
+## JavaScript Functionality
+
+### Core Logic
+
+- Dynamic language switching across the site  
+- Mobile navigation and dropdown controls  
+- Authentication status handling  
+- Smooth scrolling implementation  
+
+### Page-Specific Features
+
+- Animated homepage elements and domain hover effects  
+- Gallery animations with parallax and lightbox  
+- Contribution sliders and interactive components  
+- Dynamic contact form attachments  
+- Audio player with synchronized text highlighting  
+
+### Dashboard and Backend Interaction
+
+- Tab-based dashboard navigation  
+- Sticky notes application with server persistence  
+- Media upload processing and storage  
+- Reliable email delivery with retry mechanisms  
+- Utility functions such as age calculation during registration  
+
+## Usage
+
+- Explore volunteering domains and resources publicly  
+- Register to access personalized dashboard features  
+- Upload educational content and manage personal notes  
+- Switch languages for localized experience  
+
+## Contributors
+
+- Vidyalankar Volunteering Committee Development Team  

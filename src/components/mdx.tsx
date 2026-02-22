@@ -170,6 +170,16 @@ function createHR() {
   );
 }
 
+// Defensive wrapper: MDX template literals inside JSX props can sometimes
+// produce undefined array entries; filter them out before passing to CodeBlock.
+function SafeCodeBlock(props: any) {
+  const safeCodes = Array.isArray(props.codes)
+    ? props.codes.filter((c: any) => c != null && typeof c === 'object')
+    : [];
+  if (safeCodes.length === 0) return null;
+  return <CodeBlock {...props} codes={safeCodes} />;
+}
+
 const components = {
   p: createParagraph as any,
   h1: createHeading("h1") as any,
@@ -188,7 +198,7 @@ const components = {
   hr: createHR as any,
   Heading,
   Text,
-  CodeBlock,
+  CodeBlock: SafeCodeBlock,
   InlineCode,
   Accordion,
   AccordionGroup,
