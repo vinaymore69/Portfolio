@@ -18,10 +18,21 @@ export const users: UserConfig[] = [
     displayName: "Vinay More"
   },
   {
-    username: "sam",
-    passwordHash: "$2b$12$u0QUm3JxKqXivH183o.OCOP98CW7sVz1vnlOlxjha6eFmSBZD65R6", // "rahul456"
+    username: "muthusam_mvt",
+    passwordHash: "$2b$12$zznKeY6gWK2IU6JWdG0apuEG8VtDLs/PAhkp38gzMboR5UWRoKCuW", // 
     folderId: "1gxdDqkuB5c_cwtQVoK1ZJijpoDzsqUBc", // Replace with actual folder ID  
     displayName: "Muthusam Thevar"
+  },
+  {
+    username: "akanksha",
+    passwordHash: "$2b$12$z5yhbcSrOUzBPnXvNnGZLOVXzLCAYE6QhjgJ8po7o6fPq9WKVVPGi", // 
+    folderId: "1SuEwI9S6vykk5l__8e-9bTGHjDBDk5tg", // Replace with actual folder ID  
+    displayName: "Akanksha Thorat"
+  },{
+    username: "pushkar",
+    passwordHash: "$2b$12$BCif6l5bPreV1WVS2eVRY.vx3WzsSVOKMGcUMp5wxPM79VDycGi1O", // "pushkar123"
+    folderId: "1vy1Shu5x1Mxr3tZEgfBixBF-VgrnMqY6", // Replace with actual folder ID  
+    displayName: "Pushkar More"
   }
   // Add more users as needed
 ];

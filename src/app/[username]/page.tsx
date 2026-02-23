@@ -442,13 +442,16 @@ export default function UserPortal() {
                           prefixIcon="download"
                           onClick={() => handleDownload(file.id, file.name)}
                         />
-                        <Button
-                          size="s"
-                          variant="secondary"
-                          label="Print"
-                          prefixIcon="print"
-                          onClick={() => handlePrint(file.id)}
-                        />
+                        {/* Only show Print for non-audio/video files */}
+                        {!(file.mimeType.startsWith('audio/') || file.mimeType.startsWith('video/')) &&
+                          <Button
+                            size="s"
+                            variant="secondary"
+                            label="Print"
+                            prefixIcon="print"
+                            onClick={() => handlePrint(file.id)}
+                          />
+                        }
                       </>
                     )}
                   </Row>

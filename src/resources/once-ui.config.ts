@@ -24,6 +24,7 @@ const routes: RoutesConfig = {
   "/gallery": true,
   "/xie": true,
   "/[username]": true,
+  "/generate-password": true,
 };
 
 const display: DisplayConfig = {
