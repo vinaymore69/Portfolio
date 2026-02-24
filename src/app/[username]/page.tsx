@@ -31,6 +31,37 @@ interface BreadcrumbItem {
 }
 
 export default function UserPortal() {
+    // Handle file upload
+    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      setLoadingFiles(true);
+      setFileError('');
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('username', username as string);
+        // Target folder: root or last folder in breadcrumb
+        if (folderPath.length > 0) {
+          formData.append('folderId', folderPath[folderPath.length - 1].id);
+        }
+        const response = await fetch('/api/files/upload', {
+          method: 'POST',
+          body: formData,
+        });
+        if (response.ok) {
+          loadFiles(folderPath.length > 0 ? folderPath[folderPath.length - 1].id : undefined);
+        } else {
+          setFileError('Failed to upload file');
+        }
+      } catch {
+        setFileError('Failed to upload file');
+      } finally {
+        setLoadingFiles(false);
+        // Reset file input
+        (e.target as HTMLInputElement).value = '';
+      }
+    };
   const { username } = useParams();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
@@ -335,14 +366,34 @@ export default function UserPortal() {
             ? 'Loading…'
             : `${files.length} item${files.length !== 1 ? 's' : ''}`}
         </Text>
-        <Button
-          variant="tertiary"
-          size="s"
-          label="Refresh"
-          prefixIcon="refresh"
-          onClick={() => loadFiles(folderPath.length > 0 ? folderPath[folderPath.length - 1].id : undefined)}
-          disabled={loadingFiles}
+        <Row gap="8">
+          {/* Temporarily disabled upload button
+          <Button
+            variant="tertiary"
+            size="s"
+            label="Upload"
+            prefixIcon="plus"
+            onClick={() => document.getElementById('file-upload-input')?.click()}
+            disabled={loadingFiles}
+          />
+          */}
+          <Button
+            variant="tertiary"
+            size="s"
+            label="Refresh"
+            prefixIcon="refresh"
+            onClick={() => loadFiles(folderPath.length > 0 ? folderPath[folderPath.length - 1].id : undefined)}
+            disabled={loadingFiles}
+          />
+        </Row>
+        {/* Hidden file input for upload - temporarily disabled
+        <input
+          id="file-upload-input"
+          type="file"
+          style={{ display: 'none' }}
+          onChange={handleFileUpload}
         />
+        */}
       </Row>
 
       {/* Files */}

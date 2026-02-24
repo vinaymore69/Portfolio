@@ -5,11 +5,11 @@ const person: Person = {
   firstName: "Vinay",
   lastName: "More",
   name: `Vinay More`,
-  role: "Mobile Application Developer & Web Developer",
+  role: "Computer Engineer | AI & ML Enthusiast | Full-Stack Developer",
   avatar: "/images/avatar.jpg",
-  email: "vinayprakashmore@gmail.com",
-  location: "Asia/Kolkata", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-  languages: [ "C / C++","JAVA","PHP","HTML/CSS","JavaScript","ReactJS","NextJS","Flutter(Dart)","MySQL","SQLite","ThreeJS"], // optional: Leave the array empty if you don't want to display languages
+  email: "vinaymore0110@gmail.com",
+  location: "Asia/Kolkata", // Updated location
+  languages: [ "C / C++","JAVA","PHP","HTML/CSS","JavaScript","ReactJS","NextJS","Flutter(Dart)","MySQL","SQLite","ThreeJS","Python","AI/ML"], // Added Python and AI/ML
 };
 
 const newsletter: Newsletter = {
@@ -31,7 +31,7 @@ const social: Social = [
   {
     name: "LinkedIn",
     icon: "linkedin",
-    link: "https://www.linkedin.com/vinay--more",
+    link: "https://www.linkedin.com/in/vinay--more",
     essential: true,
   },
   // {
@@ -52,15 +52,21 @@ const social: Social = [
     link: `mailto:${person.email}`,
     essential: true,
   },
+  {
+    name: "Linktree",
+    icon: "link",
+    link: "https://linktr.ee/vinaymore69",
+    essential: true,
+  },
 ];
 
 const home: Home = {
   path: "/",
   image: "/images/og/home.jpg",
   label: "Home",
-  title: `${person.name}'s Portfolio`,
-  description: `Portfolio website showcasing my work as a ${person.role}`,
-  headline: <>Computer Engineering student passionate about coding.</>,
+  title: `${person.name} - Computer Engineer & AI Enthusiast`,
+  description: `Computer Engineer passionate about Artificial Intelligence, Machine Learning, and Full-Stack Development. Currently pursuing B.E. at Xavier Institute of Technology with 15+ industry certifications.`,
+  headline: <>Computer Engineer passionate about AI, ML & Full-Stack Development.</>,
   featured: {
     display: true,
     title: (
@@ -76,7 +82,7 @@ const home: Home = {
   },
   subline: (
     <>
-    I'm Vinay, a Mobile Application Developer & Web Developer at <Text as="span" size="xl" weight="strong">Codeterna Pvt. Ltd. & Red Box Agency</Text>, where I craft intuitive <br /> industry-ready applications. Always eager to learn and take on new challenges.
+    I'm Vinay More, a Computer Engineer passionate about <Text as="span" size="xl" weight="strong">Artificial Intelligence, Machine Learning, and Full-Stack Development</Text>. Currently pursuing B.E. at Xavier Institute of Technology with experience at <br /> <Text as="span" size="xl" weight="strong">Codeterna Pvt. Ltd. & Red Box Agency</Text>. With 15+ industry certifications and active involvement as Campus Ambassador & Tech Contributor for GSSoC 2025.
 </>
   ),
 };
