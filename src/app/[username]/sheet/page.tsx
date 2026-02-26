@@ -128,7 +128,7 @@ export default function SheetsPage() {
         <Row gap="m" vertical="center">
           <Button
             onClick={() => router.push(`/${username}`)}
-            variant="ghost"
+            variant="tertiary"
             size="s"
             prefixIcon="chevronLeft"
             label="Back to Portal"
@@ -156,7 +156,7 @@ export default function SheetsPage() {
 
       {spreadsheets.length > 0 && (
         <Column gap="s">
-          <Text size="s" variant="body-secondary">
+          <Text size="s">
             {spreadsheets.length} spreadsheet{spreadsheets.length !== 1 ? 's' : ''} found
           </Text>
           
@@ -165,7 +165,7 @@ export default function SheetsPage() {
               <Button
                 key={sheet.id}
                 onClick={() => openSpreadsheet(sheet.id)}
-                variant="ghost"
+                variant="tertiary"
                 style={{
                   padding: '1rem',
                   justifyContent: 'flex-start',
@@ -180,12 +180,12 @@ export default function SheetsPage() {
                       <Icon name="spreadsheet" />
                       <Text variant="body-strong-m">{sheet.name}</Text>
                       {sheet.source === 'direct' && (
-                        <Tag size="xs" variant="accent">Direct</Tag>
+                        <Tag size="s" variant="accent">Direct</Tag>
                       )}
                     </Row>
                     <Icon name="chevronRight" size="s" />
                   </Row>
-                  <Text size="xs" variant="body-secondary">
+                  <Text size="xs">
                     Modified: {formatDate(sheet.modifiedTime)}
                     {sheet.source && ` • Source: ${sheet.source === 'direct' ? 'Direct Access' : 'Drive Folder'}`}
                   </Text>
@@ -198,7 +198,7 @@ export default function SheetsPage() {
 
       {/* Sample spreadsheet for testing - you can remove this */}
       <Column gap="m" style={{ marginTop: '2rem', padding: '1rem', border: '1px dashed var(--neutral-border-weak)', borderRadius: '0.5rem' }}>
-        <Text weight="medium" size="s">Sample Spreadsheet (for testing):</Text>
+        <Text weight="strong" size="s">Sample Spreadsheet (for testing):</Text>
         <Button
           onClick={() => openSpreadsheet('1057MdIFd-8CSOqJbWc1WTt64oru64JAqByNO366TYfA')}
           variant="secondary"
@@ -206,7 +206,7 @@ export default function SheetsPage() {
           prefixIcon="spreadsheet"
           label="Open Test Sheet"
         />
-        <Text size="xs" variant="body-secondary">
+        <Text size="xs">
           This opens the spreadsheet ID you provided: 1057MdIFd-8CSOqJbWc1WTt64oru64JAqByNO366TYfA
         </Text>
       </Column>

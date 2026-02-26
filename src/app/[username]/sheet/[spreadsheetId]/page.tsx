@@ -18,7 +18,7 @@ import {
 const LuckysheetWorkbook = dynamic(() => import('../../../../components/LuckysheetWorkbook'), {
   ssr: false,
   loading: () => (
-    <Column gap="m" alignItems="center" style={{ padding: '3rem 0' }}>
+    <Column gap="m" horizontal="center" vertical="center" style={{ padding: '3rem 0' }}>
       <Spinner size="l" />
       <Text>Loading spreadsheet...</Text>
     </Column>
@@ -160,7 +160,7 @@ export default function SpreadsheetPage() {
   };
 
   const convertLuckysheetToUpdates = (sheetData: any) => {
-    const updates = [];
+    const updates: Array<{ range: string; values: (string | number | boolean)[][] }> = [];
     const celldata = sheetData.celldata || [];
     
     // Group cells by rows for batch updates
@@ -180,7 +180,7 @@ export default function SpreadsheetPage() {
       
       // Find continuous ranges
       let startCol = sortedCells[0].c;
-      let values = [];
+      let values: (string | number | boolean)[] = [];
       let lastCol = startCol - 1;
       
       sortedCells.forEach((cell, index) => {
@@ -243,7 +243,7 @@ export default function SpreadsheetPage() {
         <Row vertical="center" gap="m">
           <Button
             onClick={() => router.push(`/${username}/sheet`)}
-            variant="ghost"
+            variant="tertiary"
             size="s"
             prefixIcon="chevronLeft"
             label="Back to Sheets"
@@ -273,7 +273,7 @@ export default function SpreadsheetPage() {
         <Row vertical="center" gap="m">
           <Button
             onClick={() => router.push(`/${username}/sheet`)}
-            variant="ghost"
+            variant="tertiary"
             size="s"
             prefixIcon="chevronLeft"
             label="Back"
