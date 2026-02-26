@@ -20,6 +20,8 @@ import {
   HiExclamationCircle,
   HiOutlineFolder,
   HiFolderOpen,
+  HiOutlineTableCells,
+  HiChevronLeft,
 } from "react-icons/hi2";
 
 import {
@@ -80,6 +82,9 @@ export const iconLibrary: Record<string, IconType> = {
   folder: HiOutlineFolder,
   folderOpen: HiFolderOpen,
   chevronRight: HiChevronRight,
+  chevronLeft: HiChevronLeft,
+  spreadsheet: HiOutlineTableCells,
+  save: HiArrowDownTray,
 };
 
 export type IconLibrary = typeof iconLibrary;

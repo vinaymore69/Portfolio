@@ -7,7 +7,9 @@
     "build": "next build",
     "biome-write": "npx @biomejs/biome format --write .",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "copy-luckysheet": "node scripts/copy-luckysheet-assets.js",
+    "postinstall": "npm run copy-luckysheet"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.0",
@@ -22,6 +24,7 @@
     "gray-matter": "^4.0.3",
     "jsonwebtoken": "^9.0.3",
     "lint-staged": "^16.1.5",
+    "luckysheet": "^2.1.13",
     "next": "^16.0.10",
     "next-mdx-remote": "^6.0.0",
     "react": "^19.2.0",

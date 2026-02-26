@@ -42,12 +42,26 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
 
         // Check for [username] dynamic route pattern
         // Any single-segment path that doesn't match existing routes could be a username
+        const staticPaths = ['about', 'work', 'blog', 'gallery', 'xie', 'api'];
+        const pathSegments = pathname.split('/').filter(Boolean);
+
         if (routes["/[username]" as keyof typeof routes]) {
-          const pathSegments = pathname.split('/').filter(Boolean);
           // Single segment paths (e.g., /vinay69) should match [username] pattern
-          // Exclude paths that start with known static routes
-          const staticPaths = ['about', 'work', 'blog', 'gallery', 'xie', 'api'];
           if (pathSegments.length === 1 && !staticPaths.includes(pathSegments[0])) {
+            return true;
+          }
+        }
+
+        // Check for [username]/sheet pattern (e.g., /vinay69/sheet)
+        if (routes["/[username]/sheet" as keyof typeof routes]) {
+          if (pathSegments.length === 2 && !staticPaths.includes(pathSegments[0]) && pathSegments[1] === 'sheet') {
+            return true;
+          }
+        }
+
+        // Check for [username]/sheet/[spreadsheetId] pattern (e.g., /vinay69/sheet/abc123)
+        if (routes["/[username]/sheet/[spreadsheetId]" as keyof typeof routes]) {
+          if (pathSegments.length === 3 && !staticPaths.includes(pathSegments[0]) && pathSegments[1] === 'sheet') {
             return true;
           }
         }

@@ -14,7 +14,7 @@ import {
 import { home } from "./index";
 
 // IMPORTANT: Replace with your own domain address - it's used for SEO in meta tags and schema
-const baseURL: string = "https://vinaymore.vercel.app";
+const baseURL: string = "https://vinaymore69.tech";
 
 const routes: RoutesConfig = {
   "/": true,
@@ -24,6 +24,8 @@ const routes: RoutesConfig = {
   "/gallery": true,
   "/xie": true,
   "/[username]": true,
+  "/[username]/sheet": true,
+  "/[username]/sheet/[spreadsheetId]": true,
   "/generate-password": true,
 };
 

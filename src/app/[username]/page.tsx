@@ -367,6 +367,14 @@ export default function UserPortal() {
             : `${files.length} item${files.length !== 1 ? 's' : ''}`}
         </Text>
         <Row gap="8">
+          <Button
+            variant="tertiary"
+            size="s"
+            label="Spreadsheets"
+            prefixIcon="grid"
+            onClick={() => window.location.href = `/${username}/sheet`}
+            disabled={loadingFiles}
+          />
           {/* Temporarily disabled upload button
           <Button
             variant="tertiary"

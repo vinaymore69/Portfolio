@@ -7,6 +7,7 @@ export interface UserConfig {
   passwordHash: string;
   folderId: string;
   displayName?: string;
+  spreadsheetIds?: string[]; // Array of Google Sheets IDs shared with the service account
 }
 
 export const users: UserConfig[] = [
@@ -15,7 +16,8 @@ export const users: UserConfig[] = [
     username: "vinay69",
     passwordHash: "$2b$12$u0QUm3JxKqXivH183o.OCOP98CW7sVz1vnlOlxjha6eFmSBZD65R6", // "vinay123" 
     folderId: "1XRyBHfUZEflGd_JsJDPnYUcQutQ3usp3", // Replace with actual folder ID
-    displayName: "Vinay More"
+    displayName: "Vinay More",
+    spreadsheetIds: ["1057MdIFd-8CSOqJbWc1WTt64oru64JAqByNO366TYfA"] // The spreadsheet ID you provided
   },
   {
     username: "muthusam_mvt",
@@ -33,6 +35,11 @@ export const users: UserConfig[] = [
     passwordHash: "$2b$12$BCif6l5bPreV1WVS2eVRY.vx3WzsSVOKMGcUMp5wxPM79VDycGi1O", // "pushkar123"
     folderId: "1vy1Shu5x1Mxr3tZEgfBixBF-VgrnMqY6", // Replace with actual folder ID  
     displayName: "Pushkar More"
+  },{
+    username: "sangee12",
+    passwordHash: "$2b$12$3GGXA9j2uCx1LDx6uQXlJe6Rquvx7dAP6Vrnq2Xhj8k466roKbBxu", // "satyarth123"
+    folderId: "1-HNzoFsORBBn2bZgYu9Z6o6VjyepKmwh", // Replace with actual folder ID  
+    displayName: "Sangeeta Shirsat"
   }
   // Add more users as needed
 ];
@@ -60,8 +67,15 @@ export async function generatePasswordHash(password: string): Promise<string> {
 }
 
 // Google Service Account configuration
-export const serviceAccountConfig = {
-  // You'll need to set these environment variables or replace with your actual values
+// Load directly from the JSON key file (already in project root)
+let serviceAccountJson: any = null;
+try {
+  serviceAccountJson = require('../../vinaymore69-portfolio-a009c477bec9.json');
+} catch {
+  // Fall back to environment variables if file not found
+}
+
+export const serviceAccountConfig = serviceAccountJson ?? {
   type: "service_account",
   project_id: process.env.GOOGLE_PROJECT_ID,
   private_key_id: process.env.GOOGLE_PRIVATE_KEY_ID,
@@ -77,6 +91,9 @@ export const serviceAccountConfig = {
 
 // Validate that all required environment variables are set
 export function validateServiceAccountConfig(): boolean {
+  // If loaded from JSON file directly, it's always valid
+  if (serviceAccountJson) return true;
+  
   const requiredVars = [
     'GOOGLE_PROJECT_ID',
     'GOOGLE_PRIVATE_KEY_ID', 
