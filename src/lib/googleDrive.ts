@@ -1,10 +1,20 @@
 import { google } from 'googleapis';
 import { serviceAccountConfig, validateServiceAccountConfig } from '../config/users';
 
-// Initialize Google Drive API with service account
+// Initialize Google Drive API – prefers OAuth2, falls back to service account
 function getDriveService() {
+  const oauthClientId = process.env.GOOGLE_OAUTH_CLIENT_ID;
+  const oauthClientSecret = process.env.GOOGLE_OAUTH_CLIENT_SECRET;
+  const oauthRefreshToken = process.env.GOOGLE_OAUTH_REFRESH_TOKEN;
+
+  if (oauthClientId && oauthClientSecret && oauthRefreshToken) {
+    const oauth2Client = new google.auth.OAuth2(oauthClientId, oauthClientSecret);
+    oauth2Client.setCredentials({ refresh_token: oauthRefreshToken });
+    return google.drive({ version: 'v3', auth: oauth2Client });
+  }
+
   if (!validateServiceAccountConfig()) {
-    throw new Error('Google Service Account configuration is incomplete. Please check your environment variables.');
+    throw new Error('Google Drive configuration is incomplete. Set GOOGLE_OAUTH_* or service account env vars.');
   }
 
   const auth = new google.auth.GoogleAuth({

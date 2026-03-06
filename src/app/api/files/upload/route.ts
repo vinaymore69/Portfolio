@@ -6,6 +6,21 @@ import { Readable } from 'stream';
 export const runtime = 'nodejs';
 
 async function getDriveClient() {
+  const oauthClientId = process.env.GOOGLE_OAUTH_CLIENT_ID;
+  const oauthClientSecret = process.env.GOOGLE_OAUTH_CLIENT_SECRET;
+  const oauthRefreshToken = process.env.GOOGLE_OAUTH_REFRESH_TOKEN;
+
+  if (oauthClientId && oauthClientSecret && oauthRefreshToken) {
+    // Use OAuth2 with refresh token (user-level access)
+    const oauth2Client = new google.auth.OAuth2(
+      oauthClientId,
+      oauthClientSecret,
+    );
+    oauth2Client.setCredentials({ refresh_token: oauthRefreshToken });
+    return google.drive({ version: 'v3', auth: oauth2Client });
+  }
+
+  // Fallback: service account
   const auth = new google.auth.GoogleAuth({
     credentials: {
       client_email: process.env.GOOGLE_CLIENT_EMAIL,
