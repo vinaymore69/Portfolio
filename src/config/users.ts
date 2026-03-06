@@ -40,6 +40,12 @@ export const users: UserConfig[] = [
     passwordHash: "$2b$12$3GGXA9j2uCx1LDx6uQXlJe6Rquvx7dAP6Vrnq2Xhj8k466roKbBxu", // "satyarth123"
     folderId: "1-HNzoFsORBBn2bZgYu9Z6o6VjyepKmwh", // Replace with actual folder ID  
     displayName: "Sangeeta Shirsat"
+  },
+  {
+    username: "vinay",
+    passwordHash: "$2b$12$u0QUm3JxKqXivH183o.OCOP98CW7sVz1vnlOlxjha6eFmSBZD65R6", // "vinay123"
+    folderId: "0AE44QMxRE9YyUk9PVA", // Replace with actual folder ID  
+    displayName: "Vinay More"
   }
   // Add more users as needed
 ];

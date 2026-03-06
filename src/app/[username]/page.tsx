@@ -52,7 +52,8 @@ export default function UserPortal() {
         if (response.ok) {
           loadFiles(folderPath.length > 0 ? folderPath[folderPath.length - 1].id : undefined);
         } else {
-          setFileError('Failed to upload file');
+          const errData = await response.json().catch(() => ({}));
+          setFileError(errData?.details || errData?.error || 'Failed to upload file');
         }
       } catch {
         setFileError('Failed to upload file');
@@ -375,7 +376,6 @@ export default function UserPortal() {
             onClick={() => window.location.href = `/${username}/sheet`}
             disabled={loadingFiles}
           />
-          {/* Temporarily disabled upload button
           <Button
             variant="tertiary"
             size="s"
@@ -384,7 +384,6 @@ export default function UserPortal() {
             onClick={() => document.getElementById('file-upload-input')?.click()}
             disabled={loadingFiles}
           />
-          */}
           <Button
             variant="tertiary"
             size="s"
@@ -394,14 +393,13 @@ export default function UserPortal() {
             disabled={loadingFiles}
           />
         </Row>
-        {/* Hidden file input for upload - temporarily disabled
+        {/* Hidden file input for upload */}
         <input
           id="file-upload-input"
           type="file"
           style={{ display: 'none' }}
           onChange={handleFileUpload}
         />
-        */}
       </Row>
 
       {/* Files */}

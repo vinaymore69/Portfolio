@@ -44,6 +44,22 @@ export default function SpreadsheetPage() {
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
   const luckysheetRef = useRef<any>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  // Handle file upload
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    // TODO: Parse and process the uploaded file (e.g., .xlsx, .csv)
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      // e.target?.result contains file content
+      // You can parse and update Luckysheet here
+      // For now, just log
+      console.log('File uploaded:', file.name, e.target?.result);
+    };
+    reader.readAsArrayBuffer(file);
+  };
 
   useEffect(() => {
     checkAuthAndLoadSheet();
@@ -282,8 +298,22 @@ export default function SpreadsheetPage() {
             {spreadsheetInfo?.title || 'Spreadsheet'}
           </Heading>
         </Row>
-        
         <Row vertical="center" gap="s">
+          {/* File upload button */}
+          <input
+            type="file"
+            accept=".xlsx,.csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv"
+            style={{ display: 'none' }}
+            ref={fileInputRef}
+            onChange={handleFileUpload}
+          />
+          <Button
+            onClick={() => fileInputRef.current?.click()}
+            variant="secondary"
+            size="s"
+            prefixIcon="upload"
+            label="Upload File"
+          />
           {error && <Tag variant="error" size="s">{error}</Tag>}
           {saving && (
             <Row vertical="center" gap="xs">
