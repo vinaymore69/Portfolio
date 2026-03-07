@@ -62,7 +62,7 @@ const social: Social = [
 
 const home: Home = {
   path: "/",
-  image: "/images/og/home.jpg",
+  image: "/images/og/home.png",
   label: "Home",
   title: `${person.name} - Computer Engineer & AI Enthusiast`,
   description: `Computer Engineer passionate about Artificial Intelligence, Machine Learning, and Full-Stack Development. Currently pursuing B.E. at Xavier Institute of Technology with 15+ industry certifications.`,
