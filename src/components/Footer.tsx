@@ -1,9 +1,43 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Row, IconButton, SmartLink, Text } from "@once-ui-system/core";
 import { person, social } from "@/resources";
 import styles from "./Footer.module.scss";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const pathname = usePathname();
+  const [visitCount, setVisitCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    const timer = window.setTimeout(async () => {
+      try {
+        const response = await fetch("/api/counter/up", { cache: "no-store" });
+
+        if (!response.ok) return;
+
+        const data = await response.json();
+        const count =
+          typeof data.count === "number"
+            ? data.count
+            : typeof data.value === "number"
+              ? data.value
+              : null;
+
+        if (typeof count === "number") {
+          setVisitCount(count);
+        }
+      } catch {
+        // Silently fail to keep footer stable if counter API is unavailable.
+      }
+    }, 1000);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [pathname]);
 
   return (
     <Row as="footer" fillWidth padding="8" horizontal="center" s={{ direction: "column" }}>
@@ -26,6 +60,9 @@ export const Footer = () => {
           <Text paddingX="4">{person.name} </Text>
           <Text onBackground="neutral-weak">
               All rights reserved      </Text>
+        </Text>
+        <Text variant="body-default-xs" onBackground="neutral-weak">
+          Live visits: {visitCount ?? "..."}
         </Text>
         <Row gap="16">
           {social.map(
