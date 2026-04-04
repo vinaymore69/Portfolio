@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 import * as cookie from 'cookie';
 import { GoogleSheetsService } from '../../../../lib/googleSheets';
-import { getUserConfig } from '../../../../config/users';
+import { canUserAccessSpreadsheet, getUserConfig } from '../../../../config/users';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
@@ -69,9 +69,13 @@ export async function POST(request: NextRequest) {
       ...userSpreadsheets,
       ...folderSpreadsheets.map(sheet => ({ ...sheet, source: 'folder' }))
     ];
+
+    const allowedSpreadsheets = allSpreadsheets.filter((sheet) =>
+      canUserAccessSpreadsheet(userConfig, sheet.id)
+    );
     
     // Remove duplicates based on ID
-    const uniqueSpreadsheets = allSpreadsheets.filter((sheet, index, self) => 
+    const uniqueSpreadsheets = allowedSpreadsheets.filter((sheet, index, self) => 
       index === self.findIndex(s => s.id === sheet.id)
     );
     

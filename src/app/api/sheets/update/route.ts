@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 import * as cookie from 'cookie';
 import { GoogleSheetsService } from '../../../../lib/googleSheets';
-import { getUserConfig } from '../../../../config/users';
+import { canUserAccessSpreadsheet, getUserConfig } from '../../../../config/users';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
@@ -43,6 +43,10 @@ export async function POST(request: NextRequest) {
 
     if (!spreadsheetId) {
       return NextResponse.json({ error: 'Spreadsheet ID is required' }, { status: 400 });
+    }
+
+    if (!canUserAccessSpreadsheet(userConfig, spreadsheetId)) {
+      return NextResponse.json({ error: 'Access denied for this spreadsheet' }, { status: 403 });
     }
 
     if (!updates || !Array.isArray(updates)) {

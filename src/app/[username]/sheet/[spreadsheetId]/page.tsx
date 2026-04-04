@@ -42,9 +42,24 @@ export default function SpreadsheetPage() {
   const [spreadsheetInfo, setSpreadsheetInfo] = useState<SpreadsheetInfo | null>(null);
   const [sheetData, setSheetData] = useState(null);
   const [error, setError] = useState('');
+  const [apiEnableUrl, setApiEnableUrl] = useState('');
   const [saving, setSaving] = useState(false);
+  const [zoomRatio, setZoomRatio] = useState(1);
   const luckysheetRef = useRef<any>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const extractGoogleApiEnableUrl = (message: string) => {
+    const match = message.match(/https:\/\/console\.developers\.google\.com\/apis\/api\/sheets\.googleapis\.com\/overview\?project=\d+/i);
+    return match?.[0] || '';
+  };
+
+  const formatSheetLoadError = (status: number, message: string) => {
+    if (status === 403 && /has not been used in project|disabled|SERVICE_DISABLED|accessNotConfigured/i.test(message)) {
+      return 'Google Sheets API is disabled for the service account project. Enable it in Google Cloud Console, wait a few minutes, and retry.';
+    }
+
+    return message || 'Failed to load sheet data. Make sure the spreadsheet is shared with your service account.';
+  };
 
   // Handle file upload
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,6 +79,25 @@ export default function SpreadsheetPage() {
   useEffect(() => {
     checkAuthAndLoadSheet();
   }, [spreadsheetId]);
+
+  useEffect(() => {
+    const html = document.documentElement;
+    const body = document.body;
+
+    const previousHtmlOverflow = html.style.overflow;
+    const previousBodyOverflow = body.style.overflow;
+    const previousBodyOverscroll = body.style.overscrollBehavior;
+
+    html.style.overflow = 'hidden';
+    body.style.overflow = 'hidden';
+    body.style.overscrollBehavior = 'none';
+
+    return () => {
+      html.style.overflow = previousHtmlOverflow;
+      body.style.overflow = previousBodyOverflow;
+      body.style.overscrollBehavior = previousBodyOverscroll;
+    };
+  }, []);
 
   const checkAuthAndLoadSheet = async () => {
     try {
@@ -89,28 +123,36 @@ export default function SpreadsheetPage() {
     try {
       setLoading(true);
       setError('');
+      setApiEnableUrl('');
       
       const response = await fetch('/api/sheets/data', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
           username: username as string,
-          spreadsheetId: spreadsheetId as string,
-          sheetName: 'Sheet1' // Default to Sheet1, could be made dynamic
+          spreadsheetId: spreadsheetId as string
         }),
       });
 
       if (!response.ok) {
         const errData = await response.json().catch(() => ({}));
-        throw new Error(errData.details || errData.error || 'Failed to load sheet data');
+        const details = String(errData?.details || errData?.error || 'Failed to load sheet data');
+        const statusCode = Number(errData?.status_code || response.status || 500);
+        const extractedUrl = extractGoogleApiEnableUrl(details);
+
+        if (extractedUrl) {
+          setApiEnableUrl(extractedUrl);
+        }
+
+        setError(formatSheetLoadError(statusCode, details));
+        return;
       }
 
       const data = await response.json();
       setSpreadsheetInfo(data.spreadsheetInfo);
       setSheetData(data.sheetData);
-    } catch (err: any) {
-      setError(err?.message || 'Failed to load sheet data. Make sure the spreadsheet is shared with your service account.');
-      console.error(err);
+    } catch {
+      setError('Failed to load sheet data. Please check your connection and try again.');
     } finally {
       setLoading(false);
     }
@@ -242,6 +284,17 @@ export default function SpreadsheetPage() {
     return result;
   };
 
+  const handleZoomChange = (delta: number) => {
+    const nextZoom = Math.max(0.5, Math.min(2, Number((zoomRatio + delta).toFixed(2))));
+    setZoomRatio(nextZoom);
+    luckysheetRef.current?.setZoom?.(nextZoom);
+  };
+
+  const resetZoom = () => {
+    setZoomRatio(1);
+    luckysheetRef.current?.setZoom?.(1);
+  };
+
   if (loading) {
     return (
       <Column gap="l" style={{ padding: '2rem' }}>
@@ -268,6 +321,16 @@ export default function SpreadsheetPage() {
         </Row>
         
         <Tag variant="error">{error}</Tag>
+
+        {apiEnableUrl && (
+          <Button
+            href={apiEnableUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="secondary"
+            label="Enable Google Sheets API"
+          />
+        )}
         
         <Button onClick={loadSheetData} variant="primary" label="Try Again" />
       </Column>
@@ -275,65 +338,46 @@ export default function SpreadsheetPage() {
   }
 
   return (
-    <Column style={{ height: '100vh', overflow: 'hidden' }}>
-      {/* Header */}
-      <Row 
-        vertical="center"
-        horizontal="between"
-        style={{ 
-          padding: '1rem 2rem',
-          borderBottom: '1px solid var(--neutral-border-weak)',
-          backgroundColor: 'var(--neutral-background-weak)'
-        }}
-      >
-        <Row vertical="center" gap="m">
-          <Button
-            onClick={() => router.push(`/${username}/sheet`)}
-            variant="tertiary"
-            size="s"
-            prefixIcon="chevronLeft"
-            label="Back"
-          />
-          <Heading variant="heading-strong-m">
-            {spreadsheetInfo?.title || 'Spreadsheet'}
-          </Heading>
-        </Row>
-        <Row vertical="center" gap="s">
-          {/* File upload button */}
-          <input
-            type="file"
-            accept=".xlsx,.csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv"
-            style={{ display: 'none' }}
-            ref={fileInputRef}
-            onChange={handleFileUpload}
-          />
-          <Button
-            onClick={() => fileInputRef.current?.click()}
-            variant="secondary"
-            size="s"
-            prefixIcon="upload"
-            label="Upload File"
-          />
+    <Column
+      fillWidth
+      style={{
+        width: '100%',
+        maxWidth: 'none',
+        minHeight: 'calc(100dvh - 7.5rem)',
+        height: 'calc(100dvh - 7.5rem)',
+        overflow: 'hidden'
+      }}
+    >
+      <div style={{ flex: 1, minHeight: 0, width: '100%', position: 'relative' }}>
+        <div
+          style={{
+            position: 'absolute',
+            top: '0.75rem',
+            right: '0.75rem',
+            zIndex: 30,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            padding: '0.5rem',
+            borderRadius: '0.75rem',
+            background: 'rgba(12, 14, 20, 0.72)',
+            backdropFilter: 'blur(8px)'
+          }}
+        >
           {error && <Tag variant="error" size="s">{error}</Tag>}
-          {saving && (
-            <Row vertical="center" gap="xs">
-              <Spinner size="s" />
-              <Text size="s">Saving...</Text>
-            </Row>
-          )}
           <Button
             onClick={handleSave}
             variant="primary"
             size="s"
             disabled={saving}
             prefixIcon="save"
-            label="Save Changes"
+            label={saving ? 'Saving...' : 'Save'}
           />
-        </Row>
-      </Row>
+          <Button onClick={() => handleZoomChange(-0.1)} variant="secondary" size="s" label="-" />
+          <Button onClick={resetZoom} variant="secondary" size="s" label={`${Math.round(zoomRatio * 100)}%`} />
+          <Button onClick={() => handleZoomChange(0.1)} variant="secondary" size="s" label="+" />
+        </div>
 
-      {/* Spreadsheet Container */}
-      <div style={{ flex: 1, position: 'relative' }}>
         {sheetData && (
           <LuckysheetWorkbook
             ref={luckysheetRef}

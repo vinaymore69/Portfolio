@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 import * as cookie from 'cookie';
 import { GoogleSheetsService } from '../../../../lib/googleSheets';
-import { getUserConfig } from '../../../../config/users';
+import { canUserAccessSpreadsheet, getUserConfig } from '../../../../config/users';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
@@ -45,32 +45,57 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Spreadsheet ID is required' }, { status: 400 });
     }
 
+    if (!canUserAccessSpreadsheet(userConfig, spreadsheetId)) {
+      return NextResponse.json({ error: 'Access denied for this spreadsheet' }, { status: 403 });
+    }
+
     const sheetsService = new GoogleSheetsService();
     
     // Get spreadsheet info first to verify access
     const spreadsheetInfo = await sheetsService.getSpreadsheetInfo(spreadsheetId);
+
+    const availableSheetNames = (spreadsheetInfo.sheets || [])
+      .map(sheet => sheet.title)
+      .filter((title): title is string => Boolean(title));
+
+    if (availableSheetNames.length === 0) {
+      return NextResponse.json({ error: 'Spreadsheet has no sheets' }, { status: 400 });
+    }
+
+    const requestedSheetName = typeof sheetName === 'string' ? sheetName.trim() : '';
+    const effectiveSheetName = requestedSheetName && availableSheetNames.includes(requestedSheetName)
+      ? requestedSheetName
+      : availableSheetNames[0];
     
-    // Get sheet data
-    const sheetData = await sheetsService.readSheetData(
-      spreadsheetId, 
-      sheetName || 'Sheet1', 
-      range
+    // Load all sheet tabs so multi-sheet workbooks are represented correctly.
+    const allSheetsData = await Promise.all(
+      availableSheetNames.map((currentSheetName) =>
+        sheetsService.readSheetData(spreadsheetId, currentSheetName, range)
+      )
     );
-    
-    // Convert to Luckysheet format
-    const luckysheetData = sheetsService.convertSheetsToLuckysheetData(sheetData);
+
+    const luckysheetData = allSheetsData.map((singleSheetData, index) => {
+      const converted = sheetsService.convertSheetsToLuckysheetData(singleSheetData);
+      return {
+        ...converted,
+        order: index,
+        status: singleSheetData.properties.title === effectiveSheetName ? 1 : 0,
+      };
+    });
     
     return NextResponse.json({ 
       spreadsheetInfo,
-      sheetData: luckysheetData 
+      sheetData: luckysheetData,
+      activeSheetName: effectiveSheetName
     });
   } catch (error: any) {
     console.error('Error getting sheet data:', error);
+    const statusCode = Number(error?.status_code || error?.response?.status || 500);
     return NextResponse.json({ 
       error: 'Failed to get sheet data', 
       details: error?.message,
       code: error?.code,
-      status_code: error?.response?.status
-    }, { status: 500 });
+      status_code: statusCode
+    }, { status: statusCode });
   }
 }

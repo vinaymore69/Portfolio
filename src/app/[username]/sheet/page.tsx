@@ -195,21 +195,6 @@ export default function SheetsPage() {
           </Column>
         </Column>
       )}
-
-      {/* Sample spreadsheet for testing - you can remove this */}
-      <Column gap="m" style={{ marginTop: '2rem', padding: '1rem', border: '1px dashed var(--neutral-border-weak)', borderRadius: '0.5rem' }}>
-        <Text weight="strong" size="s">Sample Spreadsheet (for testing):</Text>
-        <Button
-          onClick={() => openSpreadsheet('1057MdIFd-8CSOqJbWc1WTt64oru64JAqByNO366TYfA')}
-          variant="secondary"
-          size="s"
-          prefixIcon="spreadsheet"
-          label="Open Test Sheet"
-        />
-        <Text size="xs">
-          This opens the spreadsheet ID you provided: 1057MdIFd-8CSOqJbWc1WTt64oru64JAqByNO366TYfA
-        </Text>
-      </Column>
     </Column>
   );
 }

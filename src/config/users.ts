@@ -54,6 +54,22 @@ export function getUserConfig(username: string): UserConfig | null {
   return users.find(user => user.username.toLowerCase() === username.toLowerCase()) || null;
 }
 
+export function canUserAccessSpreadsheet(userConfig: UserConfig, spreadsheetId: string): boolean {
+  const normalizedSpreadsheetId = spreadsheetId.trim();
+  const normalizedUsername = userConfig.username.toLowerCase();
+
+  // If a sheet ID is explicitly assigned to one or more users, only those users can access it.
+  const explicitlyAssignedUsers = users
+    .filter((user) => user.spreadsheetIds?.some((id) => id === normalizedSpreadsheetId))
+    .map((user) => user.username.toLowerCase());
+
+  if (explicitlyAssignedUsers.length > 0) {
+    return explicitlyAssignedUsers.includes(normalizedUsername);
+  }
+
+  return true;
+}
+
 export function validateUser(username: string, password: string): Promise<boolean> {
   const bcrypt = require('bcryptjs');
   const user = getUserConfig(username);
