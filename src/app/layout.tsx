@@ -1,6 +1,7 @@
 import "@once-ui-system/core/css/styles.css";
 import "@once-ui-system/core/css/tokens.css";
 import "@/resources/custom.css";
+import "@/bones/registry";
 
 import classNames from "classnames";
 import Script from "next/script";

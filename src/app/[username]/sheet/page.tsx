@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import { Skeleton } from 'boneyard-js/react';
 import {
   Column,
   Row,
@@ -96,16 +97,56 @@ export default function SheetsPage() {
     }
   };
 
-  if (loading) {
-    return (
-      <Column gap="l" style={{ padding: '2rem' }}>
-        <Row gap="s" style={{ alignItems: 'center' }}>
-          <Spinner size="m" />
-          <Text>Loading spreadsheets...</Text>
-        </Row>
+  const fixture = (
+    <Column gap="s">
+      <Text size="s">2 spreadsheets found</Text>
+      <Column gap="xs">
+        <Button
+          variant="tertiary"
+          style={{
+            padding: '1rem',
+            justifyContent: 'flex-start',
+            textAlign: 'left',
+            border: '1px solid var(--neutral-border-weak)',
+            borderRadius: '0.5rem',
+          }}
+        >
+          <Column gap="xs" style={{ flex: 1 }}>
+            <Row gap="s" vertical="center" horizontal="between">
+              <Row gap="s" vertical="center">
+                <Icon name="spreadsheet" />
+                <Text variant="body-strong-m">Quarterly Planning</Text>
+              </Row>
+              <Icon name="chevronRight" size="s" />
+            </Row>
+            <Text size="xs">Modified: 1/1/2026, 10:00:00 AM • Source: Drive Folder</Text>
+          </Column>
+        </Button>
+        <Button
+          variant="tertiary"
+          style={{
+            padding: '1rem',
+            justifyContent: 'flex-start',
+            textAlign: 'left',
+            border: '1px solid var(--neutral-border-weak)',
+            borderRadius: '0.5rem',
+          }}
+        >
+          <Column gap="xs" style={{ flex: 1 }}>
+            <Row gap="s" vertical="center" horizontal="between">
+              <Row gap="s" vertical="center">
+                <Icon name="spreadsheet" />
+                <Text variant="body-strong-m">Project Timeline</Text>
+                <Tag size="s" variant="accent">Direct</Tag>
+              </Row>
+              <Icon name="chevronRight" size="s" />
+            </Row>
+            <Text size="xs">Modified: 1/2/2026, 12:30:00 PM • Source: Direct Access</Text>
+          </Column>
+        </Button>
       </Column>
-    );
-  }
+    </Column>
+  );
 
   if (authError) {
     return (
@@ -143,57 +184,70 @@ export default function SheetsPage() {
         </Row>
       )}
 
-      {spreadsheets.length === 0 && !error && (
-        <Column gap="m" horizontal="center" style={{ padding: '3rem 0' }}>
-          <Icon name="spreadsheet" size="xl" />
-          <Text align="center">
-            No spreadsheets found in your folder.
-            <br />
-            Create or share Google Sheets with your service account to see them here.
-          </Text>
-        </Column>
-      )}
-
-      {spreadsheets.length > 0 && (
-        <Column gap="s">
-          <Text size="s">
-            {spreadsheets.length} spreadsheet{spreadsheets.length !== 1 ? 's' : ''} found
-          </Text>
-          
-          <Column gap="xs">
-            {spreadsheets.map((sheet) => (
-              <Button
-                key={sheet.id}
-                onClick={() => openSpreadsheet(sheet.id)}
-                variant="tertiary"
-                style={{
-                  padding: '1rem',
-                  justifyContent: 'flex-start',
-                  textAlign: 'left',
-                  border: '1px solid var(--neutral-border-weak)',
-                  borderRadius: '0.5rem',
-                }}
-              >
-                <Column gap="xs" style={{ flex: 1 }}>
-                  <Row gap="s" vertical="center" horizontal="between">
-                    <Row gap="s" vertical="center">
-                      <Icon name="spreadsheet" />
-                      <Text variant="body-strong-m">{sheet.name}</Text>
-                      {sheet.source === 'direct' && (
-                        <Tag size="s" variant="accent">Direct</Tag>
-                      )}
-                    </Row>
-                    <Icon name="chevronRight" size="s" />
-                  </Row>
-                  <Text size="xs">
-                    Modified: {formatDate(sheet.modifiedTime)}
-                    {sheet.source && ` • Source: ${sheet.source === 'direct' ? 'Direct Access' : 'Drive Folder'}`}
-                  </Text>
-                </Column>
-              </Button>
-            ))}
+      <Skeleton
+        name="user-sheet-list"
+        loading={loading}
+        fixture={fixture}
+      >
+        {spreadsheets.length === 0 && !error && (
+          <Column gap="m" horizontal="center" style={{ padding: '3rem 0' }}>
+            <Icon name="spreadsheet" size="xl" />
+            <Text align="center">
+              No spreadsheets found in your folder.
+              <br />
+              Create or share Google Sheets with your service account to see them here.
+            </Text>
           </Column>
-        </Column>
+        )}
+
+        {spreadsheets.length > 0 && (
+          <Column gap="s">
+            <Text size="s">
+              {spreadsheets.length} spreadsheet{spreadsheets.length !== 1 ? 's' : ''} found
+            </Text>
+
+            <Column gap="xs">
+              {spreadsheets.map((sheet) => (
+                <Button
+                  key={sheet.id}
+                  onClick={() => openSpreadsheet(sheet.id)}
+                  variant="tertiary"
+                  style={{
+                    padding: '1rem',
+                    justifyContent: 'flex-start',
+                    textAlign: 'left',
+                    border: '1px solid var(--neutral-border-weak)',
+                    borderRadius: '0.5rem',
+                  }}
+                >
+                  <Column gap="xs" style={{ flex: 1 }}>
+                    <Row gap="s" vertical="center" horizontal="between">
+                      <Row gap="s" vertical="center">
+                        <Icon name="spreadsheet" />
+                        <Text variant="body-strong-m">{sheet.name}</Text>
+                        {sheet.source === 'direct' && (
+                          <Tag size="s" variant="accent">Direct</Tag>
+                        )}
+                      </Row>
+                      <Icon name="chevronRight" size="s" />
+                    </Row>
+                    <Text size="xs">
+                      Modified: {formatDate(sheet.modifiedTime)}
+                      {sheet.source && ` • Source: ${sheet.source === 'direct' ? 'Direct Access' : 'Drive Folder'}`}
+                    </Text>
+                  </Column>
+                </Button>
+              ))}
+            </Column>
+          </Column>
+        )}
+      </Skeleton>
+
+      {loading && (
+        <Row gap="s" style={{ alignItems: 'center' }}>
+          <Spinner size="m" />
+          <Text>Loading spreadsheets...</Text>
+        </Row>
       )}
     </Column>
   );

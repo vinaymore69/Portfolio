@@ -1,0 +1,6 @@
+{
+  "breakpoints": [390, 820, 1440],
+  "out": "./src/bones",
+  "color": "#e5e5e5",
+  "animate": "pulse"
+}
