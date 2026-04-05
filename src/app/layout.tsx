@@ -2,6 +2,7 @@ import "@once-ui-system/core/css/styles.css";
 import "@once-ui-system/core/css/tokens.css";
 import "@/resources/custom.css";
 import "@/bones/registry";
+import videoStyles from "./page.module.scss";
 
 import classNames from "classnames";
 import Script from "next/script";
@@ -136,6 +137,19 @@ export default async function RootLayout({
           padding="0"
           horizontal="center"
         >
+          <div className={videoStyles.videoBackground} aria-hidden="true">
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              className={videoStyles.videoElement}
+            >
+              <source src="/video/background.webm" type="video/webm" />
+            </video>
+            <div className={videoStyles.videoOverlay} />
+          </div>
           <RevealFx fill position="absolute">
             <Background
               mask={{
@@ -178,14 +192,16 @@ export default async function RootLayout({
               }}
             />
           </RevealFx>
-          <Flex fillWidth minHeight="16" s={{ hide: true }} />
-          <Header />
-          <Flex zIndex={0} fillWidth padding="l" horizontal="center" flex={1}>
-            <Flex horizontal="center" fillWidth minHeight="0">
-              <RouteGuard>{children}</RouteGuard>
+            <Column className={videoStyles.homeContent} fillWidth horizontal="center">
+              <Flex fillWidth minHeight="16" s={{ hide: true }} />
+              <Header />
+              <Flex zIndex={0} fillWidth padding="l" horizontal="center" flex={1}>
+                <Flex horizontal="center" fillWidth minHeight="0">
+                  <RouteGuard>{children}</RouteGuard>
+                </Flex>
             </Flex>
-          </Flex>
-          <Footer />
+              <Footer />
+            </Column>
         </Column>
       </Providers>
       {gaId ? <GoogleAnalytics gaId={gaId} /> : null}

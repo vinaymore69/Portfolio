@@ -11,6 +11,7 @@ import {
   Meta,
   Schema,
   Row,
+  RevealFx,
 } from "@once-ui-system/core";
 import { baseURL, about, person, social } from "@/resources";
 import TableOfContents from "@/components/about/TableOfContents";
@@ -82,6 +83,7 @@ export default function About() {
           <TableOfContents structure={structure} about={about} />
         </Column>
       )}
+      <RevealFx translateY="8" delay={0.1} fillWidth>
       <Row fillWidth s={{ direction: "column"}} horizontal="center">
         {about.avatar.display && (
           <Column
@@ -202,13 +204,16 @@ export default function About() {
           </Column>
 
           {about.intro.display && (
-            <Column textVariant="body-default-l" fillWidth gap="m" marginBottom="xl">
-              {about.intro.description}
-            </Column>
+            <RevealFx translateY="8" delay={0.15} fillWidth>
+              <Column textVariant="body-default-l" fillWidth gap="m" marginBottom="xl">
+                {about.intro.description}
+              </Column>
+            </RevealFx>
           )}
 
           {about.work.display && (
-            <>
+            <RevealFx translateY="12" delay={0.2} fillWidth>
+              <>
               <Heading as="h2" id={about.work.title} variant="display-strong-s" marginBottom="m">
                 {about.work.title}
               </Heading>
@@ -263,11 +268,13 @@ export default function About() {
                   </Column>
                 ))}
               </Column>
-            </>
+              </>
+            </RevealFx>
           )}
 
           {about.studies.display && (
-            <>
+            <RevealFx translateY="12" delay={0.25} fillWidth>
+              <>
               <Heading as="h2" id={about.studies.title} variant="display-strong-s" marginBottom="m">
                 {about.studies.title}
               </Heading>
@@ -283,11 +290,13 @@ export default function About() {
                   </Column>
                 ))}
               </Column>
-            </>
+              </>
+            </RevealFx>
           )}
 
           {about.technical.display && (
-            <>
+            <RevealFx translateY="12" delay={0.3} fillWidth>
+              <>
               <Heading
                 as="h2"
                 id={about.technical.title}
@@ -338,11 +347,13 @@ export default function About() {
                   </Column>
                 ))}
               </Column>
-            </>
+              </>
+            </RevealFx>
           )}
 
           {about.honors?.display && (
-            <>
+            <RevealFx translateY="12" delay={0.35} fillWidth>
+              <>
               <Heading
                 as="h2"
                 id={about.honors.title}
@@ -377,10 +388,12 @@ export default function About() {
                   </Column>
                 ))}
               </Column>
-            </>
+              </>
+            </RevealFx>
           )}
         </Column>
       </Row>
+      </RevealFx>
     </Column>
   );
 }
