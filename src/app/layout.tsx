@@ -17,7 +17,7 @@ import {
   SpacingToken,
 } from "@once-ui-system/core";
 import GoogleAnalytics from "../components/GoogleAnalytics";
-import { Footer, Header, RouteGuard, Providers } from "@/components";
+import { Footer, Header, RouteGuard, Providers, LenisScroll } from "@/components";
 import { baseURL, effects, fonts, style, dataStyle, home } from "@/resources";
 
 export async function generateMetadata() {
@@ -137,6 +137,7 @@ export default async function RootLayout({
           padding="0"
           horizontal="center"
         >
+          <LenisScroll />
           <div className={videoStyles.videoBackground} aria-hidden="true">
             <video
               autoPlay

@@ -1,12 +1,78 @@
 "use client";
 
-import Script from "next/script";
-import { Row, IconButton, SmartLink, Text } from "@once-ui-system/core";
+import { useEffect, useState } from "react";
+import { Row, IconButton, Text } from "@once-ui-system/core";
 import { person, social } from "@/resources";
 import styles from "./Footer.module.scss";
 
+const VISITOR_COUNT_STORAGE_KEY = "portfolio_visitor_count";
+const VISITOR_DAILY_COOKIE_KEY = "portfolio_visitor_last_visit_date";
+const VISITOR_COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 400;
+
+function getCookieValue(name: string): string | null {
+  const cookiePrefix = `${name}=`;
+  const cookie = document.cookie
+    .split("; ")
+    .find((entry) => entry.startsWith(cookiePrefix));
+
+  if (!cookie) return null;
+  return decodeURIComponent(cookie.slice(cookiePrefix.length));
+}
+
+function setCookieValue(name: string, value: string) {
+  const secure = window.location.protocol === "https:" ? "; secure" : "";
+  document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=${VISITOR_COOKIE_MAX_AGE_SECONDS}; samesite=lax${secure}`;
+}
+
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [visitorCount, setVisitorCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    const today = new Date().toISOString().slice(0, 10);
+
+    const storedCountRaw = window.localStorage.getItem(VISITOR_COUNT_STORAGE_KEY);
+    const storedCount = storedCountRaw ? Number(storedCountRaw) : NaN;
+
+    if (Number.isFinite(storedCount)) {
+      setVisitorCount(storedCount);
+    }
+
+    const lastVisitDate = getCookieValue(VISITOR_DAILY_COOKIE_KEY);
+
+    if (lastVisitDate === today) {
+      return () => {
+        isMounted = false;
+      };
+    }
+
+    const loadVisitorCount = async () => {
+      try {
+        const response = await fetch("/api/counter/up", {
+          method: "GET",
+          cache: "no-store",
+        });
+
+        if (!response.ok) return;
+
+        const data = (await response.json()) as { count?: number | null };
+        if (isMounted && typeof data.count === "number") {
+          setVisitorCount(data.count);
+          window.localStorage.setItem(VISITOR_COUNT_STORAGE_KEY, String(data.count));
+          setCookieValue(VISITOR_DAILY_COOKIE_KEY, today);
+        }
+      } catch {
+        // Keep footer stable even if counter API is temporarily unavailable.
+      }
+    };
+
+    loadVisitorCount();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <Row as="footer" fillWidth padding="8" horizontal="center" s={{ direction: "column" }}>
@@ -31,20 +97,9 @@ export const Footer = () => {
               All rights reserved      </Text>
         </Text>
         <Row gap="4" vertical="center" s={{ horizontal: "center" }}>
-          <Script
-            src="https://www.counters-free.net/count/jqta"
-            strategy="afterInteractive"
-          />
-          <Text as="span" variant="body-default-xs" onBackground="neutral-weak">
-            <br />
+          <Text variant="body-default-xs" onBackground="neutral-weak">
+            Visitors: {visitorCount ?? "--"}
           </Text>
-          <SmartLink href="https://www.acadoo.de/" target="_blank" rel="noopener noreferrer">
-            Ghostwriting
-          </SmartLink>
-          <Script
-            src="https://whomania.com/ctr?id=a303549c864eab02cbc23ccf47049d4485923ed9"
-            strategy="afterInteractive"
-          />
         </Row>
         <Row gap="16">
           {social.map(

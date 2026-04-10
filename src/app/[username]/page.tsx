@@ -35,7 +35,9 @@ export default function UserPortal() {
     const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
       if (!file) return;
-      setLoadingFiles(true);
+      setIsUploading(true);
+      setUploadingFileName(file.name);
+      setUploadProgress(0);
       setFileError('');
       try {
         const formData = new FormData();
@@ -45,20 +47,46 @@ export default function UserPortal() {
         if (folderPath.length > 0) {
           formData.append('folderId', folderPath[folderPath.length - 1].id);
         }
-        const response = await fetch('/api/files/upload', {
-          method: 'POST',
-          body: formData,
+        const uploadResult = await new Promise<{ ok: boolean; data: any }>((resolve, reject) => {
+          const xhr = new XMLHttpRequest();
+          xhr.open('POST', '/api/files/upload');
+
+          xhr.upload.onprogress = (event) => {
+            if (!event.lengthComputable) return;
+            const percent = Math.round((event.loaded / event.total) * 100);
+            setUploadProgress(percent);
+          };
+
+          xhr.onload = () => {
+            let data: any = {};
+            try {
+              data = JSON.parse(xhr.responseText || '{}');
+            } catch {}
+
+            if (xhr.status >= 200 && xhr.status < 300) {
+              setUploadProgress(100);
+              resolve({ ok: true, data });
+              return;
+            }
+
+            resolve({ ok: false, data });
+          };
+
+          xhr.onerror = () => reject(new Error('Network error while uploading file'));
+          xhr.send(formData);
         });
-        if (response.ok) {
-          loadFiles(folderPath.length > 0 ? folderPath[folderPath.length - 1].id : undefined);
+
+        if (uploadResult.ok) {
+          await loadFiles(folderPath.length > 0 ? folderPath[folderPath.length - 1].id : undefined);
         } else {
-          const errData = await response.json().catch(() => ({}));
-          setFileError(errData?.details || errData?.error || 'Failed to upload file');
+          setFileError(uploadResult.data?.details || uploadResult.data?.error || 'Failed to upload file');
         }
       } catch {
         setFileError('Failed to upload file');
       } finally {
-        setLoadingFiles(false);
+        setIsUploading(false);
+        setUploadingFileName('');
+        setUploadProgress(null);
         // Reset file input
         (e.target as HTMLInputElement).value = '';
       }
@@ -73,6 +101,9 @@ export default function UserPortal() {
   const [loadingFiles, setLoadingFiles] = useState(false);
   const [fileError, setFileError] = useState('');
   const [folderPath, setFolderPath] = useState<BreadcrumbItem[]>([]);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState<number | null>(null);
+  const [uploadingFileName, setUploadingFileName] = useState('');
 
   useEffect(() => {
     checkAuthStatus();
@@ -382,7 +413,7 @@ export default function UserPortal() {
             label="Upload"
             prefixIcon="plus"
             onClick={() => document.getElementById('file-upload-input')?.click()}
-            disabled={loadingFiles}
+            disabled={loadingFiles || isUploading}
           />
           <Button
             variant="tertiary"
@@ -390,7 +421,7 @@ export default function UserPortal() {
             label="Refresh"
             prefixIcon="refresh"
             onClick={() => loadFiles(folderPath.length > 0 ? folderPath[folderPath.length - 1].id : undefined)}
-            disabled={loadingFiles}
+            disabled={loadingFiles || isUploading}
           />
         </Row>
         {/* Hidden file input for upload */}
@@ -401,6 +432,37 @@ export default function UserPortal() {
           onChange={handleFileUpload}
         />
       </Row>
+
+      {isUploading && (
+        <Column fillWidth gap="6">
+          <Row fillWidth horizontal="between" vertical="center">
+            <Text variant="body-default-s" onBackground="neutral-weak">
+              Uploading {uploadingFileName}
+            </Text>
+            <Text variant="body-strong-s" onBackground="neutral-strong">
+              {uploadProgress ?? 0}%
+            </Text>
+          </Row>
+          <div
+            style={{
+              width: '100%',
+              height: '8px',
+              borderRadius: '999px',
+              overflow: 'hidden',
+              background: 'var(--neutral-alpha-medium)',
+            }}
+          >
+            <div
+              style={{
+                width: `${uploadProgress ?? 0}%`,
+                height: '100%',
+                background: 'var(--brand-solid-strong)',
+                transition: 'width 120ms linear',
+              }}
+            />
+          </div>
+        </Column>
+      )}
 
       {/* Files */}
       {loadingFiles ? (

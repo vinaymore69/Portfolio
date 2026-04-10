@@ -24,6 +24,7 @@
     "googleapis": "^171.4.0",
     "gray-matter": "^4.0.3",
     "jsonwebtoken": "^9.0.3",
+    "lenis": "^1.3.21",
     "lint-staged": "^16.1.5",
     "luckysheet": "^2.1.13",
     "next": "^16.0.10",
