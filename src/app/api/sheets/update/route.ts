@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
     }
 
-    const userConfig = getUserConfig(decoded.username);
+    const userConfig = await getUserConfig(decoded.username);
     if (!userConfig) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Spreadsheet ID is required' }, { status: 400 });
     }
 
-    if (!canUserAccessSpreadsheet(userConfig, spreadsheetId)) {
+    if (!(await canUserAccessSpreadsheet(userConfig, spreadsheetId))) {
       return NextResponse.json({ error: 'Access denied for this spreadsheet' }, { status: 403 });
     }
 

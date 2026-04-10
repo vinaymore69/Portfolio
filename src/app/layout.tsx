@@ -147,6 +147,7 @@ export default async function RootLayout({
               preload="metadata"
               className={videoStyles.videoElement}
             >
+              <source src="/video/background.mp4" type="video/mp4" />
               <source src="/video/background.webm" type="video/webm" />
             </video>
             <div className={videoStyles.videoOverlay} />

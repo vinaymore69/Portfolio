@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
     }
 
-    const userConfig = getUserConfig(decoded.username);
+    const userConfig = await getUserConfig(decoded.username);
     if (!userConfig) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
@@ -70,9 +70,12 @@ export async function POST(request: NextRequest) {
       ...folderSpreadsheets.map(sheet => ({ ...sheet, source: 'folder' }))
     ];
 
-    const allowedSpreadsheets = allSpreadsheets.filter((sheet) =>
-      canUserAccessSpreadsheet(userConfig, sheet.id)
-    );
+    const allowedSpreadsheets = [];
+    for (const sheet of allSpreadsheets) {
+      if (await canUserAccessSpreadsheet(userConfig, sheet.id)) {
+        allowedSpreadsheets.push(sheet);
+      }
+    }
     
     // Remove duplicates based on ID
     const uniqueSpreadsheets = allowedSpreadsheets.filter((sheet, index, self) => 

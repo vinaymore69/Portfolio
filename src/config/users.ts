@@ -1,95 +1,83 @@
-// Configuration for user portals
-// In production, store this data in a secure database
-// This is a simplified example using a JSON configuration
+import { supabaseAdmin } from '../lib/supabaseServer';
 
 export interface UserConfig {
+  id?: string;
   username: string;
-  passwordHash: string;
+  passwordHash?: string;
   folderId: string;
   displayName?: string;
   spreadsheetIds?: string[]; // Array of Google Sheets IDs shared with the service account
 }
 
-export const users: UserConfig[] = [
-  // Example users - Replace with your actual users
-  {
-    username: "vinay69",
-    passwordHash: "$2b$12$u0QUm3JxKqXivH183o.OCOP98CW7sVz1vnlOlxjha6eFmSBZD65R6", // "vinay123" 
-    folderId: "1XRyBHfUZEflGd_JsJDPnYUcQutQ3usp3", // Replace with actual folder ID
-    displayName: "Vinay More",
-    spreadsheetIds: ["1057MdIFd-8CSOqJbWc1WTt64oru64JAqByNO366TYfA"] // The spreadsheet ID you provided
-  },
-  {
-    username: "muthusam_mvt",
-    passwordHash: "$2b$12$zznKeY6gWK2IU6JWdG0apuEG8VtDLs/PAhkp38gzMboR5UWRoKCuW", // 
-    folderId: "1gxdDqkuB5c_cwtQVoK1ZJijpoDzsqUBc", // Replace with actual folder ID  
-    displayName: "Muthusam Thevar"
-  },
-  {
-    username: "akanksha",
-    passwordHash: "$2b$12$z5yhbcSrOUzBPnXvNnGZLOVXzLCAYE6QhjgJ8po7o6fPq9WKVVPGi", // 
-    folderId: "1SuEwI9S6vykk5l__8e-9bTGHjDBDk5tg", // Replace with actual folder ID  
-    displayName: "Akanksha Thorat"
-  },{
-    username: "pushkar",
-    passwordHash: "$2b$12$BCif6l5bPreV1WVS2eVRY.vx3WzsSVOKMGcUMp5wxPM79VDycGi1O", // "pushkar123"
-    folderId: "1vy1Shu5x1Mxr3tZEgfBixBF-VgrnMqY6", // Replace with actual folder ID  
-    displayName: "Pushkar More"
-  },{
-    username: "sangee12",
-    passwordHash: "$2b$12$3GGXA9j2uCx1LDx6uQXlJe6Rquvx7dAP6Vrnq2Xhj8k466roKbBxu", // "satyarth123"
-    folderId: "1-HNzoFsORBBn2bZgYu9Z6o6VjyepKmwh", // Replace with actual folder ID  
-    displayName: "Sangeeta Shirsat"
-  },
-  {
-    username: "atharva",
-    passwordHash: "$2b$12$5soi7mn/JVsavLO8KLRPtOlUKc6bUIOJJ/uYGQTVmZRJq6LGIPwmq", 
-    folderId: "1iLzpqoISA7o_gxqepJ6Ms1Xs2UnI3dlr", // Replace with actual folder ID  
-    displayName: "Atharva Panchal"
-  }
-  // Add more users as needed
-];
+export async function getUserConfig(username: string): Promise<UserConfig | null> {
+  const { data, error } = await supabaseAdmin
+    .from('client_users')
+    .select('username, password_hash, folder_id, display_name, spreadsheet_ids')
+    .ilike('username', username)
+    .single();
 
-export function getUserConfig(username: string): UserConfig | null {
-  return users.find(user => user.username.toLowerCase() === username.toLowerCase()) || null;
+  if (error || !data) return null;
+
+  return {
+    username: data.username,
+    passwordHash: data.password_hash,
+    folderId: data.folder_id || '',
+    displayName: data.display_name,
+    spreadsheetIds: data.spreadsheet_ids || [],
+  };
 }
 
-export function canUserAccessSpreadsheet(userConfig: UserConfig, spreadsheetId: string): boolean {
+export async function canUserAccessSpreadsheet(userConfig: UserConfig | string, spreadsheetId: string): Promise<boolean> {
   const normalizedSpreadsheetId = spreadsheetId.trim();
-  const normalizedUsername = userConfig.username.toLowerCase();
 
-  // If a sheet ID is explicitly assigned to one or more users, only those users can access it.
-  const explicitlyAssignedUsers = users
-    .filter((user) => user.spreadsheetIds?.some((id) => id === normalizedSpreadsheetId))
-    .map((user) => user.username.toLowerCase());
-
-  if (explicitlyAssignedUsers.length > 0) {
-    return explicitlyAssignedUsers.includes(normalizedUsername);
+  let userToUse;
+  if (typeof userConfig === 'string') {
+    const fetchedUser = await getUserConfig(userConfig);
+    if (!fetchedUser) return false;
+    userToUse = fetchedUser;
+  } else {
+    userToUse = userConfig;
   }
 
+  const normalizedUsername = userToUse.username.toLowerCase();
+
+  // If a sheet ID is explicitly assigned to one or more users in the DB, only those users can access it.
+  const { data: usersWithAccess, error } = await supabaseAdmin
+    .from('client_users')
+    .select('username')
+    .contains('spreadsheet_ids', [normalizedSpreadsheetId]);
+    
+  if (error) {
+    console.error('Error fetching users for spreadsheet:', error);
+    return false;
+  }
+
+  if (usersWithAccess && usersWithAccess.length > 0) {
+    return usersWithAccess.some(u => u.username.toLowerCase() === normalizedUsername);
+  }
+
+  // If no one is explicitly assigned this sheet, everyone has access (legacy behavior).
   return true;
 }
 
-export function validateUser(username: string, password: string): Promise<boolean> {
-  const bcrypt = require('bcryptjs');
-  const user = getUserConfig(username);
+export async function validateUser(username: string, password: string): Promise<boolean> {
+  const bcrypt = await import('bcryptjs');
+  const user = await getUserConfig(username);
   
-  if (!user) {
-    return Promise.resolve(false);
+  if (!user || !user.passwordHash) {
+    return false;
   }
   
-  return bcrypt.compare(password, user.passwordHash);
+  return bcrypt.default.compare(password, user.passwordHash);
 }
 
 // Helper function to generate password hashes for new users
-// Use this in a separate script to generate hashes for your passwords
 export async function generatePasswordHash(password: string): Promise<string> {
-  const bcrypt = require('bcryptjs');
-  return bcrypt.hash(password, 12);
+  const bcrypt = await import('bcryptjs');
+  return bcrypt.default.hash(password, 12);
 }
 
 // Google Service Account configuration
-// Load directly from the JSON key file (already in project root)
 let serviceAccountJson: any = null;
 try {
   serviceAccountJson = require('../../vinaymore69-portfolio-a009c477bec9.json');

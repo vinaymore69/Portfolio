@@ -27,6 +27,9 @@ const routes: RoutesConfig = {
   "/[username]/sheet": true,
   "/[username]/sheet/[spreadsheetId]": true,
   "/generate-password": true,
+  "/login": true,
+  "/signup": true,
+  "/dashboard": true,
 };
 
 const display: DisplayConfig = {

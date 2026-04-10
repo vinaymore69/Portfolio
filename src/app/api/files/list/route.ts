@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Get user configuration
-    const userConfig = getUserConfig(username);
+    const userConfig = await getUserConfig(username);
     if (!userConfig) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }

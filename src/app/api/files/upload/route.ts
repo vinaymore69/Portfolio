@@ -1,4 +1,4 @@
-﻿import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { google } from 'googleapis';
 import { getUserConfig } from '../../../../config/users';
 import { Readable } from 'stream';
@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Username required' }, { status: 400 });
     }
 
-    const userConfig = getUserConfig(username);
+    const userConfig = await getUserConfig(username);
     if (!userConfig) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }

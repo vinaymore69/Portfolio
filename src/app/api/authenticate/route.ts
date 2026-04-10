@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import * as cookie from "cookie";
 import jwt from "jsonwebtoken";
-import { validateUser, getUserConfig } from '../../../config/users';
+import bcrypt from "bcryptjs";
+import { supabaseAdmin } from "@/lib/supabaseServer";
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-fallback-secret-key';
+const TABLE_NAME = "client_users";
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,24 +16,29 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Username and password are required" }, { status: 400 });
     }
 
-    // Validate user credentials
-    const isValid = await validateUser(username, password);
-    
-    if (!isValid) {
+    // Fetch user from Supabase
+    const { data: userConfig, error } = await supabaseAdmin
+      .from(TABLE_NAME)
+      .select("username, email, password_hash, folder_id, display_name")
+      .or(`username.ilike.${username},email.ilike.${username}`)
+      .single();
+
+    if (error || !userConfig) {
       return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
     }
 
-    // Get user config to include in token
-    const userConfig = getUserConfig(username);
-    if (!userConfig) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    // Validate password
+    const isValid = await bcrypt.compare(password, userConfig.password_hash);
+    
+    if (!isValid) {
+      return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
     }
 
     // Create JWT token
     const token = jwt.sign(
       { 
         username: userConfig.username,
-        folderId: userConfig.folderId,
+        folderId: userConfig.folder_id,
         exp: Math.floor(Date.now() / 1000) + (60 * 60) // 1 hour expiration
       },
       JWT_SECRET
@@ -41,14 +48,14 @@ export async function POST(request: NextRequest) {
       success: true, 
       user: {
         username: userConfig.username,
-        displayName: userConfig.displayName
+        displayName: userConfig.display_name
       }
     }, { status: 200 });
 
     // Set authentication cookie specific to this user
     response.headers.set(
       "Set-Cookie",
-      cookie.serialize(`auth-${username}`, token, {
+      cookie.serialize(`auth-${userConfig.username}`, token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         maxAge: 60 * 60, // 1 hour
