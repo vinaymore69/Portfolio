@@ -166,6 +166,7 @@ export const Header = () => {
                   </Row>
                 </>
               )}
+              {/* DWM removed from nav */}
               {display.themeSwitcher && (
                 <>
                   <Line background="neutral-alpha-medium" vert maxHeight="24" />

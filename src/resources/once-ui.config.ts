@@ -30,6 +30,7 @@ const routes: RoutesConfig = {
   "/login": true,
   "/signup": true,
   "/dashboard": true,
+  "/sem5/dwm": true,
 };
 
 const display: DisplayConfig = {
